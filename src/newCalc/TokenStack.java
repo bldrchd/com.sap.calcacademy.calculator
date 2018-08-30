@@ -22,4 +22,11 @@ public class TokenStack {
 	public void pop(){
 		tokens.remove(tokens.size()-1);
 	}
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof TokenStack)) 
+			return false;
+		TokenStack e = (TokenStack)obj;
+		return e.equals(obj) || e.top().equals(this.top()) || e.tokens.equals(this.tokens);
+		
+	}
 }

@@ -1,21 +1,21 @@
 package newCalc;
 
-public class Token {
+public class Token implements IToken{
 	
-	private String type;
+	private int type;
 	private Number value;
 	private char operator;
 	private int prio;
 	
 	public Token(){
-		type = "UNKNOWN";
+		type = UNKNOWN;
 	}
-	public Token(double x) {
-	       type = "NUMBER";
-	       value = x;
+	public Token(double value) {
+	       type = NUMBER;
+	       this.value = value;
 	}
-	
-	public String getType(){
+	@Override
+	public int getType() {
 		return type;
 	}
 	public Number getValue(){
@@ -31,37 +31,37 @@ public class Token {
 	public Token(String contents){
 		switch (contents){
 		case "+":
-            type = "OPERATOR";
+            type = OPERATOR;
             operator = contents.charAt(0);
             prio = 1;
             break;
         case "-":
-            type = "OPERATOR";
+            type = OPERATOR;
             operator = contents.charAt(0);
             prio = 1;
             break;
         case "*":
-            type = "OPERATOR";
+            type = OPERATOR;
             operator = contents.charAt(0);
             prio = 2; 
             break;
         case "/":
-            type = "OPERATOR";
+            type = OPERATOR;
             operator = contents.charAt(0);
             prio = 2;
             break;
         case "(":
-            type = "LEFT_PARENTHESIS";
+            type = LEFT_PARENTHESIS;
             break;
         case ")":
-            type = "RIGHT_PARENTHESIS";
+            type = RIGHT_PARENTHESIS;
             break;
         default:
-            type = "NUMBER";
+            type = NUMBER;
             try {
                 value = Double.parseDouble(contents);
             } catch (Exception ex) {
-                type = "UNKNOWN";
+                type = UNKNOWN;
             }
 		}
 	}
@@ -94,5 +94,12 @@ public class Token {
 		}
 		return expr;
 		//return new Token(result.doubleValue());
+	}
+	
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof Token)) 
+			return false;
+		Token e = (Token)obj;
+		return e.getValue().equals(this.value) || e.getOperator() == this.operator || e.getPrio() == this.prio;
 	}
 }

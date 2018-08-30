@@ -1,5 +1,6 @@
 package newCalc;
 
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 public class InputParser  {
@@ -27,7 +28,7 @@ public class InputParser  {
 		for (int index = 0; index < tokens.length; index++){
 			Token nextT = tokens[index];
 			
-			if (nextT.getType().equals("NUMBER")){
+			if (nextT.getType().equals(0)){
 				valueStack.push(nextT);
 			} else if (nextT.getType().equals("OPERATOR")){
 				if (operatorStack.isEmpty() || nextT.getPrio() > operatorStack.top().getPrio()) {
@@ -88,6 +89,18 @@ public class InputParser  {
 	//	Token result = tokenToProcess.evaluate(A.getValue(),B.getValue());
 
 	}
+
+public static ArrayList<Token> getTokensFromInputString(String inputString) {
+	ArrayList<Token> tokens = null;
+    //tokens stuff
+	return tokens;
+}
+
+public static String makeInputString(String[] args) {
+    String inputString = null;
+	//make inputString an array list
+	return inputString;
+}
 	
 /*	Evaluated in Token class
  * private boolean isOperand(String operand){

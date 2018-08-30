@@ -35,22 +35,9 @@ public class InputParser  {
 	}
 	
 	public Expression parse(String[] inputArgs){
+		String joinedString = formatingJoinedString(inputArgs);
         Token t = new Token();
-        StringBuilder builder = new StringBuilder();
-		String joinedString = null;
-		
-		try {
-			if (inputArgs!=null){
-				for(String s : inputArgs){
-					builder.append(s);
-				}
-			    joinedString = builder.toString();
-				joinedString = String.join("",joinedString);
-				joinedString = joinedString.replaceAll("\\s+",""); //"1+2-3"
-			}
-		} catch (Exception e){ System.err.println(e);}
-		
-		
+        		System.out.println(joinedString);
 		//String[] parts = inputString.split(" ");
 		String[] tokens = joinedString.split("(?<=[-+*x/()])|(?=[-+*x/()])");
 		//Token[] tokens = new Token[joinedString.length()];
@@ -125,31 +112,15 @@ public class InputParser  {
 
 	}
 
-public static ArrayList<Token> getTokensFromInputString(String inputString) {
-	ArrayList<Token> tokens = null;
-    //tokens stuff
-	return tokens;
-}
-
-public static String createInputString(String[] args) {
-    String inputString = null;
-	//make inputString an array list
-	return inputString;
-}
-	
-/*	Evaluated in Token class
- * private boolean isOperand(String operand){
-		return operand.matches("\\d+");
+	public static ArrayList<Token> getTokensFromInputString(String inputString) {
+		ArrayList<Token> tokens = null;
+	    //tokens stuff
+		return tokens;
 	}
 	
-	private boolean isOperator(String operator){
-		switch (operator){
-			case "+": return true; 
-			case "-": return true; 
-			case "x": return true; 
-			case "*": return true; 
-			case "/": return true; 
-			default: return false; 
-		}
-	}*/
+	public static String createInputString(String[] args) {
+	    String inputString = null;
+		//make inputString an array list
+		return inputString;
+}
 }

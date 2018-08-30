@@ -1,7 +1,7 @@
 package newCalc;
 
 public class Type {
-	
+	//probably not needed
 	private String type;
 	public final static String UNKNOWN = "unknown";
 	public final static String OPERAND = "operand";

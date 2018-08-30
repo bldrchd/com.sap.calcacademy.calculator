@@ -17,10 +17,45 @@ public class InputParser  {
 		
 	}
 	
-	public Expression parse(String inputString){
+	public static String formatingJoinedString(String[] inputString){
+		StringBuilder builder = new StringBuilder();
+		String joinedString = null;
+		
+		try {
+			if (inputString!=null){
+				for(String s : inputString){
+					builder.append(s);
+				}
+			    joinedString = builder.toString();
+				joinedString = String.join("",joinedString);
+				joinedString = joinedString.replaceAll("\\s+","");
+			}
+		} catch (Exception e){ System.err.println(e);}
+		return joinedString;
+	}
+	
+	public Expression parse(String[] inputArgs){
         Token t = new Token();
-		String[] parts = inputString.split(" ");
-		Token[] tokens = new Token[parts.length];
+        StringBuilder builder = new StringBuilder();
+		String joinedString = null;
+		
+		try {
+			if (inputArgs!=null){
+				for(String s : inputArgs){
+					builder.append(s);
+				}
+			    joinedString = builder.toString();
+				joinedString = String.join("",joinedString);
+				joinedString = joinedString.replaceAll("\\s+",""); //"1+2-3"
+			}
+		} catch (Exception e){ System.err.println(e);}
+		
+		
+		//String[] parts = inputString.split(" ");
+		String[] tokens = joinedString.split("(?<=[-+*x/()])|(?=[-+*x/()])");
+		//Token[] tokens = new Token[joinedString.length()];
+		
+		//TODO
 		for (int i = 0; i < tokens.length; i++){
 			tokens[i] = new Token(parts[i]);
 		}
@@ -96,7 +131,7 @@ public static ArrayList<Token> getTokensFromInputString(String inputString) {
 	return tokens;
 }
 
-public static String makeInputString(String[] args) {
+public static String createInputString(String[] args) {
     String inputString = null;
 	//make inputString an array list
 	return inputString;

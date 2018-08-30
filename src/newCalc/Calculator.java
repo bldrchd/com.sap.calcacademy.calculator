@@ -2,10 +2,10 @@ package newCalc;
 
 public class Calculator extends Main{
 	
-	public Number calculate(String inputString){
+	public Number calculate(String[] args){
 		
 		InputParser ip = new InputParser();
-		Number result = ip.parse(inputString).execute();
+		Number result = ip.parse(args).execute();
 		return result;
 	}
 	

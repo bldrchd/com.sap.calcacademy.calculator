@@ -5,10 +5,17 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 public class TokenTest {
+	String[] args = {"1+", "2","-"," ","3"};
 	
 	@Test
 	public void testParsedTokens_ConstructExpression(){
-
+		String[] args = {"1+", "2"};
+		String expected = "Expression = 1 + 2";
+		InputParser ip = new InputParser();
+		Expression expr = ip.parse(args);
+		String actualExpression = expr.toString(expr);
+		System.out.println(expected + "\n" + actualExpression);
+		assertEquals(expected, actualExpression);
 	}
 	
 	@Test

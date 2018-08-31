@@ -60,4 +60,10 @@ public class Expression {
 		Expression e = (Expression)obj;
 		return e.getOperand1().equals(this.operand1) && e.getOperand2().equals(this.operand2) && e.getOperation().equals(this.operation);
 	}
+	public String toString(Object obj){
+		Expression e = (Expression)obj;
+		String s = "Expression = "+ e.operand1 + " " + e.operator + " " + e.operand2;  
+		return s;
+		
+	}
 }

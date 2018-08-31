@@ -1,6 +1,5 @@
 package newCalc;
 
-import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 public class InputParser  {
@@ -37,11 +36,11 @@ public class InputParser  {
 				joinedString = joinedString.replaceAll("\\s+","");
 			}
 		} catch (Exception e){ System.err.println(e);}
-		return joinedString;
+	return joinedString;
 	}
 	public static String[] formatStringToStrArr(String joinedString){
 			String[] tokensInParts = joinedString.split("(?<=[-+*x/()])|(?=[-+*x/()])"); //{"1","+","2","-","3"}
-		return tokensInParts;
+	return tokensInParts;
 	}
 	
 	public Expression parse(String[] inputArgs){
@@ -55,10 +54,8 @@ public class InputParser  {
 		}
 		
 		Token t = new Token();
-		
 		for (int index = 0; index < tokens.length; index++){
 			Token nextT = tokens[index];
-			//TODO test this part
 			if (nextT.getType() == NUMBER){ 
 				valueStack.push(nextT);
 			} else if (nextT.getType() == OPERATOR){
@@ -67,28 +64,23 @@ public class InputParser  {
 				
 				} else {
 					while(!operatorStack.isEmpty() && nextT.getPrio() <= operatorStack.top().getPrio()){
-						Token tokenToProcess = operatorStack.top(); //getting the operator from stack
 						operatorStack.pop();
 						valueStackCollection(); 
 	                    t.evaluate(operand1, operand2);
-						//pass it to Token.evaluate
 					}
 				}
 			} else if (nextT.getType() == LEFT_PARENTHESIS){
 				operatorStack.push(nextT);
 			} else if (nextT.getType() == RIGHT_PARENTHESIS){
 				while (!operatorStack.isEmpty() && (operatorStack.top().getType() == OPERATOR)) {
-                    Token tokenToProcess = operatorStack.top();
                     operatorStack.pop();
                     valueStackCollection();
                     t.evaluate(operand1, operand2);
-                  //pass it to Token.evaluate
                 }
 				if (!operatorStack.isEmpty() && (operatorStack.top().getType() == LEFT_PARENTHESIS)) {
                     operatorStack.pop();
                     valueStackCollection(); 
                     t.evaluate(operand1, operand2);
-                  //pass it to Token.evaluate
                 } else {
                 	throw new IllegalArgumentException("No enouth Brackets");
                 }
@@ -116,20 +108,5 @@ public class InputParser  {
 			valueStack.pop();
 			operand1 = A.getValue();
 		}
-		//result to be an Expression(operator, operand1, operand2)
-	//	Token result = tokenToProcess.evaluate(A.getValue(),B.getValue());
-
 	}
-
-	public static ArrayList<Token> getTokensFromInputString(String inputString) {
-		ArrayList<Token> tokens = null;
-	    //tokens stuff
-		return tokens;
-	}
-	
-	public static String createInputString(String[] args) {
-	    String inputString = null;
-		//make inputString an array list
-		return inputString;
-}
 }

@@ -65,35 +65,28 @@ public class Token implements IToken{
             }
 		}
 	}
-	//move this functionality in Expression? 
+	
 	Expression evaluate(Number operand1, Number operand2){
-	//Token evaluate(Number operand1, Number operand2){
 		Expression expr = null;
-		//Number result = 0;
 		switch(operator){
 		case '+':
 			Operation add = new AddOperation();
-           // result = add.execute(operand1, operand2);
             expr = new Expression(add, operand1, operand2);
             break;
         case '-':
         	Operation subtract = new SubtractOperation();
-          //  result = subtract.execute(operand1, operand2);
             expr = new Expression(subtract, operand1, operand2);
             break;
         case '*':
         	Operation multiply = new MultiplyOperation();
-          //  result = multiply.execute(operand1, operand2);
             expr = new Expression(multiply, operand1, operand2);
             break;
         case '/':
         	Operation divide = new DivideOperation();
-          //  result = divide.execute(operand1, operand2);
             expr = new Expression(divide, operand1, operand2);
             break;
 		}
 		return expr;
-		//return new Token(result.doubleValue());
 	}
 	
 	public boolean equals(Object obj) {

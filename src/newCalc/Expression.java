@@ -36,7 +36,10 @@ public class Expression {
 	}
 	
 	public Number execute(){
-		return operation.execute(operand1, operand2);
+		//TODO
+		System.out.println(operand1.doubleValue());
+		System.out.println(operand2.doubleValue());
+		return Operation.execute(operand1, operand2);
 	}
 	
 	public void setOperand1(Number operand1){

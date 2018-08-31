@@ -65,7 +65,7 @@ public class InputParser  {
 				} else {
 					while(!operatorStack.isEmpty() && nextT.getPrio() <= operatorStack.top().getPrio()){
 						operatorStack.pop();
-						valueStackCollection(); 
+						valueToStackCollection(); 
 	                    t.evaluate(operand1, operand2);
 					}
 				}
@@ -74,12 +74,12 @@ public class InputParser  {
 			} else if (nextT.getType() == RIGHT_PARENTHESIS){
 				while (!operatorStack.isEmpty() && (operatorStack.top().getType() == OPERATOR)) {
                     operatorStack.pop();
-                    valueStackCollection();
+                    valueToStackCollection();
                     t.evaluate(operand1, operand2);
                 }
 				if (!operatorStack.isEmpty() && (operatorStack.top().getType() == LEFT_PARENTHESIS)) {
                     operatorStack.pop();
-                    valueStackCollection(); 
+                    valueToStackCollection(); 
                     t.evaluate(operand1, operand2);
                 } else {
                 	throw new IllegalArgumentException("No enouth Brackets");
@@ -91,7 +91,7 @@ public class InputParser  {
 	
 /*	
  * Getting values A and B - operand1 and operand2 as Tokens
- */	public void valueStackCollection(){
+ */	public void valueToStackCollection(){
 		Token A = null;
 		Token B = null;
 		if (valueStack.isEmpty()){

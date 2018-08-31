@@ -8,5 +8,4 @@ public class Calculator extends Main{
 		Number result = ip.parse(args).execute();
 		return result;
 	}
-	
 }

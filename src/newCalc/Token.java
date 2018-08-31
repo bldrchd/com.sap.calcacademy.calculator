@@ -95,4 +95,12 @@ public class Token implements IToken{
 		Token e = (Token)obj;
 		return e.getValue().equals(this.value) || e.getOperator() == this.operator || e.getPrio() == this.prio;
 	}
+	public String operatorToString(Object obj){
+		Token t = (Token)obj;
+		return String.valueOf(t.getOperator());
+	}
+	public Double operandToDouble(Object obj){
+		Token t = (Token)obj;
+		return Double.valueOf(t.getValue().doubleValue());
+	}
 }

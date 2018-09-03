@@ -36,10 +36,32 @@ public class Expression {
 	}
 	
 	public Number execute(){
-		//TODO
-		System.out.println(operand1.doubleValue());
-		System.out.println(operand2.doubleValue());
-		return Operation.execute(operand1, operand2);
+		
+		Operation add = new AddOperation();
+		Operation subtract = new SubtractOperation();
+		Operation multiply = new MultiplyOperation();
+		Operation divide = new DivideOperation();
+		Number result = 0;
+		//System.out.println("expression= "+ operand1.doubleValue());
+		//System.out.println("expression= "+ operand2.doubleValue());
+		//System.out.println("operand expr= "+ operation);
+		
+		if (operation.getClass().isInstance(add)){
+			result = add.execute(operand1, operand2);
+		} else if (operation.getClass().isInstance(subtract)){
+			result = subtract.execute(operand1, operand2);
+			System.out.println(result);
+		} else if (operation.getClass().isInstance(multiply)){
+			result = multiply.execute(operand2, operand2);
+			System.out.println(result);
+		} else if (operation.getClass().isInstance(divide)){
+			result = divide.execute(operand1, operand2);
+			System.out.println(result);
+		} else {
+			System.out.println("Error, not matching operation");
+			result = null;
+		}
+		return result;
 	}
 	
 	public void setOperand1(Number operand1){

@@ -9,6 +9,7 @@ public class InputParser  {
 	Operation operation;
 	Number operand1;
 	Number operand2;
+	String operator;
 	
 	int UNKNOWN = -1;
 	int NUMBER = 0;
@@ -61,26 +62,28 @@ public class InputParser  {
 			} else if (nextT.getType() == OPERATOR){
 				if (operatorStack.isEmpty() || nextT.getPrio() > operatorStack.top().getPrio()) {
                     operatorStack.push(nextT);
-				
 				} else {
 					while(!operatorStack.isEmpty() && nextT.getPrio() <= operatorStack.top().getPrio()){
+						operator = operatorStack.top().getOperator();
 						operatorStack.pop();
 						valueToStackCollection(); 
-	                    t.evaluate(operand1, operand2);
+	                    t.evaluate(operator, operand1, operand2);
 					}
 				}
 			} else if (nextT.getType() == LEFT_PARENTHESIS){
 				operatorStack.push(nextT);
 			} else if (nextT.getType() == RIGHT_PARENTHESIS){
 				while (!operatorStack.isEmpty() && (operatorStack.top().getType() == OPERATOR)) {
+					operator = operatorStack.top().getOperator();
                     operatorStack.pop();
                     valueToStackCollection();
-                    t.evaluate(operand1, operand2);
+                    t.evaluate(operator, operand1, operand2);
                 }
 				if (!operatorStack.isEmpty() && (operatorStack.top().getType() == LEFT_PARENTHESIS)) {
                     operatorStack.pop();
                     valueToStackCollection(); 
-                    t.evaluate(operand1, operand2);
+                    operator = operatorStack.top().getOperator();
+                    t.evaluate(operator, operand1, operand2);
                 } else {
                 	throw new IllegalArgumentException("No enouth Brackets");
                 }

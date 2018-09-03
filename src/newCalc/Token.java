@@ -4,8 +4,9 @@ public class Token implements IToken{
 	
 	private int type;
 	private Number value;
-	private char operator;
+	private String operator;
 	private int prio;
+	private Operation operation = null;
 	
 	public Token(){
 		type = UNKNOWN;
@@ -21,7 +22,7 @@ public class Token implements IToken{
 	public Number getValue(){
 		return value;
 	}
-	public char getOperator(){
+	public String getOperator(){
 		return operator;
 	}
 	public int getPrio() {
@@ -32,22 +33,24 @@ public class Token implements IToken{
 		switch (contents){
 		case "+":
             type = OPERATOR;
-            operator = contents.charAt(0);
+            this.operator = contents; //contents.charAt(0);
             prio = 1;
             break;
         case "-":
             type = OPERATOR;
-            operator = contents.charAt(0);
+            this.operator = contents;//contents.charAt(0);
             prio = 1;
             break;
         case "*":
             type = OPERATOR;
-            operator = contents.charAt(0);
+            this.operator = contents;
+            // operator = contents.charAt(0);
             prio = 2; 
             break;
         case "/":
             type = OPERATOR;
-            operator = contents.charAt(0);
+            this.operator = contents;
+          //  operator = contents.charAt(0);
             prio = 2;
             break;
         case "(":
@@ -66,25 +69,28 @@ public class Token implements IToken{
 		}
 	}
 	
-	Expression evaluate(Number operand1, Number operand2){
+	Expression evaluate(String operator, Number operand1, Number operand2){
 		Expression expr = null;
 		switch(operator){
-		case '+':
-			Operation add = new AddOperation();
-            expr = new Expression(add, operand1, operand2);
+		case "+":
+			this.operation = new AddOperation();
+			//Operation add = new AddOperation();
+            expr = new Expression(this.operation, operand1, operand2);
             break;
-        case '-':
-        	Operation subtract = new SubtractOperation();
-            expr = new Expression(subtract, operand1, operand2);
+        case "-":
+        	this.operation = new SubtractOperation();
+        	//Operation subtract = new SubtractOperation();
+            expr = new Expression(this.operation, operand1, operand2);
             break;
-        case '*':
+        case "*":
         	Operation multiply = new MultiplyOperation();
-            expr = new Expression(multiply, operand1, operand2);
+            expr = new Expression(this.operation = multiply, operand1, operand2);
             break;
-        case '/':
+        case "/":
         	Operation divide = new DivideOperation();
-            expr = new Expression(divide, operand1, operand2);
+            expr = new Expression(this.operation = divide, operand1, operand2);
             break;
+            default: System.out.println("Not found");
 		}
 		return expr;
 	}

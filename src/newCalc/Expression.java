@@ -5,7 +5,7 @@ public class Expression {
 	private Operation operation;
 	private Number operand1;
 	private Number operand2;
-	private char operator;
+	private String operator;
 	
 	public Operation getOperation(){
 		return operation;
@@ -17,7 +17,7 @@ public class Expression {
 		return operand2;
 	}
 	//not needed anymore:
-	public char operator(){
+	public String operator(){
 		return operator;
 	}
 	public Expression(){
@@ -29,7 +29,7 @@ public class Expression {
 		this.operand2 = operand2;
 	}
 	//not needed anymore:
-	public Expression(char operator, Number operand1, Number operand2){
+	public Expression(String operator, Number operand1, Number operand2){
 		this.operator = operator;
 		this.operand1 = operand1;
 		this.operand2 = operand2;
@@ -74,7 +74,7 @@ public class Expression {
 		this.operation = operation;
 	}
 	//not needed anymore:
-	public void setOperator(char operator){
+	public void setOperator(String operator){
 		this.operator = operator;
 	}
 	

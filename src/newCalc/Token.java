@@ -28,6 +28,9 @@ public class Token implements IToken{
 	public int getPrio() {
 		return prio;
 	}
+/*	public Double toDoubleV(double value){
+		return this.value.doubleValue() = value;
+	}*/
 	
 	public Token(String contents){
 		switch (contents){

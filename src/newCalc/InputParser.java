@@ -39,13 +39,14 @@ public class InputParser  {
 		} catch (Exception e){ System.err.println(e);}
 	return joinedString;
 	}
+	
 	public static String[] formatStringToStrArr(String joinedString){
 			String[] tokensInParts = joinedString.split("(?<=[-+*x/()])|(?=[-+*x/()])"); //{"1","+","2","-","3"}
 	return tokensInParts;
 	}
 	
+	
 	public Expression parse(String[] inputArgs){
-		
 		String joinedString = formatingJoinedString(inputArgs); //1+2-3
 		String[] tokensInParts = formatStringToStrArr(joinedString);
 		Token[] tokens = new Token[tokensInParts.length];
@@ -55,6 +56,8 @@ public class InputParser  {
 		}
 		
 		Token t = new Token();
+		Expression expression = null;
+		
 		for (int index = 0; index < tokens.length; index++){
 			Token nextT = tokens[index];
 			if (nextT.getType() == NUMBER){ 
@@ -67,7 +70,7 @@ public class InputParser  {
 						operator = operatorStack.top().getOperator();
 						operatorStack.pop();
 						valueToStackCollection(); 
-	                    t.evaluate(operator, operand1, operand2);
+	                    expression = t.evaluate(operator, operand1, operand2);
 					}
 				}
 			} else if (nextT.getType() == LEFT_PARENTHESIS){
@@ -77,19 +80,19 @@ public class InputParser  {
 					operator = operatorStack.top().getOperator();
                     operatorStack.pop();
                     valueToStackCollection();
-                    t.evaluate(operator, operand1, operand2);
+                    expression = t.evaluate(operator, operand1, operand2);
                 }
 				if (!operatorStack.isEmpty() && (operatorStack.top().getType() == LEFT_PARENTHESIS)) {
                     operatorStack.pop();
                     valueToStackCollection(); 
                     operator = operatorStack.top().getOperator();
-                    t.evaluate(operator, operand1, operand2);
+                    expression = t.evaluate(operator, operand1, operand2);
                 } else {
                 	throw new IllegalArgumentException("No enouth Brackets");
                 }
 			}
 		}
-		return new Expression(operation, operand1, operand2);
+		return expression;//new Expression(operator, operand1, operand2);
 	}
 	
 /*	

@@ -75,20 +75,20 @@ public class Token implements IToken{
 		case "+":
 			this.operation = new AddOperation();
 			//Operation add = new AddOperation();
-            expr = new Expression(this.operation, operand1, operand2);
+            expr = new Expression(operation, operand1, operand2);
             break;
         case "-":
         	this.operation = new SubtractOperation();
         	//Operation subtract = new SubtractOperation();
-            expr = new Expression(this.operation, operand1, operand2);
+            expr = new Expression(operation, operand1, operand2);
             break;
         case "*":
-        	Operation multiply = new MultiplyOperation();
-            expr = new Expression(this.operation = multiply, operand1, operand2);
+        	this.operation = new MultiplyOperation();
+            expr = new Expression(operation, operand1, operand2);
             break;
         case "/":
-        	Operation divide = new DivideOperation();
-            expr = new Expression(this.operation = divide, operand1, operand2);
+        	this.operation = new DivideOperation();
+            expr = new Expression(operation, operand1, operand2);
             break;
             default: System.out.println("Not found");
 		}

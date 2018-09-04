@@ -42,9 +42,6 @@ public class Expression {
 		Operation multiply = new MultiplyOperation();
 		Operation divide = new DivideOperation();
 		Number result = 0;
-		//System.out.println("expression= "+ operand1.doubleValue());
-		//System.out.println("expression= "+ operand2.doubleValue());
-		//System.out.println("operand expr= "+ operation);
 		
 		if (operation.getClass().isInstance(add)){
 			result = add.execute(operand1, operand2);

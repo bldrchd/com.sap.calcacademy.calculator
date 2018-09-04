@@ -19,24 +19,12 @@ public class Expression {
 		return operand2;
 	}
 
-	// not needed anymore:
-	public String operator() {
-		return operator;
-	}
-
 	public Expression() {
 
 	}
 
 	public Expression(Operation operation, Number operand1, Number operand2) {
 		this.operation = operation;
-		this.operand1 = operand1;
-		this.operand2 = operand2;
-	}
-
-	// not needed anymore:
-	public Expression(String operator, Number operand1, Number operand2) {
-		this.operator = operator;
 		this.operand1 = operand1;
 		this.operand2 = operand2;
 	}
@@ -77,11 +65,6 @@ public class Expression {
 
 	public void setOperation(Operation operation) {
 		this.operation = operation;
-	}
-
-	// not needed anymore:
-	public void setOperator(String operator) {
-		this.operator = operator;
 	}
 
 	@Override

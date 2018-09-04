@@ -21,15 +21,17 @@ public class InputParser {
 				}
 				joinedString = builder.toString();
 				joinedString = String.join("", joinedString);
+				//TODO
 				joinedString = joinedString.replaceAll("\\s+", "");
 			}
-		} catch (Exception e) {
+		} catch (Exception e) { //TODO
 			System.err.println(e);
 		}
 		return joinedString;
 	}
 
 	public static String[] formatStringToStrArr(String joinedString) {
+		//TODO
 		String[] tokensInParts = joinedString.split("(?<=[-+*x/()])|(?=[-+*x/()])"); // {"1","+","2","-","3"}
 		return tokensInParts;
 	}

@@ -78,7 +78,7 @@ public class TokenProcess {
 		return result;
 	}
 
-	public void collectValuesToValueStack() {
+	public void collectValuesToValueStack() { //TODO - parametr. method
 		Token A = null;
 		Token B = null;
 		if (valueStack.isEmpty()) {

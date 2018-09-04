@@ -10,7 +10,7 @@ public class InputParser {
 		return result;
 	}
 
-	public static String formatingJoinedString(String[] inputString) {
+	String formatingJoinedString(String[] inputString) {
 		StringBuilder builder = new StringBuilder();
 		String joinedString = null;
 
@@ -30,7 +30,7 @@ public class InputParser {
 		return joinedString;
 	}
 
-	public static String[] formatStringToStrArr(String joinedString) {
+	String[] formatStringToStrArr(String joinedString) {
 		//TODO
 		String[] tokensInParts = joinedString.split("(?<=[-+*x/()])|(?=[-+*x/()])"); // {"1","+","2","-","3"}
 		return tokensInParts;

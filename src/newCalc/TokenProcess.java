@@ -78,7 +78,7 @@ public class TokenProcess {
 		return result;
 	}
 
-	public void collectValuesToValueStack() { //TODO - parametr. method
+	void collectValuesToValueStack() { //TODO - parametr. method
 		Token A = null;
 		Token B = null;
 		if (valueStack.isEmpty()) {
@@ -98,7 +98,7 @@ public class TokenProcess {
 		}
 	}
 
-	private void pushResultToValueStack() {
+	void pushResultToValueStack() {
 		operatorStack.removeFromStack();
 		collectValuesToValueStack();
 		expression = t.evaluate(operator, operand1, operand2);

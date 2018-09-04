@@ -38,10 +38,6 @@ public class Token {
 	public int getPrio() {
 		return prio;
 	}
-	/*
-	 * public Double toDoubleV(double value){ return this.value.doubleValue() =
-	 * value; }
-	 */
 
 	public Token(String contents) {
 		switch (contents) {
@@ -58,13 +54,11 @@ public class Token {
 		case "*":
 			type = OPERATOR;
 			this.operator = contents;
-			// operator = contents.charAt(0);
 			prio = 2;
 			break;
 		case "/":
 			type = OPERATOR;
 			this.operator = contents;
-			// operator = contents.charAt(0);
 			prio = 2;
 			break;
 		case "(":
@@ -88,12 +82,10 @@ public class Token {
 		switch (operator) {
 		case "+":
 			this.operation = new AddOperation();
-			// Operation add = new AddOperation();
 			expr = new Expression(operation, operand1, operand2);
 			break;
 		case "-":
 			this.operation = new SubtractOperation();
-			// Operation subtract = new SubtractOperation();
 			expr = new Expression(operation, operand1, operand2);
 			break;
 		case "*":
@@ -114,7 +106,7 @@ public class Token {
 		if (obj == null || !(obj instanceof Token))
 			return false;
 		Token e = (Token) obj;
-		return e.getValue().equals(this.value) || e.getOperator() == this.operator || e.getPrio() == this.prio;
+		return e.getValue().equals(this.value) && e.getOperator() == this.operator && e.getPrio() == this.prio;
 	}
 
 	public String operatorToString(Object obj) {

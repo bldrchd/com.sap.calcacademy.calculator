@@ -27,7 +27,7 @@ public class TokenTest {
 		TokenStack ts = new TokenStack();
 		ts.push(t1); ts.push(t2); ts.push(t3);
 
-		ts.pop();
+		ts.removeFromStack();
 		Token token = ts.top();
 		assertTrue( token.equals(inputTokens.indexOf(inputTokens.size()-1)) );
 	}
@@ -43,10 +43,10 @@ public class TokenTest {
 		ts.push(t1); ts.push(t2); ts.push(t3);
 		
 		boolean match = false;
-		ts.pop();
+		ts.removeFromStack();
 		for (int i = inputTokens.size(); i == 0 ; i --){
 			if (inputTokens.contains(ts.top())){
-				ts.pop();
+				ts.removeFromStack();
 				match = true;
 			}
 		}

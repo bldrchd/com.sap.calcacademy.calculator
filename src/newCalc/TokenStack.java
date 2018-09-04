@@ -24,7 +24,7 @@ public class TokenStack {
 		tokens.add(token);
 	}
 
-	public void pop() { //TODO rename
+	public void removeFromStack() { //TODO rename
 		tokens.remove(tokens.size() - 1);
 	}
 

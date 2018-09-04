@@ -69,7 +69,7 @@ public class TokenProcess {
 		}
 
 		Token result = valueStack.top();
-		valueStack.pop();
+		valueStack.removeFromStack();
 		if (!operatorStack.isEmpty() || !valueStack.isEmpty()) {
 			System.err.println("Stacks are not empty");
 		} else {
@@ -86,20 +86,20 @@ public class TokenProcess {
 												// when there are no values?
 		} else {
 			B = valueStack.top();
-			valueStack.pop();
+			valueStack.removeFromStack();
 			operand2 = B.getValue();
 		}
 		if (valueStack.isEmpty()) {
 			throw new EmptyStackException();
 		} else {
 			A = valueStack.top();
-			valueStack.pop();
+			valueStack.removeFromStack();
 			operand1 = A.getValue();
 		}
 	}
 
 	private void pushResultToValueStack() {
-		operatorStack.pop();
+		operatorStack.removeFromStack();
 		collectValuesToValueStack();
 		expression = t.evaluate(operator, operand1, operand2);
 		currentResult = new Token(expression.execute().doubleValue());

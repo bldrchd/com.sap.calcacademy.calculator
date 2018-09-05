@@ -20,19 +20,21 @@ public class InputParser {
 					builder.append(s);
 				}
 				joinedString = builder.toString();
-				joinedString = String.join("", joinedString);
-				//TODO
-				joinedString = joinedString.replaceAll("\\s+", "");
+				System.out.println(joinedString);
 			}
-		} catch (Exception e) { //TODO
-			System.err.println(e);
+		} catch (NullPointerException npe) { // TODO - terminate
+			System.err.println(npe);
 		}
 		return joinedString;
 	}
 
 	String[] formatStringToStrArr(String joinedString) {
-		//TODO
+		// TODO
 		String[] tokensInParts = joinedString.split("(?<=[-+*x/()])|(?=[-+*x/()])"); // {"1","+","2","-","3"}
+		for (int i = 0; i < tokensInParts.length; i++) {
+			System.out.print(tokensInParts[i] + " ");
+		}
+		System.out.println();
 		return tokensInParts;
 	}
 }

@@ -4,7 +4,7 @@ public class Calculator extends Main {
 
 	public void calculate(String[] args) {
 		if (args.length != 0) {
-			InputDetermination id = new InputDetermination();
+			InputPreDetermination id = new InputPreDetermination();
 			//InputParser ip = new InputParser();
 			id.preValidation(args);
 

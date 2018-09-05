@@ -19,4 +19,12 @@ public class InputDeterminationTest {
 		InputDetermination id = new InputDetermination();
 		assertEquals(true, id.checkForWhiteSpaces(inputToTest));
 	}
+	
+	@Test
+	public void checkForRemovedWhiteSpaces() {
+		String inputToTest = "22+ 3/ 5	+1 -\"1 -		-3\"";
+		String expected = "22+3/5+1-\"1--3\"";
+		InputDetermination id = new InputDetermination();
+		assertEquals(expected, id.removeWhiteSpaces(inputToTest));
+	}
 }

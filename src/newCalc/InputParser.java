@@ -1,5 +1,5 @@
 package newCalc;
-
+@Deprecated
 public class InputParser {
 
 	public Number parse(String[] inputArgs) {

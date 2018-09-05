@@ -12,12 +12,24 @@ public class InputDetermination {
 		if (findLetters(inputArgs)){
 			System.exit(1);
 		} else if (checkForWhiteSpaces(joinedString)) {
-			removeWhiteSpaces(joinedString);
+			System.out.println(joinedString);
+			String string = removeWhiteSpaces(joinedString);
+			System.out.println(string);
 		}
 	}
 
-	void removeWhiteSpaces(String joinedString) {
+	String removeWhiteSpaces(String joinedString) {
+		joinedString = joinedString.replaceAll("\\s+", "");
+/*		StringBuilder strB = new StringBuilder();
+		for (int i = 0; i < joinedString.length(); i++){
+			if (!Character.isWhitespace(joinedString.charAt(i))){
 
+				strB.append(joinedString.charAt(i));
+			}
+		}
+		String newString = strB.toString();
+		System.out.println(newString);*/
+		return joinedString;
 	}
 
 	boolean findLetters(String[] inputArgs) {
@@ -25,11 +37,11 @@ public class InputDetermination {
 
 		if (inputArgs != null) {
 			for (String s : inputArgs) {
-				System.out.println(s);
+		//		System.out.println(s);
 				builder.append(s);
 			}
 			joinedString = builder.toString();
-			System.out.println(joinedString);
+		//	System.out.println(joinedString);
 		}
 
 		Pattern p = Pattern.compile("[a-zA-Z]");

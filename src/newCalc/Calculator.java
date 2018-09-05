@@ -4,9 +4,10 @@ public class Calculator extends Main {
 
 	public void calculate(String[] args) {
 		if (args.length != 0) {
-			InputParser ip = new InputParser();
-			Number result = ip.parse(args);
-			System.out.println(result);
+			InputDetermination id = new InputDetermination();
+			//InputParser ip = new InputParser();
+			id.preValidation(args);
+
 		} else {
 			System.err.println("There is no input to calculate.");
 			System.exit(1);

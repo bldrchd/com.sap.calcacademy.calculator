@@ -16,10 +16,15 @@ public class InputPreDetermination {
 			finalString = removeWhiteSpaces(joinedString);
 			System.out.println(finalString);
 		}
-		if (correctParenthesisCorrect(finalString)){
-			
+		if (!checkCorrectParenthesisCount(finalString)) {
+			System.err.println("Count of parenthesis is not equal.");
+			System.exit(1);
+			// } else if ((findUnaceptableSymbols(finalString)){
+			//
+		} else {
+			return finalString;
 		}
-		return finalString;
+		return null;
 	}
 
 	boolean findLetters(String[] inputArgs) {
@@ -47,7 +52,7 @@ public class InputPreDetermination {
 		Pattern p2 = Pattern.compile("\\s+");
 		Matcher m2 = p2.matcher(joinedString);
 		if (m2.find()) {
-			System.out.println("whitespaces found");
+			// System.out.println("whitespaces found");
 			return true;
 		} else {
 			return false;
@@ -56,9 +61,9 @@ public class InputPreDetermination {
 
 	String removeWhiteSpaces(String joinedString) {
 		joinedString = joinedString.replaceAll("\\s+", "");
-		/*Or this works also:
-		 * StringBuilder strB = new StringBuilder(); for (int i = 0; i <
-		 * joinedString.length(); i++){ if
+		/*
+		 * Or this works also: StringBuilder strB = new StringBuilder(); for
+		 * (int i = 0; i < joinedString.length(); i++){ if
 		 * (!Character.isWhitespace(joinedString.charAt(i))){
 		 * 
 		 * strB.append(joinedString.charAt(i)); } } String newString =
@@ -66,21 +71,27 @@ public class InputPreDetermination {
 		 */
 		return joinedString;
 	}
-	
-	boolean correctParenthesisCorrect(String finalString) {
-		int countLeft = 0;
-		int countRight = 0;
-		for (int i = 0; i < finalString.length(); i++){
+
+	boolean checkCorrectParenthesisCount(String finalString) {
+		int countLeft = 0, countRight = 0;
+		for (int i = 0; i < finalString.length(); i++) {
 			if (String.valueOf(i).contains("(")) {
 				countLeft++;
 			} else if (String.valueOf(i).contains(")")) {
 				countRight++;
 			}
 		}
-		if (countLeft == countRight){
+		if (countLeft == countRight) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	boolean findUnaceptableSymbols(String finalString) {
+		for (int i = 0; i < finalString.length(); i++) {
+			// if String.valueOf(i).contains(!)
+		}
+		return false;
 	}
 }

@@ -101,7 +101,8 @@ public class Token {
 		}
 		return expr;
 	}
-//TODO
+
+	// TODO
 	public boolean equals(Object obj) {
 		if (obj == null || !(obj instanceof Token))
 			return false;

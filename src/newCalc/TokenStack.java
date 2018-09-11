@@ -24,15 +24,27 @@ public class TokenStack {
 		tokens.add(token);
 	}
 
-	public void removeFromStack() { //TODO rename
+	public void removeFromStack() {
 		tokens.remove(tokens.size() - 1);
 	}
 
-	public boolean equals(Object obj) { //TODO
+	public boolean equals(Object obj) { // TODO
 		if (obj == null || !(obj instanceof TokenStack))
 			return false;
 		TokenStack e = (TokenStack) obj;
-		return e.equals(obj) || e.top().equals(this.top()) || e.tokens.equals(this.tokens);
+		int countOfNotEq = 0;
+		while (obj != null) {
+			if (!e.top().equals(this.top())) {
+				countOfNotEq++;
+			}
+		}
+		if (countOfNotEq != 0) {
+			return false;
+		} else {
+			return true;
+		}
+		// return e.equals(obj) || e.top().equals(this.top()) ||
+		// e.tokens.equals(this.tokens);
 
 	}
 }

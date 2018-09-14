@@ -10,7 +10,8 @@ public class Token {
 
 	private int type;
 	private Number value;
-	private String operator;
+	private char operator;
+	//private String operator;
 	private int prio;
 	private Operation operation = null;
 
@@ -30,8 +31,9 @@ public class Token {
 	public Number getValue() {
 		return value;
 	}
-
-	public String getOperator() {
+	
+	public char getOperator() {
+	//public String getOperator() {
 		return operator;
 	}
 
@@ -39,26 +41,27 @@ public class Token {
 		return prio;
 	}
 
-	public Token(String contents) {
+	public Token (String contents) {
+	//public Token(String contents) {
 		switch (contents) {
 		case "+":
 			type = OPERATOR;
-			this.operator = contents; // contents.charAt(0);
+			this.operator =  contents.charAt(0);
 			prio = 1;
 			break;
 		case "-":
 			type = OPERATOR;
-			this.operator = contents;// contents.charAt(0);
+			this.operator =  contents.charAt(0);
 			prio = 1;
 			break;
 		case "*":
 			type = OPERATOR;
-			this.operator = contents;
+			this.operator = contents.charAt(0);
 			prio = 2;
 			break;
 		case "/":
 			type = OPERATOR;
-			this.operator = contents;
+			this.operator = contents.charAt(0);
 			prio = 2;
 			break;
 		case "(":
@@ -69,30 +72,34 @@ public class Token {
 			break;
 		default:
 			type = NUMBER;
-			try {
-				value = Double.parseDouble(contents);
-			} catch (Exception ex) {
-				type = UNKNOWN;
+			if (contents.matches("//d+")) {
+				try {
+					value = Double.parseDouble(contents);
+					System.out.println(value + "value");
+				} catch (Exception ex) {
+					type = UNKNOWN;
+				}
 			}
+
 		}
 	}
 
-	Expression evaluate(String operator, Number operand1, Number operand2) {
+	Expression evaluate(char operator, Number operand1, Number operand2) {
 		Expression expr = null;
 		switch (operator) {
-		case "+":
+		case '+':
 			this.operation = new AddOperation();
 			expr = new Expression(operation, operand1, operand2);
 			break;
-		case "-":
+		case '-':
 			this.operation = new SubtractOperation();
 			expr = new Expression(operation, operand1, operand2);
 			break;
-		case "*":
+		case '*':
 			this.operation = new MultiplyOperation();
 			expr = new Expression(operation, operand1, operand2);
 			break;
-		case "/":
+		case '/':
 			this.operation = new DivideOperation();
 			expr = new Expression(operation, operand1, operand2);
 			break;

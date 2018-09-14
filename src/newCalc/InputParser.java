@@ -4,7 +4,8 @@ public class InputParser {
 
 	public Number parse(String[] inputArgs) {
 		String joinedString = formatingJoinedString(inputArgs); // 1+2-3
-		String[] tokensInParts = formatStringToStrArr(joinedString);
+		
+		//String[] tokensInParts = formatStringToStrArr(joinedString);
 		TokenProcess tp = new TokenProcess();
 		Number result = tp.parse(tokensInParts).getValue();
 		return result;

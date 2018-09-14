@@ -1,5 +1,6 @@
 package newCalc;
 
+//import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 public class TokenProcess {
@@ -15,7 +16,7 @@ public class TokenProcess {
 	Operation operation;
 	Number operand1;
 	Number operand2;
-	String operator;
+	char operator;
 
 	Token t = new Token();
 	Expression expression = null;
@@ -26,81 +27,92 @@ public class TokenProcess {
 		valueStack = new TokenStack();
 	}
 
+	// public Token parse(ArrayList<Token> tokensArr) {
 	public Token parse(String[] tokensInParts) {
 
+		// Token[] tokens = new Token[tokensArr.size()];
 		Token[] tokens = new Token[tokensInParts.length];
 
 		for (int i = 0; i < tokens.length; i++) {
 			tokens[i] = new Token(tokensInParts[i]);
-		}
+			/*
+			 * tokens[i] = new Token(tokensArr.get(i); }
+			 */
 
-		for (int index = 0; index < tokens.length; index++) {
-			Token nextT = tokens[index];
-			if (nextT.getType() == NUMBER) {
-				valueStack.push(nextT);
-			} else if (nextT.getType() == OPERATOR) {
-				if (operatorStack.isEmpty() || nextT.getPrio() > operatorStack.top().getPrio()) {
+			for (int index = 0; index < tokens.length; index++) {
+				Token nextT = tokens[index];
+				/*
+				 * for (int index = 0; index < tokens.size(); index ++) { Token
+				 * nextT = tokens.get(index);
+				 */
+				if (nextT.getType() == NUMBER) {
+					valueStack.push(nextT);
+				} else if (nextT.getType() == OPERATOR) {
+					if (operatorStack.isEmpty() || nextT.getPrio() > operatorStack.top().getPrio()) {
+						operatorStack.push(nextT);
+					} else {
+						while (!operatorStack.isEmpty() && nextT.getPrio() <= operatorStack.top().getPrio()) {
+							operator = operatorStack.top().getOperator();
+							pushResultToValueStack();
+						}
+					}
+				} else if (nextT.getType() == LEFT_PARENTHESIS) {
 					operatorStack.push(nextT);
-				} else {
-					while (!operatorStack.isEmpty() && nextT.getPrio() <= operatorStack.top().getPrio()) {
+				} else if (nextT.getType() == RIGHT_PARENTHESIS) {
+					while (!operatorStack.isEmpty() && (operatorStack.top().getType() == OPERATOR)) {
 						operator = operatorStack.top().getOperator();
 						pushResultToValueStack();
 					}
-				}
-			} else if (nextT.getType() == LEFT_PARENTHESIS) {
-				operatorStack.push(nextT);
-			} else if (nextT.getType() == RIGHT_PARENTHESIS) {
-				while (!operatorStack.isEmpty() && (operatorStack.top().getType() == OPERATOR)) {
-					operator = operatorStack.top().getOperator();
-					pushResultToValueStack();
-				}
-				if (!operatorStack.isEmpty() && (operatorStack.top().getType() == LEFT_PARENTHESIS)) {
+					if (!operatorStack.isEmpty() && (operatorStack.top().getType() == LEFT_PARENTHESIS)) {
 
-					pushResultToValueStack();
-				} else {
-					throw new IllegalArgumentException("No enouth Brackets");
+						pushResultToValueStack();
+					} else {
+						throw new IllegalArgumentException("No enouth Brackets");
+					}
 				}
 			}
-		}
 
-		while (!operatorStack.isEmpty() && operatorStack.top().getType() == OPERATOR) {
-			operator = operatorStack.top().getOperator();
-			pushResultToValueStack();
-		}
+			while (!operatorStack.isEmpty() && operatorStack.top().getType() == OPERATOR) {
+				operator = operatorStack.top().getOperator();
+				pushResultToValueStack();
+			}
 
-		Token result = valueStack.top();
-		valueStack.removeFromStack();
-		if (!operatorStack.isEmpty() || !valueStack.isEmpty()) {
-			System.err.println("Stacks are not empty");
-		} else {
+			Token result = valueStack.top();
+			valueStack.removeFromStack();
+			if (!operatorStack.isEmpty() || !valueStack.isEmpty()) {
+				System.err.println("Stacks are not empty");
+			} else {
+				return result;
+			}
 			return result;
 		}
-		return result;
+		return currentResult;
 	}
 
-	void collectValuesToValueStack() { //TODO - parametr. method
+	Number collectValuesToValueStack() {
 		Token A = null;
-		Token B = null;
+		Number operand;
+		// Token B = null;
 		if (valueStack.isEmpty()) {
 			throw new EmptyStackException(); // is it ok to throw an exception
 												// when there are no values?
 		} else {
-			B = valueStack.top();
-			valueStack.removeFromStack();
-			operand2 = B.getValue();
-		}
-		if (valueStack.isEmpty()) {
-			throw new EmptyStackException();
-		} else {
 			A = valueStack.top();
 			valueStack.removeFromStack();
-			operand1 = A.getValue();
+			operand = A.getValue();
 		}
+		/*
+		 * if (valueStack.isEmpty()) { throw new EmptyStackException(); } else {
+		 * A = valueStack.top(); valueStack.removeFromStack(); operand1 =
+		 * A.getValue(); }
+		 */
+		return operand;
 	}
 
 	void pushResultToValueStack() {
 		operatorStack.removeFromStack();
-		collectValuesToValueStack();
+		operand1 = collectValuesToValueStack();
+		operand2 = collectValuesToValueStack();
 		expression = t.evaluate(operator, operand1, operand2);
 		currentResult = new Token(expression.execute().doubleValue());
 		valueStack.push(currentResult);

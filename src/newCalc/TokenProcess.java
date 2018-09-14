@@ -21,30 +21,22 @@ public class TokenProcess {
 	Token t = new Token();
 	Expression expression = null;
 	Token currentResult = null;
+	Token result = new Token();
 
 	public TokenProcess() {
 		operatorStack = new TokenStack();
 		valueStack = new TokenStack();
 	}
 
-	// public Token parse(ArrayList<Token> tokensArr) {
-	public Token parse(String[] tokensInParts) {
+	public Number parse(String[] postfixExpression) {
 
-		// Token[] tokens = new Token[tokensArr.size()];
-		Token[] tokens = new Token[tokensInParts.length];
+		Token[] tokens = new Token[postfixExpression.length];
 
 		for (int i = 0; i < tokens.length; i++) {
-			tokens[i] = new Token(tokensInParts[i]);
-			/*
-			 * tokens[i] = new Token(tokensArr.get(i); }
-			 */
+			tokens[i] = new Token(postfixExpression[i]);
 
 			for (int index = 0; index < tokens.length; index++) {
 				Token nextT = tokens[index];
-				/*
-				 * for (int index = 0; index < tokens.size(); index ++) { Token
-				 * nextT = tokens.get(index);
-				 */
 				if (nextT.getType() == NUMBER) {
 					valueStack.push(nextT);
 				} else if (nextT.getType() == OPERATOR) {
@@ -77,16 +69,16 @@ public class TokenProcess {
 				pushResultToValueStack();
 			}
 
-			Token result = valueStack.top();
+			result = valueStack.top();
 			valueStack.removeFromStack();
 			if (!operatorStack.isEmpty() || !valueStack.isEmpty()) {
 				System.err.println("Stacks are not empty");
 			} else {
-				return result;
+				return result.getValue();
 			}
-			return result;
+			return result.getValue();
 		}
-		return currentResult;
+		return result.getValue();
 	}
 
 	Number collectValuesToValueStack() {
@@ -101,11 +93,6 @@ public class TokenProcess {
 			valueStack.removeFromStack();
 			operand = A.getValue();
 		}
-		/*
-		 * if (valueStack.isEmpty()) { throw new EmptyStackException(); } else {
-		 * A = valueStack.top(); valueStack.removeFromStack(); operand1 =
-		 * A.getValue(); }
-		 */
 		return operand;
 	}
 

@@ -107,13 +107,13 @@ public class InputDetermination {
 		}
 	}
 
-	String buildFinalPostfixExpression() {
+	String[] buildFinalPostfixExpression() {
 
-		String[] st = new String[expression.size()];
+		String[] postfixExpression = new String[expression.size()];
 		for (int i = 0; i <= expression.size(); i++) {
-			st[i] = expression.get(i).toString();
+			postfixExpression[i] = expression.get(i).toString();
 		}
-		String postfixExpression = st.toString(); // TODO check
+		//String postfixExpression = st.toString(); // TODO check
 		System.out.println(postfixExpression);
 		return postfixExpression;
 	}

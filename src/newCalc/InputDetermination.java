@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 public class InputDetermination {
 
-	private TokenStack operators = new TokenStack();
+	private ArrayList<Object> operators = new ArrayList<Object>();
+	//private TokenStack operators = new TokenStack();
 	private ArrayList<Object> expression = new ArrayList<Object>();
 
 	void determinate(String inputString) {
 		StringBuilder sb = new StringBuilder();
 		int countLeft = 0, countRight = 0;
 		Double digit = 0.0;
+		double valueSign = 1;
 
 		if (inputString.charAt(0) == ')') {
 			System.out.println("ERR - starts with )");
@@ -27,6 +29,9 @@ public class InputDetermination {
 				if (Character.isDigit(charAtIndex)) {
 					sb.append(charAtIndex);
 				} else if (!Character.isDigit(charAtIndex) || i != inputString.length()) {
+					if (charAtIndex == '-') {
+						valueSign = -1; //TODO negative signs
+					} 
 					if (charAtIndex == '.' ) { // , - not allowed?
 						if (!Character.isDigit(inputString.charAt(i-1))) {
 							sb.append(0+charAtIndex);
@@ -35,18 +40,16 @@ public class InputDetermination {
 						if (!Character.isDigit(inputString.charAt(i+1)) && Character.isDigit(inputString.charAt(i-1))) { //  e.g. 2.
 							sb.append(0);
 						}
-					}
+					} 
 					// DIGIT
 					if (sb.length() != 0) {
 						try {
 							digit = Double.valueOf(sb.toString());
-							System.out.println(digit.doubleValue());
-							expression.add(digit.doubleValue());
+							System.out.println(valueSign*digit.doubleValue());
+							expression.add(valueSign*digit.doubleValue());
 							sb.setLength(0);
 						} catch (NumberFormatException nfe) {
-							System.err.println("Cannot convert to Double"); // not
-																			// an
-																			// error
+							System.err.println("Cannot convert to Double"); 
 						}
 					} /*
 						 * else { System.err.println("Empty builder"); }
@@ -54,8 +57,9 @@ public class InputDetermination {
 					// OPERATOR
 					if (matchesOperatorSymbol(charAtIndex)) {
 						System.out.println(charAtIndex);
-						Token operator = new Token(charAtIndex);
-						operators.push(operator);
+						//Token operator = new Token(charAtIndex);
+						operators.add(charAtIndex);
+						//operators.push(operator);
 					} /*
 						 * else { System.err.println("Found " + charAtIndex +
 						 * " in the expression."); //not an error }
@@ -65,8 +69,21 @@ public class InputDetermination {
 					 */
 			} else if (charAtIndex == ')') { // TODO check empty
 				countRight++;
+				if (sb.length() != 0) {
+					try {
+						digit = Double.valueOf(sb.toString());
+						System.out.println(digit.doubleValue());
+						expression.add(digit.doubleValue());
+						sb.setLength(0);
+					} catch (NumberFormatException nfe) {
+						System.err.println("Cannot convert to Double"); 
+					}
+				}
 				if (!operators.isEmpty()) {
-					String operatorToString = String.valueOf(operators.top().getOperator());
+					String operatorToString; //= String.valueOf(operators.top().getOperator());
+					int lastItem = operators.lastIndexOf(operators);
+					operatorToString = (String) operators.get(lastItem); 
+					operators.remove(lastItem);
 					expression.add(operatorToString);
 				}
 			}
@@ -89,7 +106,10 @@ public class InputDetermination {
 		}
 
 		if (countLeft == countRight) {
-			addOperatorToString();
+			while (!operators.isEmpty()) {
+			//while (operators.top() != null) {
+				addOperatorToString();
+			}
 			buildFinalPostfixExpression();
 		} else {
 			System.err.println("Parenthesis count not equal");
@@ -102,8 +122,15 @@ public class InputDetermination {
 
 	void addOperatorToString() {
 		if (!operators.isEmpty()) {
-			String operatorToString = String.valueOf(operators.top().getOperator());
+			String operatorToString; //= String.valueOf(operators.top().getOperator());
+			int lastItem = operators.lastIndexOf(operators);
+			operatorToString = (String) operators.get(lastItem); 
+			operators.remove(lastItem);
 			expression.add(operatorToString);
+			
+/*			String operatorToString = String.valueOf(operators.top().getOperator());
+			operators.removeFromStack();
+			expression.add(operatorToString);*/
 		}
 	}
 

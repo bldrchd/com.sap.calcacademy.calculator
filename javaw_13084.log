@@ -1,0 +1,6 @@
+---
+JVMX version - Jul 22 2015 20:34:35 - 81_REL - optU - windows amd64 - 6 - bas2:245830 (mixed mode)
+Now: 2018-09-17 17:59:01, PID: 13084
+hostname: SOFN33937871A, current dir: C:\workspace_dev\newCalc
+---
+   :    [10424] 17:59:01 ***ERROR (:0): Java assert: Assertion in org.junit.Assert.fail(Assert.java:86)

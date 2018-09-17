@@ -56,7 +56,8 @@ public class RevPolishNotation {
 				break;
 			}
 		}
-		System.out.println("Result = " + stack.pop());
+		result = stack.pop();
+		System.out.println("Result = " + result);
 	}
 
 	Number getResult() {

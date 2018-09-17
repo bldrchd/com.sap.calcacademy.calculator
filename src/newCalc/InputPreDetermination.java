@@ -12,9 +12,9 @@ public class InputPreDetermination {
 		if (findLetters(inputArgs)) {
 			System.exit(1);
 		} else if (checkForWhiteSpaces(joinedString)) {
-			System.out.println(joinedString);
+			//System.out.println(joinedString);
 			finalString = removeWhiteSpaces(joinedString);
-			System.out.println(finalString);
+			//System.out.println(finalString);
 		}
 		if (!checkCorrectParenthesisCount(finalString)) {
 			System.err.println("Count of parenthesis is not equal.");

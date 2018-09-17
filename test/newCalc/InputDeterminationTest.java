@@ -8,23 +8,17 @@ public class InputDeterminationTest {
 
 	@Test
 	public void valueStackFillTest() {
-		String inputString = "22+3/5+1-1--3";
+		String inputString = "22+(3/5)+1-1-(-3)";
 		InputDetermination id = new InputDetermination();
 		id.determinate(inputString);
-		TokenStack actual = id.getValueStackContent();
-		Token t1 = new Token(22), t2 = new Token(3), t3 = new Token(5), t4 = new Token(1), t5 = new Token(1),
-				t6 = new Token(3);
-		TokenStack expected = new TokenStack();
-		expected.push(t1);
-		expected.push(t2);
-		expected.push(t3);
-		expected.push(t4);
-		expected.push(t5);
-		expected.push(t6);
-		assertTrue(expected.equals(actual));
+		String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
+		String[] postfixExpression_Expected = {"22.0","3.0","5.0","/","1.0","1.0","-3.0","-","-","+","+"};
+		for (int i = 0; i<=postfixExpression_Actual.length-1; i++) {
+			assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i])); 
+		}
 	}
 
-	@Test
+/*	@Test
 	public void operatorStackFillTest() {
 		String inputString = "22+3/5+1-1--3";
 		InputDetermination id = new InputDetermination();
@@ -40,5 +34,5 @@ public class InputDeterminationTest {
 		expected.push(t5);
 		expected.push(t6);
 		assertTrue(expected.equals(actual));
-	}
+	}*/
 }

@@ -8,4 +8,8 @@ public class MultiplyOperation implements Operation {
 		return new Double(oper1.doubleValue() * oper2.doubleValue());
 	}
 
+	@Override
+	public String toString() {
+		return " * ";
+	}
 }

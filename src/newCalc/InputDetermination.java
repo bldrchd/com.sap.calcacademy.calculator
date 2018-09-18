@@ -30,7 +30,11 @@ public class InputDetermination {
 
 			if (charAtIndex != ')') {
 				if (charAtIndex == '(') {
+					//System.out.println("(");
 					countLeft++;
+					operators.add(charAtIndex);
+					System.out.println(operators.toString());
+					continue;
 				}
 				if (Character.isDigit(charAtIndex)) {
 					sb.append(charAtIndex);
@@ -60,15 +64,32 @@ public class InputDetermination {
 						} else {
 					//		System.out.println(charAtIndex);
 							operators.add(charAtIndex);
+							System.out.println(operators.toString());
 						}
 					}
 				}
 			} else if (charAtIndex == ')') {
+				System.out.println(")");
 				countRight++;
 				addValueToSB();
+				System.out.println(expression.toString());
 				addOperatorToString();
+				/*do {
+					addOperatorToString();
+				} while (operators.get(operators.size() - 1).toString() != "(");*/
+				
+				/*while (operators.get(operators.size() - 1).toString() != "(") {
+					addOperatorToString();
+				} 
+				if (operators.get(operators.size() - 1).toString() == "("){
+					System.out.println("remove one (");
+					operators.remove(operators.size()-1);
+				}*/
+				System.out.println(operators.toString());
+				System.out.println(expression.toString());
 			}
 		}
+		
 		addValueToSB();
 		if (countLeft == countRight) {
 			while (!operators.isEmpty()) {
@@ -86,6 +107,7 @@ public class InputDetermination {
 				digit = Double.valueOf(sb.toString());
 			//	System.out.println(valueSign * digit.doubleValue());
 				expression.add(valueSign * digit.doubleValue());
+				System.out.println(expression.toString());
 				sb.setLength(0);
 			} catch (NumberFormatException nfe) {
 				System.err.println("Cannot convert to Double");
@@ -96,11 +118,19 @@ public class InputDetermination {
 	void addOperatorToString() {
 		if (!operators.isEmpty()) {
 			String operatorToString;
-			int lastItem = operators.size() - 1;
-			operatorToString = operators.get(lastItem).toString();
-		//	System.out.println(operatorToString + " - to be moved in expression");
-			operators.remove(lastItem);
-			expression.add(operatorToString);
+			
+			int indexOfLastItem = operators.size() - 1;
+			operatorToString = operators.get(indexOfLastItem).toString();
+			if (!operatorToString.equals("(")) {
+				System.out.println(operatorToString + " - to be moved in expression");
+				expression.add(operatorToString);
+				System.out.println(expression.toString());
+				operators.remove(indexOfLastItem);
+				addOperatorToString();
+			} else if (operatorToString.equals("(")){
+				operators.remove(indexOfLastItem);
+				System.out.println("Removing : " + operatorToString);
+			} else {}
 		}
 	}
 

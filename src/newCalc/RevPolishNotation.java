@@ -6,6 +6,10 @@ public class RevPolishNotation {
 	Number result;
 
 	public void evaluateRPN(String[] postfixExpression) {
+		for (int j=0; j<=postfixExpression.length-1; j++){
+			System.out.print(postfixExpression[j]+" ");
+		}
+		System.out.println();
 		LinkedList<Number> stack = new LinkedList<Number>();
 		Double number = null;
 
@@ -14,7 +18,7 @@ public class RevPolishNotation {
 
 			try {
 				number = Double.valueOf(token);
-				System.out.println(number + " Number parsed");
+			//	System.out.println(number + " Number parsed");
 				stack.push(number);
 				continue;
 			} catch (NumberFormatException nfe) {

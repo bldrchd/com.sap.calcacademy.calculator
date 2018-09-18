@@ -6,25 +6,25 @@ import java.util.regex.Pattern;
 public class InputPreDetermination {
 
 	String joinedString = null;
+	String finalString;
 
 	public String preValidation(String[] inputArgs) {
-		String finalString = null;
+
 		if (findLetters(inputArgs)) {
 			System.exit(1);
 		} else if (checkForWhiteSpaces(joinedString)) {
-			//System.out.println(joinedString);
-			finalString = removeWhiteSpaces(joinedString);
-			//System.out.println(finalString);
+				System.out.println(joinedString);
+				joinedString = removeWhiteSpaces(joinedString);
+				finalString = new String((joinedString));
+				System.out.println(finalString);
 		}
-		if (!checkCorrectParenthesisCount(finalString)) {
+		
+		if (!checkCorrectParenthesisCount(joinedString)) {
 			System.err.println("Count of parenthesis is not equal.");
 			System.exit(1);
 			// } else if ((findUnaceptableSymbols(finalString)){
-			//
-		} else {
-			return finalString;
-		}
-		return null;
+		} 
+	return joinedString;
 	}
 
 	boolean findLetters(String[] inputArgs) {
@@ -61,6 +61,7 @@ public class InputPreDetermination {
 
 	String removeWhiteSpaces(String joinedString) {
 		joinedString = joinedString.replaceAll("\\s+", "");
+		System.out.println(joinedString);
 		/*
 		 * Or this works also: StringBuilder strB = new StringBuilder(); for
 		 * (int i = 0; i < joinedString.length(); i++){ if
@@ -74,7 +75,7 @@ public class InputPreDetermination {
 
 	boolean checkCorrectParenthesisCount(String finalString) {
 		int countLeft = 0, countRight = 0;
-		for (int i = 0; i < finalString.length(); i++) {
+		for (int i = 0; i <= finalString.length(); i++) {
 			if (String.valueOf(i).contains("(")) {
 				countLeft++;
 			} else if (String.valueOf(i).contains(")")) {

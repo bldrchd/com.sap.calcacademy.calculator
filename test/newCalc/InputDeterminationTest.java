@@ -18,7 +18,7 @@ public class InputDeterminationTest {
 		}
 	}
 	@Test
-	public void expectedPostfixExpression_Simple() {
+	public void expectedPostfixExpression_SimpleTest() {
 		String inputString = "2+2";
 		InputDetermination id = new InputDetermination();
 		id.determinate(inputString);
@@ -29,7 +29,7 @@ public class InputDeterminationTest {
 		}
 	}
 	@Test
-	public void expectedPostfixExpression_SimpleWithDivision() {
+	public void expectedPostfixExpression_SimpleWithDivisionTest() {
 		String inputString = "2+2/3";
 		InputDetermination id = new InputDetermination();
 		id.determinate(inputString);
@@ -40,7 +40,7 @@ public class InputDeterminationTest {
 		}
 	}
 	@Test
-	public void expectedPostfixExpression_SimpleWithDivisionAndParenthesis() {
+	public void expectedPostfixExpression_SimpleWithDivisionAndParenthesisTest() {
 		String inputString = "(2+2)/3";
 		InputDetermination id = new InputDetermination();
 		id.determinate(inputString);

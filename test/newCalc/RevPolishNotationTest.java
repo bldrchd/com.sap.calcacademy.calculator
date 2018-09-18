@@ -23,8 +23,18 @@ public class RevPolishNotationTest {
 	}
 	@Test
 	public void testEvaluateRPN_SimpleWithDivision() { //TODO
+		System.out.println("From: 2+2/3");
 		String[] postfixExpression = {"2.0","2.0","3.0","/","+"};
-		Number expectedResult = 2.66666666667;
+		Number expectedResult = 2.6666666666666665;
+		RevPolishNotation rpn = new RevPolishNotation();
+		rpn.evaluateRPN(postfixExpression);
+		assertEquals(expectedResult, rpn.getResult());
+	}
+	@Test
+	public void testEvaluateRPN_SimpleWithDivisionAndParenthesis() {
+		System.out.println("From: (2+2)/3");
+		String[] postfixExpression = {"2.0","2.0","+","3.0","/"};
+		Number expectedResult = 1.3333333333333333;
 		RevPolishNotation rpn = new RevPolishNotation();
 		rpn.evaluateRPN(postfixExpression);
 		assertEquals(expectedResult, rpn.getResult());

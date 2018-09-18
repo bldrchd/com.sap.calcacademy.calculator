@@ -52,7 +52,7 @@ public class RevPolishNotation {
 				operator1 = stack.pop();
 				operator2 = stack.pop();
 				result = new DivideOperation().execute(operator1, operator2);
-				System.out.println("Current result of " + operator1 + " / " + operator2 + " = "+ result);
+				System.out.println("Current result of " + operator2 + " / " + operator1 + " = "+ result);
 				stack.push(result);
 				break;
 			default:

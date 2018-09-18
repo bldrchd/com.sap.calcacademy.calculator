@@ -30,13 +30,12 @@ public class InputDetermination {
 
 			if (charAtIndex != ')') {
 				if (charAtIndex == '(') {
-					//System.out.println("(");
 					countLeft++;
 					operators.add(charAtIndex);
 					System.out.println(operators.toString());
 					continue;
 				}
-				if (Character.isDigit(charAtIndex)) {
+				if (Character.isDigit(charAtIndex)) { //&& (!Character.isDigit(inputString.length()-1)) && !operators.isEmpty() && 
 					sb.append(charAtIndex);
 
 				} else if (isPotentialCharacter) {
@@ -47,22 +46,14 @@ public class InputDetermination {
 						valueSign = -1;
 					}
 					if (charAtIndex == '.') {
-						if (!Character.isDigit(inputString.charAt(i - 1))
-								&& matchesOperatorSymbol(inputString.charAt(i - 1))) { // e.g.: +.25 -> +0.25
-							sb.append(0 + charAtIndex);
-						}
-						if (!Character.isDigit(nextCharAtIndex) && Character.isDigit(inputString.charAt(i - 1))
-								&& matchesOperatorSymbol(nextCharAtIndex)) { // e.g: 2.+1 -> 2.0+1
-							sb.append(0);
-						}
+						doubleValueManipulation(inputString, i, charAtIndex, nextCharAtIndex);
 					}
-
-					addValueToSB();
+					addNumberFromBufferToExpression();
+					
 					if (matchesOperatorSymbol(charAtIndex)) {
 						if (valueSign == -1) {
 					//		System.out.println("skip record of -");
 						} else {
-					//		System.out.println(charAtIndex);
 							operators.add(charAtIndex);
 							System.out.println(operators.toString());
 						}
@@ -71,41 +62,40 @@ public class InputDetermination {
 			} else if (charAtIndex == ')') {
 				System.out.println(")");
 				countRight++;
-				addValueToSB();
+				addNumberFromBufferToExpression();
 				System.out.println(expression.toString());
-				addOperatorToString();
-				/*do {
-					addOperatorToString();
-				} while (operators.get(operators.size() - 1).toString() != "(");*/
-				
-				/*while (operators.get(operators.size() - 1).toString() != "(") {
-					addOperatorToString();
-				} 
-				if (operators.get(operators.size() - 1).toString() == "("){
-					System.out.println("remove one (");
-					operators.remove(operators.size()-1);
-				}*/
+				addOperatorFromOStackToExpression();
 				System.out.println(operators.toString());
 				System.out.println(expression.toString());
 			}
 		}
 		
-		addValueToSB();
+		addNumberFromBufferToExpression();
 		if (countLeft == countRight) {
 			while (!operators.isEmpty()) {
-				addOperatorToString();
+				addOperatorFromOStackToExpression();
 			}
 			buildFinalPostfixExpression();
 		} else {
 			System.err.println("Parenthesis count not equal");
 		}
 	}
+	
+	void doubleValueManipulation(String inputString, int i, char charAtIndex, char nextCharAtIndex){
+		if (!Character.isDigit(inputString.charAt(i - 1))
+				&& matchesOperatorSymbol(inputString.charAt(i - 1))) { // e.g.: +.25 -> +0.25
+			sb.append(0 + charAtIndex);
+		}
+		if (!Character.isDigit(nextCharAtIndex) && Character.isDigit(inputString.charAt(i - 1))
+				&& matchesOperatorSymbol(nextCharAtIndex)) { // e.g: 2.+1 -> 2.0+1
+			sb.append(0);
+		}
+	}
 
-	void addValueToSB() {
+	void addNumberFromBufferToExpression() {
 		if (sb.length() != 0) {
 			try {
 				digit = Double.valueOf(sb.toString());
-			//	System.out.println(valueSign * digit.doubleValue());
 				expression.add(valueSign * digit.doubleValue());
 				System.out.println(expression.toString());
 				sb.setLength(0);
@@ -115,18 +105,22 @@ public class InputDetermination {
 		}
 	}
 
-	void addOperatorToString() {
+	void addOperatorFromOStackToExpression() {
+		
 		if (!operators.isEmpty()) {
 			String operatorToString;
-			
 			int indexOfLastItem = operators.size() - 1;
 			operatorToString = operators.get(indexOfLastItem).toString();
+			
 			if (!operatorToString.equals("(")) {
-				System.out.println(operatorToString + " - to be moved in expression");
+				
+				System.out.println(operatorToString + " to be moved in expression");
 				expression.add(operatorToString);
 				System.out.println(expression.toString());
 				operators.remove(indexOfLastItem);
-				addOperatorToString();
+				
+				addOperatorFromOStackToExpression();
+				
 			} else if (operatorToString.equals("(")){
 				operators.remove(indexOfLastItem);
 				System.out.println("Removing : " + operatorToString);

@@ -16,14 +16,16 @@ public class InputPreDetermination {
 				System.out.println(joinedString);
 				joinedString = removeWhiteSpaces(joinedString);
 				finalString = new String((joinedString));
-				System.out.println(finalString);
+				System.out.println(joinedString);
 		}
 		
 		if (!checkCorrectParenthesisCount(joinedString)) {
 			System.err.println("Count of parenthesis is not equal.");
 			System.exit(1);
-			// } else if ((findUnaceptableSymbols(finalString)){
 		} 
+		if (findUnaceptableSymbols(joinedString)) {
+			System.exit(1);
+		}
 	return joinedString;
 	}
 
@@ -75,10 +77,10 @@ public class InputPreDetermination {
 
 	boolean checkCorrectParenthesisCount(String finalString) {
 		int countLeft = 0, countRight = 0;
-		for (int i = 0; i <= finalString.length(); i++) {
-			if (String.valueOf(i).contains("(")) {
+		for (int i = 0; i <= finalString.length()-1; i++) {
+			if (finalString.charAt(i) == '(') {
 				countLeft++;
-			} else if (String.valueOf(i).contains(")")) {
+			} else if (finalString.charAt(i) ==')') {
 				countRight++;
 			}
 		}
@@ -91,7 +93,10 @@ public class InputPreDetermination {
 
 	boolean findUnaceptableSymbols(String finalString) {
 		for (int i = 0; i < finalString.length(); i++) {
-			// if String.valueOf(i).contains(!)
+			 if (finalString.charAt(i) == ',' || finalString.charAt(i) == '@' || finalString.charAt(i) == '^' || finalString.charAt(i) == '%') {
+				 System.err.println("Unacceptable character found: " + finalString.charAt(i));
+				 return true;
+			 }
 		}
 		return false;
 	}

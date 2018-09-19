@@ -6,6 +6,7 @@ public class RevPolishNotation {
 	Number result;
 
 	public void evaluateRPN(String[] postfixExpression) {
+		System.out.println("------------Calculation------------");
 		for (int j=0; j<=postfixExpression.length-1; j++){
 			System.out.print(postfixExpression[j]+" ");
 		}
@@ -18,8 +19,8 @@ public class RevPolishNotation {
 
 			try {
 				number = Double.valueOf(token);
-			//	System.out.println(number + " Number parsed");
 				stack.push(number);
+				System.out.println("Stack: "+ stack.toString());
 				continue;
 			} catch (NumberFormatException nfe) {
 			}
@@ -33,13 +34,15 @@ public class RevPolishNotation {
 				System.out.println("Current result of " + operator1 +  " + " + operator2 + " = " + result);
 				System.out.println(result);
 				stack.push(result);
+				System.out.println("Stack"+ stack.toString());
 				break;
 			case "-":
-				operator1 = stack.pop();
 				operator2 = stack.pop();
+				operator1 = stack.pop();
 				result = new SubtractOperation().execute(operator1, operator2);
 				System.out.println("Current result of " + operator1 + " - "+ operator2  + " = " + result);
 				stack.push(result);
+				System.out.println("Stack"+ stack.toString());
 				break;
 			case "*":
 				operator1 = stack.pop();
@@ -47,13 +50,15 @@ public class RevPolishNotation {
 				result = new MultiplyOperation().execute(operator1, operator2);
 				System.out.println("Current result of " + operator1 + " * "+ operator2 + " = " + result);
 				stack.push(result);
+				System.out.println("Stack"+ stack.toString());
 				break;
 			case "/":
-				operator1 = stack.pop();
 				operator2 = stack.pop();
+				operator1 = stack.pop();
 				result = new DivideOperation().execute(operator1, operator2);
 				System.out.println("Current result of " + operator2 + " / " + operator1 + " = "+ result);
 				stack.push(result);
+				System.out.println("Stack"+ stack.toString());
 				break;
 			default:
 				System.out.println("Not operator");

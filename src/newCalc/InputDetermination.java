@@ -35,10 +35,7 @@ public class InputDetermination {
 				continue;
 			}
 			
-			if (Character.isDigit(charAtIndex)) { // &&
-													// (!Character.isDigit(inputString.length()-1))
-													// && !operators.isEmpty()
-													// &&
+			if (Character.isDigit(charAtIndex)) { 
 				sb.append(charAtIndex);
 			} else if (isPotentialCharacter) {
 
@@ -51,12 +48,16 @@ public class InputDetermination {
 					doubleValueManipulation(inputString, i, charAtIndex, nextCharAtIndex);
 				}
 				addNumberFromBufferToExpression();
-				addOperatorFromOStackToExpression();
+				//addOperatorFromOStackToExpression();
 
 				if (matchesOperatorSymbol(charAtIndex)) {
 					if (valueSign == -1) {
 						// System.out.println("skip record of -");
-					} else {
+						//currently not used
+					} //TODO - check if empty condition that will empty stack if no ( found. 
+					/*if (!operators.isEmpty() && !operators.contains("(")) {
+						addOperatorFromOStackToExpression();*/
+					 else {
 						operators.add(charAtIndex);
 						System.out.println(operators.toString());
 					}
@@ -75,11 +76,12 @@ public class InputDetermination {
 		}
 
 		addNumberFromBufferToExpression();
+		
 		if (countLeft == countRight) {
 			if (!operators.isEmpty()) {
 				addOperatorFromOStackToExpression();
 			}
-			buildFinalPostfixExpression();
+			//buildFinalPostfixExpression();
 		} else {
 			System.err.println("Parenthesis count still not equal to proceed...");
 		}
@@ -153,9 +155,7 @@ public class InputDetermination {
 					System.out.println(operators.toString());
 					
 				addOperatorFromOStackToExpression();
-			} else if (operators.isEmpty()){ //not needed?
-				System.out.println(operators.toString());
-			}
+			} 
 		}
 	}
 

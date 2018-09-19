@@ -51,6 +51,7 @@ public class InputDetermination {
 					doubleValueManipulation(inputString, i, charAtIndex, nextCharAtIndex);
 				}
 				addNumberFromBufferToExpression();
+				addOperatorFromOStackToExpression();
 
 				if (matchesOperatorSymbol(charAtIndex)) {
 					if (valueSign == -1) {
@@ -136,19 +137,25 @@ public class InputDetermination {
 		if (!operators.isEmpty()) {
 			int indexOfLastItem = operators.size() - 1;
 			char lastOperatorInStack = operators.get(operators.size()-1);
+			
 			if (lastOperatorInStack != '(') {
-					System.out.println(lastOperatorInStack + " to be moved in expression");
+				System.out.println(lastOperatorInStack + " to be moved in expression");
 				expression.add(lastOperatorInStack);
 					System.out.println(expression.toString());
 				operators.remove(indexOfLastItem);
 					System.out.println(operators.toString());
 
 				addOperatorFromOStackToExpression();
-			} else if (lastOperatorInStack == '(') {
+
+			} else if (lastOperatorInStack == '(' ) {
 				operators.remove(indexOfLastItem);
-				System.out.println("Removing : " + lastOperatorInStack);
+					System.out.println("Removing : " + lastOperatorInStack);
+					System.out.println(operators.toString());
+					
+				addOperatorFromOStackToExpression();
+			} else if (operators.isEmpty()){ //not needed?
 				System.out.println(operators.toString());
-			} 
+			}
 		}
 	}
 

@@ -8,7 +8,7 @@ import junit.framework.AssertionFailedError;
 public class RevPolishNotationTest {
 
 	@Test
-	public void testEvaluateRPN() { //TODO
+	public void testEvaluateRPN_Complex() { //TODO
 			System.out.println(" --- " + new Object(){}.getClass().getEnclosingMethod().getName() + " --- ");
 		String[] postfixExpression = {"22.0","3.0","5.0","/","+","1.0","+","1","-","3","-","-"};
 		Number expectedResult = 25.6;

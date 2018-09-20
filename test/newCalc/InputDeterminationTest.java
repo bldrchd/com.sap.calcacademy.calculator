@@ -7,7 +7,7 @@ import org.junit.Test;
 public class InputDeterminationTest {
 
 	@Test
-	public void expectedPostfixExpressionTest() { //TODO
+	public void expectedPostfixExpressionTest_Complex() { //TODO
 		System.out.println(" --- " + new Object(){}.getClass().getEnclosingMethod().getName() + " --- ");
 		String inputString = "22+(3/5)+1-1-(-3)";
 		InputDetermination id = new InputDetermination();
@@ -17,7 +17,6 @@ public class InputDeterminationTest {
 		for (int i = 0; i<=postfixExpression_Actual.length-1; i++) {
 			assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i])); 
 		}
-		System.out.println(postfixExpression_Actual);
 	}
 	@Test
 	public void expectedPostfixExpression_SimpleTest() {

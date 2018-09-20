@@ -5,12 +5,8 @@ import java.util.Stack;
 
 public class InputDetermination {
 
-//	private ArrayList<Character> operators = new ArrayList<Character>();
 	private ArrayList<Object> expression = new ArrayList<Object>();
 	private StringBuilder sb = new StringBuilder();
-//	private Double digit = 0.0;
-	//double valueSign = 1;
-	//private Stack<Double> values = new Stack<Double>();
 	private Stack<Character> operatorsStack = new Stack<Character>();
 
 	void determinate(String inputString) {
@@ -22,7 +18,8 @@ public class InputDetermination {
 		char currentChar;
 		for (int i=0; i < inputString.length(); ++i) {
 			currentChar = inputString.charAt(i);
-			System.out.println("i="+i+" current char="+currentChar+" operators="+operatorsStack);
+			//System.out.println("i="+i+" current char="+currentChar+" operators="+operatorsStack);
+			
 // If the scanned character is a digit, add it to buffer and collect the value to the expression.			
 			if (Character.isDigit(currentChar)) {
 				while ( i < inputString.length() && Character.isDigit(inputString.charAt(i))) {
@@ -32,37 +29,38 @@ public class InputDetermination {
 				expression.add(Double.parseDouble(sb.toString()));
 				sb.setLength(0);
 				i--;
-				System.out.println(expression);
+				//System.out.println(expression);
 // If the scanned character is an '(', push it to the stack.
 			} else if (currentChar == '(') {
 				operatorsStack.push(currentChar);
-				System.out.println(operatorsStack);
+				//System.out.println(operatorsStack);
 //If the scanned character is an ')', pop and output from the stack until an '(' is encountered.
 			} else if (currentChar == ')') {
 				while (!operatorsStack.isEmpty() && operatorsStack.peek() != '(') {
 					expression.add(operatorsStack.pop());
-					System.out.println(expression);
+				//	System.out.println(expression);
 				} 
 				if (!operatorsStack.isEmpty() && operatorsStack.peek() != '(') {
 					System.err.println("Invalid Expression");
 				} else {
 					operatorsStack.pop();
-					System.out.println(operatorsStack);
+				//	System.out.println(operatorsStack);
 				}
 // an operator is encountered
 			} else { 
 				while (!operatorsStack.isEmpty() && (precedenceOfSymbol(currentChar)<= precedenceOfSymbol(operatorsStack.peek()))) {
 					expression.add(operatorsStack.pop());
-					System.out.println(expression);
+				//	System.out.println(expression);
 				}
 				operatorsStack.push(currentChar);
-				System.out.println(operatorsStack);
+				//System.out.println(operatorsStack);
 			}
 		}
 		while (!operatorsStack.isEmpty()) {
 			expression.add(operatorsStack.pop());
-			System.out.println(expression);
+			//System.out.println(expression);
 		}
+		System.out.println(expression);
 		buildFinalPostfixExpression();
 
 	}
@@ -82,43 +80,6 @@ public class InputDetermination {
 			sb.append(0);
 		}
 	}
-
-/*	void addNumberFromBufferToExpression() {
-		if (sb.length() != 0) {
-			try {
-				digit = Double.valueOf(sb.toString());
-				expression.add(valueSign * digit.doubleValue());
-					System.out.println(expression.toString());
-				sb.setLength(0);
-			} catch (NumberFormatException nfe) {
-				System.err.println("Cannot convert to Double");
-			}
-		}
-	}
-
-	void addOperatorFromOStackToExpression() {
-
-		//if (!operatros.isEmpty)
-			int indexOfLastItem = operators.size() - 1;
-			char lastOperatorInStack = operators.get(operators.size()-1);
-			
-			if (lastOperatorInStack != '(') {
-				System.out.println(lastOperatorInStack + " to be moved in expression");
-				expression.add(lastOperatorInStack);
-					System.out.println(expression.toString());
-				operators.remove(indexOfLastItem);
-					System.out.println(operators.toString());
-
-				addOperatorFromOStackToExpression();
-
-			} else if (lastOperatorInStack == '(' ) {
-				operators.remove(indexOfLastItem);
-					System.out.println("Removing : " + lastOperatorInStack);
-					System.out.println(operators.toString());
-					
-				addOperatorFromOStackToExpression();
-		}
-	}*/
 
 	
 	String[] buildFinalPostfixExpression() {

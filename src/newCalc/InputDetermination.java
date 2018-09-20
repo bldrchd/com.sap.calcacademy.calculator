@@ -1,111 +1,73 @@
 package newCalc;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class InputDetermination {
 
-	private ArrayList<Character> operators = new ArrayList<Character>();
+//	private ArrayList<Character> operators = new ArrayList<Character>();
 	private ArrayList<Object> expression = new ArrayList<Object>();
 	private StringBuilder sb = new StringBuilder();
-	private Double digit = 0.0;
-	double valueSign = 1;
+//	private Double digit = 0.0;
+	//double valueSign = 1;
+	//private Stack<Double> values = new Stack<Double>();
+	private Stack<Character> operatorsStack = new Stack<Character>();
 
 	void determinate(String inputString) {
-
-		int countLeft = 0, countRight = 0;
-		char nextCharAtIndex = 0;
-
+		
 		if (inputString.charAt(0) == ')') {
 			System.out.println("ERR - starts with )");
 			System.exit(1);
 		}
-
-		for (int i = 0; i <= inputString.length() - 1; ++i) {
-
-			char charAtIndex = inputString.charAt(i);
-			if (i < inputString.length() - 1) {
-				nextCharAtIndex = inputString.charAt(i + 1);
-			}
-			boolean isPotentialCharacter = (!Character.isDigit(charAtIndex) || i != inputString.length());
-
-			if (charAtIndex == '(') {
-				countLeft++;
-				operators.add(charAtIndex);
-				System.out.println(operators.toString());
-				continue;
-			}
-			
-			if (Character.isDigit(charAtIndex)) { 
-				sb.append(charAtIndex);
-			} else if (isPotentialCharacter) {
-
-/*				if ((!Character.isDigit(nextCharAtIndex) || (i + 1) != inputString.length()) && nextCharAtIndex == '-'
-						&& Character.isDigit(inputString.charAt(i + 2))) {
-					 System.out.println("Negative :");
-					valueSign = -1;
-				}*/
-				if (charAtIndex == '.') {
-					doubleValueManipulation(inputString, i, charAtIndex, nextCharAtIndex);
+		char currentChar;
+		for (int i=0; i < inputString.length(); ++i) {
+			currentChar = inputString.charAt(i);
+			System.out.println("i="+i+" current char="+currentChar+" operators="+operatorsStack);
+// If the scanned character is a digit, add it to buffer and collect the value to the expression.			
+			if (Character.isDigit(currentChar)) {
+				while ( i < inputString.length() && Character.isDigit(inputString.charAt(i))) {
+					sb.append(inputString.charAt(i++));
+				} 
+				//TODO- try/catch
+				expression.add(Double.parseDouble(sb.toString()));
+				sb.setLength(0);
+				i--;
+				System.out.println(expression);
+// If the scanned character is an '(', push it to the stack.
+			} else if (currentChar == '(') {
+				operatorsStack.push(currentChar);
+				System.out.println(operatorsStack);
+//If the scanned character is an ')', pop and output from the stack until an '(' is encountered.
+			} else if (currentChar == ')') {
+				while (!operatorsStack.isEmpty() && operatorsStack.peek() != '(') {
+					expression.add(operatorsStack.pop());
+					System.out.println(expression);
+				} 
+				if (!operatorsStack.isEmpty() && operatorsStack.peek() != '(') {
+					System.err.println("Invalid Expression");
+				} else {
+					operatorsStack.pop();
+					System.out.println(operatorsStack);
 				}
-				addNumberFromBufferToExpression();
-				//addOperatorFromOStackToExpression();
-
-				if (matchesOperatorSymbol(charAtIndex)) {
-					if (valueSign == -1) {
-						// System.out.println("skip record of -");
-						//currently not used
-					} //TODO - check if empty condition that will empty stack if no ( found. 
-					/*if (!operators.isEmpty() && !operators.contains("(")) {
-						addOperatorFromOStackToExpression();*/
-					 else {
-						operators.add(charAtIndex);
-						System.out.println(operators.toString());
-					}
+// an operator is encountered
+			} else { 
+				while (!operatorsStack.isEmpty() && (precedenceOfSymbol(currentChar)<= precedenceOfSymbol(operatorsStack.peek()))) {
+					expression.add(operatorsStack.pop());
+					System.out.println(expression);
 				}
-			}
-			
-			if (charAtIndex == ')') {
-					System.out.println(" Found )");
-				countRight++;
-				addNumberFromBufferToExpression();
-					System.out.println(expression.toString());
-				addOperatorFromOStackToExpression();
-					System.out.println(operators.toString());
-					System.out.println(expression.toString());
+				operatorsStack.push(currentChar);
+				System.out.println(operatorsStack);
 			}
 		}
-
-		addNumberFromBufferToExpression();
-		
-		if (countLeft == countRight) {
-			if (!operators.isEmpty()) {
-				addOperatorFromOStackToExpression();
-			}
-			//buildFinalPostfixExpression();
-		} else {
-			System.err.println("Parenthesis count still not equal to proceed...");
+		while (!operatorsStack.isEmpty()) {
+			expression.add(operatorsStack.pop());
+			System.out.println(expression);
 		}
 		buildFinalPostfixExpression();
+
 	}
 
-	void test() {
-		while (operators.get(operators.size() - 1) != '(') {
-			// addOperatorFromOStackToExpression();
-			char topOperator = operators.get(operators.size() - 1);
-			if (topOperator != '(') {
-				expression.add(topOperator);
-				System.out.println(topOperator + " to be moved in expression");
-				System.out.println(expression.toString());
-				System.out.println(operators.toString());
-				operators.remove(operators.size() - 1);
-				System.out.println(operators.toString());
-				System.out.println(expression.toString());
-			}
-			if (!operators.isEmpty()) {
-				test();
-			}
-		}
-	}
+
 
 	void doubleValueManipulation(String inputString, int i, char charAtIndex, char nextCharAtIndex) {
 		if (!Character.isDigit(inputString.charAt(i - 1)) && matchesOperatorSymbol(inputString.charAt(i - 1))) { // e.g.:
@@ -121,7 +83,7 @@ public class InputDetermination {
 		}
 	}
 
-	void addNumberFromBufferToExpression() {
+/*	void addNumberFromBufferToExpression() {
 		if (sb.length() != 0) {
 			try {
 				digit = Double.valueOf(sb.toString());
@@ -136,7 +98,7 @@ public class InputDetermination {
 
 	void addOperatorFromOStackToExpression() {
 
-		if (!operators.isEmpty()) {
+		//if (!operatros.isEmpty)
 			int indexOfLastItem = operators.size() - 1;
 			char lastOperatorInStack = operators.get(operators.size()-1);
 			
@@ -155,10 +117,10 @@ public class InputDetermination {
 					System.out.println(operators.toString());
 					
 				addOperatorFromOStackToExpression();
-			} 
 		}
-	}
+	}*/
 
+	
 	String[] buildFinalPostfixExpression() {
 
 		String[] postfixExpression = new String[expression.size()];
@@ -169,6 +131,7 @@ public class InputDetermination {
 		}
 		return postfixExpression;
 	}
+
 
 	boolean matchesOperatorSymbol(char oper) {
 		switch (oper) {
@@ -183,20 +146,16 @@ public class InputDetermination {
 		}
 		return false;
 	}
-
-	/*
-	 * just a try
-	 * 
-	 * if (Character.isDigit(charAtIndex)) { sb.append(charAtIndex); } else if
-	 * (charAtIndex == ')' && !operators.isEmpty()) { test(); while
-	 * (operators.get(operators.size()-1) != '(') {
-	 * //addOperatorFromOStackToExpression(); char topOperator =
-	 * operators.get(operators.size()-1); if (topOperator != '(') {
-	 * expression.add(topOperator); System.out.println(topOperator +
-	 * " to be moved in expression"); System.out.println(expression.toString());
-	 * operators.remove(operators.size()-1); } } } else { while
-	 * (!operators.isEmpty() ) {
-	 * 
-	 * } } addNumberFromBufferToExpression();
-	 */
+	
+	int precedenceOfSymbol(char ch) {
+		switch (ch) {
+		case '+' : return 1;
+		case '-' : return 1;
+		case '*' : return 2;
+		case '/' : return 2;
+		case '(' : return 0;
+		case ')' : return 0;
+		default: return 0;
+		}
+	}
 }

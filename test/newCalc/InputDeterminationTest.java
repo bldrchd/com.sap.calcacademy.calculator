@@ -13,10 +13,11 @@ public class InputDeterminationTest {
 		InputDetermination id = new InputDetermination();
 		id.determinate(inputString);
 		String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
-		String[] postfixExpression_Expected = {"22.0","3.0","5.0","/","+","1.0","+","1","-","3","-","-"};
+		String[] postfixExpression_Expected = {"22.0","3.0","5.0","/","+","1.0","+","1.0","-","3.0","-","-"};
 		for (int i = 0; i<=postfixExpression_Actual.length-1; i++) {
 			assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i])); 
 		}
+		System.out.println(postfixExpression_Actual);
 	}
 	@Test
 	public void expectedPostfixExpression_SimpleTest() {

@@ -21,7 +21,7 @@ public class RevPolishNotationTest {
 	public void testEvaluateRPN_ComplexWithNegatives() { //TODO
 			System.out.println(" --- " + new Object(){}.getClass().getEnclosingMethod().getName() + " --- ");
 			//22+(3/5)+1-1-(-3)
-		String[] postfixExpression = {"22.0","3.0","5.0","/","+","1.0","+","1","-","3","-","-"};
+		String[] postfixExpression = {"22.0","3.0","5.0","/","+","1.0","+","1","-","-3","-"};
 		Number expectedResult = 25.6;
 		RevPolishNotation rpn = new RevPolishNotation();
 		rpn.evaluateRPN(postfixExpression);
@@ -80,6 +80,16 @@ public class RevPolishNotationTest {
 		System.out.println("Test: 2-3= ");
 		String[] postfixExpression = {"2.0","3.0","-"};
 		Number expectedResult = -1.0;
+		RevPolishNotation rpn = new RevPolishNotation();
+		rpn.evaluateRPN(postfixExpression);
+		assertEquals(expectedResult, rpn.getResult());
+	}
+	@Test
+	public void testEvaluateRPN_SimpleNegative() {
+		System.out.println(" --- " + new Object(){}.getClass().getEnclosingMethod().getName() + " --- ");
+		System.out.println("Test: 1--3= ");
+		String[] postfixExpression = {"1.0","-3.0","-"};
+		Number expectedResult = 4.0;
 		RevPolishNotation rpn = new RevPolishNotation();
 		rpn.evaluateRPN(postfixExpression);
 		assertEquals(expectedResult, rpn.getResult());

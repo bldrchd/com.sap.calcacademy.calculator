@@ -8,6 +8,7 @@ public class InputDetermination {
 	private ArrayList<Object> expression = new ArrayList<Object>();
 	private StringBuilder sb = new StringBuilder();
 	private Stack<Character> operatorsStack = new Stack<Character>();
+	private int valueSign = 1;
 
 	void determinate(String inputString) {
 		
@@ -26,10 +27,12 @@ public class InputDetermination {
 					sb.append(inputString.charAt(i++));
 				} 
 				//TODO- try/catch
-				expression.add(Double.parseDouble(sb.toString()));
+				expression.add(Double.parseDouble(sb.toString())*valueSign);
 				sb.setLength(0);
 				i--;
 				//System.out.println(expression);
+			} else if (currentChar == '-' && (precedenceOfSymbol(inputString.charAt(i-1))!= -1) && Character.isDigit(inputString.charAt(i+1))) {
+				valueSign = -1;
 // If the scanned character is an '(', push it to the stack.
 			} else if (currentChar == '(') {
 				operatorsStack.push(currentChar);
@@ -116,7 +119,7 @@ public class InputDetermination {
 		case '/' : return 2;
 		case '(' : return 0;
 		case ')' : return 0;
-		default: return 0;
+		default: return -1;
 		}
 	}
 }

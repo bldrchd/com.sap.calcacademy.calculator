@@ -94,6 +94,26 @@ public class RevPolishNotationTest {
 		rpn.evaluateRPN(postfixExpression);
 		assertEquals(expectedResult, rpn.getResult());
 	}
+	@Test
+	public void testEvaluateRPN_SimpleTwoNegatives() {
+		System.out.println(" --- " + new Object(){}.getClass().getEnclosingMethod().getName() + " --- ");
+		System.out.println("Test: -5-6= ");
+		String[] postfixExpression = {"-5.0","6.0","-"};
+		Number expectedResult = -11.0;
+		RevPolishNotation rpn = new RevPolishNotation();
+		rpn.evaluateRPN(postfixExpression);
+		assertEquals(expectedResult, rpn.getResult());
+	}
+	@Test
+	public void testEvaluateRPN_SimpleStartingWithNegative() {
+		System.out.println(" --- " + new Object(){}.getClass().getEnclosingMethod().getName() + " --- ");
+		System.out.println("Test: -5+6= ");
+		String[] postfixExpression = {"-5.0","6.0","+"};
+		Number expectedResult = 1.0;
+		RevPolishNotation rpn = new RevPolishNotation();
+		rpn.evaluateRPN(postfixExpression);
+		assertEquals(expectedResult, rpn.getResult());
+	}
 	@Test(expected = ArithmeticException.class)
 	public void testEvaluateRPN_DivideByZero() {
 		System.out.println(" --- " + new Object(){}.getClass().getEnclosingMethod().getName() + " --- ");

@@ -10,24 +10,17 @@ public class CalculatorTest {
 	public void testOverallCalculate(){
 		String[] args = {"1+", "2"};
 		Calculator calc = new Calculator();
-		assertNotNull(calc.calculate(args));
-	}
-	@Test
-	public void testInputParser_notNull(){
-		String[] args = {"1+", "2"};
-		InputParser ip = new InputParser();
-		Expression exp = ip.parse(args);
-		assertNotNull(exp);
+		assertNotNull(calc.getResult(args));
 	}
 	
 	@Test
 	public void testOverallOperations(){
 		String[] args1 = {"2+2"}, args2 = {"2-2"}, args3 = {"2*2"}, args4 = {"2/2"};
 		Calculator calculator = new Calculator();
-		assertEquals(4, calculator.calculate(args1));
-		assertEquals(4, calculator.calculate(args2));
-		assertEquals(0, calculator.calculate(args3));
-		assertEquals(1, calculator.calculate(args4));
+		assertEquals(4.0, calculator.getResult(args1));
+		assertEquals(0.0, calculator.getResult(args2));
+		assertEquals(4.0, calculator.getResult(args3));
+		assertEquals(1.0, calculator.getResult(args4));
 	}
 	@Test
 	public void testAddOperation(){
@@ -61,20 +54,7 @@ public class CalculatorTest {
 		assertTrue(add.equals(new AddOperation().execute(1, 2)));
 		assertFalse(add.equals(new AddOperation().execute(2, 3)));
 	}
-	@Test
-	public void testToken(){
-		String operator = "+";
-		Token t = new Token(operator);
-		//System.out.println(t.operatorToString(t));
-		assertTrue(t.operatorToString(t).equals(operator));
-		Number operand1 = 1;
-		Token t1 = new Token(operand1.doubleValue());
-		assertTrue(t1.operandToDouble(t1).equals(operand1.doubleValue()));
-		Token t2 = new Token("-");
-		Number A = t2.evaluate(1, 2).execute();
-		Number B = -1.0;
-		assertEquals(B, A);
-	}
+
 	@Test
 	public void testTokenStack_notEmpty(){
 		TokenStack ts = new TokenStack();

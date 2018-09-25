@@ -1,7 +1,7 @@
 package newCalc;
 
 public class Calculator extends Main {
-
+	private Number result = 0;
 	public void calculate(String[] args) {
 
 		if (args.length != 0) {
@@ -14,10 +14,15 @@ public class Calculator extends Main {
 			String[] postfixExpression = id.buildFinalPostfixExpression();
 
 			rpn.evaluateRPN(postfixExpression);
+			result = rpn.getResult();
 			
 		} else {
 			System.err.println("There is no input to calculate.");
 			System.exit(1);
 		}
+	}
+	public Number getResult(String[] args) {
+		calculate(args);
+		return result;
 	}
 }

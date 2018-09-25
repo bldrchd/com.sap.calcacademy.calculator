@@ -7,7 +7,7 @@ import org.junit.Test;
 public class InputDeterminationTest {
 
 	@Test
-	public void expectedPostfixExpressionTest_Complex() { //TODO
+	public void expectedPostfixExpressionTest_Complex() { 
 		System.out.println(" --- " + new Object(){}.getClass().getEnclosingMethod().getName() + " --- ");
 		String inputString = "22+(3/5)+1-1-(-3)";
 		InputDetermination id = new InputDetermination();

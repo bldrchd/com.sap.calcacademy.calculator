@@ -33,15 +33,13 @@ public class InputDetermination {
 				valueSign=1;
 				i--;
 				//System.out.println(expression);
-			} else if (currentChar == '-') { 
 				//Looking for negative values
-				if ( (i>0 && precedenceOfSymbol(inputString.charAt(i-1))!= -1) && Character.isDigit(inputString.charAt(i+1)) ) {
+			} else if (currentChar == '-' && (i>0 && precedenceOfSymbol(inputString.charAt(i-1))!= -1) && Character.isDigit(inputString.charAt(i+1)) ) {
 					valueSign = -1;
-				} else if ( (i==0) && Character.isDigit(inputString.charAt(i+1))) {
+			} else if ( currentChar == '-' && (i==0) && Character.isDigit(inputString.charAt(i+1))) {
 					valueSign = -1; 
-				} else if ( (i>0) && Character.isDigit(inputString.charAt(i+1)) && inputString.charAt(i-1)== '-') {
+			} else if ( currentChar == '-' && (i>0) && Character.isDigit(inputString.charAt(i+1)) && inputString.charAt(i-1)== '-') {
 					valueSign = 1;
-				}
 // If the scanned character is an '(', push it to the stack.
 			} else if (currentChar == '(') {
 				operatorsStack.push(currentChar);

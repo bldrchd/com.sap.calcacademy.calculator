@@ -3,8 +3,6 @@ package newCalc;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import junit.framework.AssertionFailedError;
-
 public class RevPolishNotationTest {
 
 	@Test
@@ -18,7 +16,7 @@ public class RevPolishNotationTest {
 		assertEquals(expectedResult, rpn.getResult());
 	}
 	@Test
-	public void testEvaluateRPN_ComplexWithNegatives() { //TODO
+	public void testEvaluateRPN_ComplexWithNegatives() { 
 			System.out.println(" --- " + new Object(){}.getClass().getEnclosingMethod().getName() + " --- ");
 			//22+(3/5)+1-1-(-3)
 		String[] postfixExpression = {"22.0","3.0","5.0","/","+","1.0","+","1","-","-3","-"};

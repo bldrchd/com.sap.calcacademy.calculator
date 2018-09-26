@@ -6,7 +6,6 @@ public class RevPolishNotation {
 	Number result;
 	String token;
 	LinkedList<Number> stack = new LinkedList<Number>();
-//	LinkedList<String> operators = new LinkedList<String>();
 
 	public void evaluateRPN(String[] postfixExpression) {
 		System.out.println("------------Calculation------------");
@@ -69,47 +68,7 @@ public class RevPolishNotation {
 	Number getResult() {
 		return result;
 	}
-	void calculate() {
-		Number operator1, operator2, result;
-		switch (token) {
-		case "+":
-			operator1 = stack.pop();
-			operator2 = stack.pop();
-			result = new AddOperation().execute(operator1, operator2);
-			System.out.println("Current result of " + operator1 +  " + " + operator2 + " = " + result);
-			System.out.println(result);
-			stack.push(result);
-			System.out.println("Stack"+ stack.toString());
-			break;
-		case "-":
-			operator2 = stack.pop();
-			operator1 = stack.pop();
-			result = new SubtractOperation().execute(operator1, operator2);
-			System.out.println("Current result of " + operator1 + " - "+ operator2  + " = " + result);
-			stack.push(result);
-			System.out.println("Stack"+ stack.toString());
-			break;
-		case "*":
-			operator1 = stack.pop();
-			operator2 = stack.pop();
-			result = new MultiplyOperation().execute(operator1, operator2);
-			System.out.println("Current result of " + operator1 + " * "+ operator2 + " = " + result);
-			stack.push(result);
-			System.out.println("Stack"+ stack.toString());
-			break;
-		case "/":
-			operator1 = stack.pop();
-			operator2 = stack.pop();
-			result = new DivideOperation().execute(operator1, operator2);
-			System.out.println("Current result of " + operator2 + " / " + operator1 + " = "+ result);
-			stack.push(result);
-			System.out.println("Stack"+ stack.toString());
-			break;
-		default:
-			System.out.println("Not operator");
-			break;
-		}
-	}
+	
 	boolean hasPrecedence(String oper1, String oper2) {
 		if (oper1.equals("*") || oper1.equals("/") && (oper2.equals("+") || oper2.equals("-"))){
 			return false;

@@ -17,23 +17,25 @@ public class InputDetermination {
 			System.exit(1);
 		}
 		char currentChar;
+		int length = inputString.length();
 		for (int i=0; i < inputString.length(); ++i) {
 			currentChar = inputString.charAt(i);
 			//System.out.println("i="+i+" current char="+currentChar+" operators="+operatorsStack);
 			
 // If the scanned character is a digit, add it to buffer and collect the value to the expression.			
 			if (Character.isDigit(currentChar)) {
-				while ( i < inputString.length() && Character.isDigit(inputString.charAt(i))) {
+				while ( (i < length) && ( Character.isDigit(inputString.charAt(i)) || inputString.charAt(i)=='.' ) || inputString.charAt(i+1)==0 ) {
 					sb.append(inputString.charAt(i++));
+//					System.out.println(sb.toString());
+					if (i==length){ break; }
 				} 
-				//TODO- try/catch
-				
 				expression.add(Double.parseDouble(sb.toString())*valueSign);
 				sb.setLength(0);
 				valueSign=1;
 				i--;
-				//System.out.println(expression);
-				//Looking for negative values
+//				System.out.println(expression);
+
+//Looking for negative values
 			} else if (currentChar == '-' && (i>0 && precedenceOfSymbol(inputString.charAt(i-1))!= -1) && Character.isDigit(inputString.charAt(i+1)) ) {
 					valueSign = -1;
 			} else if ( currentChar == '-' && (i==0) && Character.isDigit(inputString.charAt(i+1))) {

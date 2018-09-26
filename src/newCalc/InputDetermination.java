@@ -21,9 +21,8 @@ public class InputDetermination {
         for (int i = 0; i < inputString.length(); ++i) {
             currentChar = inputString.charAt(i);
 
-            if (Character.isDigit(currentChar)) {
-                while ((i < length) && (Character.isDigit(inputString.charAt(i)) || inputString.charAt(i) == '.')
-                        && inputString.charAt(i + 1) != 0) {
+            if (Character.isDigit(currentChar)) { // TODO
+                while ((i < length) && (Character.isDigit(inputString.charAt(i)) || inputString.charAt(i) == '.') && inputString.charAt(i + 1) != 0) {
                     sb.append(inputString.charAt(i++));
                     System.out.println(sb.toString());
                     if (i == length) {
@@ -36,13 +35,11 @@ public class InputDetermination {
                 i--;
                 // System.out.println(expression);
 
-            } else if (currentChar == '-' && (i > 0 && precedenceOfSymbol(inputString.charAt(i - 1)) != -1)
-                    && Character.isDigit(inputString.charAt(i + 1))) {
+            } else if (currentChar == '-' && (i > 0 && precedenceOfSymbol(inputString.charAt(i - 1)) != -1) && Character.isDigit(inputString.charAt(i + 1))) {
                 valueSign = -1;
             } else if (currentChar == '-' && (i == 0) && Character.isDigit(inputString.charAt(i + 1))) {
                 valueSign = -1;
-            } else if (currentChar == '-' && (i > 0) && Character.isDigit(inputString.charAt(i + 1))
-                    && inputString.charAt(i - 1) == '-') {
+            } else if (currentChar == '-' && (i > 0) && Character.isDigit(inputString.charAt(i + 1)) && inputString.charAt(i - 1) == '-') {
                 valueSign = 1;
             } else if (currentChar == '(') {
                 operatorsStack.push(currentChar);
@@ -60,8 +57,7 @@ public class InputDetermination {
                 }
                 // an operator is encountered
             } else {
-                while (!operatorsStack.isEmpty()
-                        && (precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek()))) {
+                while (!operatorsStack.isEmpty() && (precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek()))) {
                     expression.add(operatorsStack.pop());
                     // System.out.println(expression);
                 }
@@ -82,9 +78,8 @@ public class InputDetermination {
         if (!Character.isDigit(inputString.charAt(i - 1)) && precedenceOfSymbol(inputString.charAt(i - 1)) > 0) { // e.g.:+.25->+0.25
             sb.append(0 + charAtIndex);
         }
-        if (!Character.isDigit(nextCharAtIndex) && Character.isDigit(inputString.charAt(i - 1))
-                && precedenceOfSymbol(nextCharAtIndex) > 0) { // e.g:
-                                                              // 2.+1->2.0+1
+        if (!Character.isDigit(nextCharAtIndex) && Character.isDigit(inputString.charAt(i - 1)) && precedenceOfSymbol(nextCharAtIndex) > 0) { // e.g:
+                                                                                                                                              // 2.+1->2.0+1
             sb.append(0);
         }
     }

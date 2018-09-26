@@ -23,9 +23,4 @@ public class Calculator {
         }
         return result;
     }
-
-    /*
-     * public Number getResult(String[] args) { // TODO calculate(args); return
-     * result; }
-     */
 }

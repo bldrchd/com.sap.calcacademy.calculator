@@ -12,9 +12,8 @@ public class InputPreDeterminationTest {
     public void checkIfContainsLettersTest() {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
-        String[] inputToTest = { "22+ a/ 4* 156 -c 	/123 -4 - -3" };
         InputPreDetermination ipd = new InputPreDetermination();
-        assertEquals(true, ipd.findLetters(inputToTest, "22+a4*156-x/123-4--3"));
+        assertEquals(true, ipd.findLetters("22+a4*156-x/123-4--3"));
     }
 
     @Test

@@ -18,22 +18,13 @@ public class InputPreDeterminationTest {
     }
 
     @Test
-    public void checkForWhiteSpacesTest() {
-        System.out.println(" --- " + new Object() {
-        }.getClass().getEnclosingMethod().getName() + " --- ");
-        String inputToTest = "22+ 3/ 5	+1 -\"1 -		-3\"";
-        InputPreDetermination ipd = new InputPreDetermination();
-        assertEquals(true, ipd.checkForWhiteSpaces(inputToTest));
-    }
-
-    @Test
     public void checkForRemovedWhiteSpacesTest() {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputToTest = "22+ 3/ 5	+1 -\"1 -		-3\"";
         String expected = "22+3/5+1-\"1--3\"";
         InputPreDetermination ipd = new InputPreDetermination();
-        assertEquals(expected, ipd.removeWhiteSpaces(inputToTest));
+        assertEquals(expected, ipd.checkForWhiteSpaces(inputToTest));
     }
 
     @Test

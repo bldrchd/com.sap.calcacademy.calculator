@@ -4,16 +4,15 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class InputDeterminationTest {
-
+public class DeterminationTest {
     @Test
     public void expectedPostfixExpressionTest_Complex() {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "22+(3/5)+1-1-(-3)";
-        InputDetermination id = new InputDetermination();
-        id.determinate(inputString);
-        String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
+        Determination dt = new Determination();
+        dt.determinate(inputString);
+        String[] postfixExpression_Actual = dt.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "22.0", "3.0", "5.0", "/", "+", "1.0", "+", "1.0", "-", "-3.0", "-" };
         for (int i = 0; i <= postfixExpression_Actual.length - 1; i++) {
             assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i]));
@@ -25,7 +24,7 @@ public class InputDeterminationTest {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "2+2";
-        InputDetermination id = new InputDetermination();
+        Determination id = new Determination();
         id.determinate(inputString);
         String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "2.0", "2.0", "+" };
@@ -39,7 +38,7 @@ public class InputDeterminationTest {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "2+2/3";
-        InputDetermination id = new InputDetermination();
+        Determination id = new Determination();
         id.determinate(inputString);
         String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "2.0", "2.0", "3.0", "/", "+" };
@@ -53,7 +52,7 @@ public class InputDeterminationTest {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "(2+2)/3";
-        InputDetermination id = new InputDetermination();
+        Determination id = new Determination();
         id.determinate(inputString);
         String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "2.0", "2.0", "+", "3.0", "/" };
@@ -67,7 +66,7 @@ public class InputDeterminationTest {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "1*2+3";
-        InputDetermination id = new InputDetermination();
+        Determination id = new Determination();
         id.determinate(inputString);
         String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "1.0", "2.0", "*", "3.0", "+" };
@@ -81,7 +80,7 @@ public class InputDeterminationTest {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "1+2*3";
-        InputDetermination id = new InputDetermination();
+        Determination id = new Determination();
         id.determinate(inputString);
         String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "1.0", "2.0", "3.0", "*", "+" };
@@ -95,7 +94,7 @@ public class InputDeterminationTest {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "1--3";
-        InputDetermination id = new InputDetermination();
+        Determination id = new Determination();
         id.determinate(inputString);
         String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "1.0", "-3.0", "-" };

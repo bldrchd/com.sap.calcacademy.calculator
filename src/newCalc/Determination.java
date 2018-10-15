@@ -8,7 +8,7 @@ public class Determination {
     private ArrayList<Object> expression = new ArrayList<Object>();
     private int valueSign = 1;
 
-    void deteminate(String inputString) {
+    void determinate(String inputString) {
 
         Stack<Character> operatorsStack = new Stack<Character>();
 

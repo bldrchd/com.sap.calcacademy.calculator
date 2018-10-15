@@ -13,7 +13,7 @@ public class Calculator {
 
             String string = ipd.preValidation(args);
             // id.determinate(string);
-            dt.deteminate(string);
+            dt.determinate(string);
             // String[] postfixExpression = id.buildFinalPostfixExpression();
             String[] postfixExpression = dt.buildFinalPostfixExpression();
 

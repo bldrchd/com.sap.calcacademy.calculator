@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Determination {
+    private StringBuilder sb = new StringBuilder();
     private ArrayList<Object> expression = new ArrayList<Object>();
+    private int valueSign = 1;
 
     void deteminate(String inputString) {
-        StringBuilder sb = new StringBuilder();
-        int valueSign = 1;
+
         Stack<Character> operatorsStack = new Stack<Character>();
 
         if (inputString.charAt(0) == ')') {
@@ -25,22 +26,23 @@ public class Determination {
             if (Character.isDigit(currentChar) || (inputString.charAt(i) == '.')) {
                 sb.append(currentChar);
                 System.out.println(sb.toString());
-            } else if (currentChar == '-') {
+            } else if (currentChar == '-') { // negative chars
                 if (i > 0 && (i <= length - 1) && precedenceOfSymbol(inputString.charAt(i - 1)) != -1 && Character.isDigit(inputString.charAt(i + 1))) {
                     valueSign = -1;
+                    // addValueToSB();
                 }
                 if ((i == 0) && Character.isDigit(inputString.charAt(i + 1))) {
                     valueSign = -1;
+                    // addValueToSB();
                 }
                 if ((i > 0) && Character.isDigit(inputString.charAt(i + 1)) && inputString.charAt(i - 1) == '-') {
                     valueSign = 1;
+                    // addValueToSB();
                 }
             } else if (currentChar == '(') {
                 operatorsStack.push(currentChar);
             } else if (currentChar == ')') {
-                expression.add(Double.parseDouble(sb.toString()) * valueSign);
-                sb.setLength(0);
-                valueSign = 1;
+                addValueToSB();
                 while (!operatorsStack.isEmpty() && operatorsStack.peek() != '(') {
                     expression.add(operatorsStack.pop());
                     System.out.println(expression);
@@ -49,23 +51,33 @@ public class Determination {
                     System.err.println("Invalid Expression");
                 } else {
                     operatorsStack.pop();
-                    System.out.println(operatorsStack);
+                    System.out.println("OP Stack : " + operatorsStack);
                 }
                 // an operator is encountered
             } else {
+                addValueToSB();
                 while (!operatorsStack.isEmpty() && (precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek()))) {
                     expression.add(operatorsStack.pop());
                     System.out.println(expression);
                 }
                 operatorsStack.push(currentChar);
-                System.out.println(operatorsStack);
+                System.out.println("OP Stack : " + operatorsStack);
             }
         }
+        addValueToSB();
         while (!operatorsStack.isEmpty()) {
             expression.add(operatorsStack.pop());
             System.out.println(expression);
         }
         System.out.println(expression);
+    }
+
+    void addValueToSB() {
+        if (sb.length() != 0) {
+            expression.add(Double.parseDouble(sb.toString()) * valueSign);
+            sb.setLength(0);
+            valueSign = 1;
+        }
     }
 
     int precedenceOfSymbol(char ch) {

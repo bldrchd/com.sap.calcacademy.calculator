@@ -18,26 +18,39 @@ public class Determination {
         }
 
         char currentChar;
+        char prevChar = 0;
         int length = inputString.length();
 
         for (int i = 0; i < inputString.length(); ++i) {
+            System.out.println("i: " + i + " valueSign: " + valueSign);
             currentChar = inputString.charAt(i);
-
+            if (i > 0) {
+                prevChar = inputString.charAt(i - 1);
+            }
             if (Character.isDigit(currentChar) || (inputString.charAt(i) == '.')) {
                 sb.append(currentChar);
                 System.out.println(sb.toString());
-            } else if (currentChar == '-') { // negative chars
-                if (i > 0 && (i <= length - 1) && precedenceOfSymbol(inputString.charAt(i - 1)) != -1 && Character.isDigit(inputString.charAt(i + 1))) {
-                    valueSign = -1;
-                    // addValueToSB();
-                }
+            } else if (currentChar == '-') {
                 if ((i == 0) && Character.isDigit(inputString.charAt(i + 1))) {
+                    System.out.println("Here1");
                     valueSign = -1;
-                    // addValueToSB();
+                    System.out.println(valueSign);
                 }
-                if ((i > 0) && Character.isDigit(inputString.charAt(i + 1)) && inputString.charAt(i - 1) == '-') {
-                    valueSign = 1;
-                    // addValueToSB();
+                if (i > 0 && (i <= length - 1) && precedenceOfSymbol(inputString.charAt(i - 1)) > 0 && Character.isDigit(inputString.charAt(i + 1))) {
+                    System.out.println("Here3 ");
+                    valueSign = -1;
+                    continue;
+                }
+                if ((i > 0) && (prevChar == '(')) {
+                    System.out.println("Here4");
+                    valueSign = -1;
+                    continue;
+                } else { // single -
+                    addValueToSB();
+                    System.out.println(expression);
+                    System.out.println("OP Stack : " + operatorsStack);
+                    operatorsStack.push(currentChar);
+                    System.out.println("OP Stack : " + operatorsStack);
                 }
             } else if (currentChar == '(') {
                 operatorsStack.push(currentChar);
@@ -53,13 +66,17 @@ public class Determination {
                     operatorsStack.pop();
                     System.out.println("OP Stack : " + operatorsStack);
                 }
+
                 // an operator is encountered
             } else {
+                System.out.println("HERE");
                 addValueToSB();
                 while (!operatorsStack.isEmpty() && (precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek()))) {
                     expression.add(operatorsStack.pop());
                     System.out.println(expression);
                 }
+
+                System.out.println(expression);
                 operatorsStack.push(currentChar);
                 System.out.println("OP Stack : " + operatorsStack);
             }
@@ -67,7 +84,7 @@ public class Determination {
         addValueToSB();
         while (!operatorsStack.isEmpty()) {
             expression.add(operatorsStack.pop());
-            System.out.println(expression);
+            System.out.println("Expr: " + expression);
         }
         System.out.println(expression);
     }
@@ -78,6 +95,7 @@ public class Determination {
             sb.setLength(0);
             valueSign = 1;
         }
+        System.out.println("Expr: " + expression);
     }
 
     int precedenceOfSymbol(char ch) {

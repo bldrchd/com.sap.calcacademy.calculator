@@ -55,6 +55,7 @@ public class Determination {
                         System.out.println("Here1");
                         valueSign = -1;
                         System.out.println(valueSign);
+                        continue;
                     }
                     if (i > 0 && (i <= length - 1) && precedenceOfSymbol(inputString.charAt(i - 1)) > 0 && Character.isDigit(inputString.charAt(i + 1))) {
                         System.out.println("Here3 ");

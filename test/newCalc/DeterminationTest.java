@@ -102,4 +102,18 @@ public class DeterminationTest {
             assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i]));
         }
     }
+
+    @Test
+    public void exprectedPostfixExpression_StartWithNegative() {
+        System.out.println(" --- " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " --- ");
+        String inputString = "-1+2";
+        Determination id = new Determination();
+        id.determinate(inputString);
+        String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
+        String[] postfixExpression_Expected = { "-1.0", "2.0", "+" };
+        for (int i = 0; i <= postfixExpression_Actual.length - 1; i++) {
+            assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i]));
+        }
+    }
 }

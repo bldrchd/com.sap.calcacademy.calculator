@@ -70,26 +70,7 @@ public class RevPolishNotation {
         return result;
     }
 
-    boolean hasPrecedence(String oper1, String oper2) {
-        if (oper1.equals("*") || oper1.equals("/") && (oper2.equals("+") || oper2.equals("-"))) {
-            return false;
-        } else {
-            return false;
-        }
-    }
-
     boolean isOperator(String token) {
-        switch (token) { // TODO
-        case "+":
-            return true;
-        case "-":
-            return true;
-        case "*":
-            return true;
-        case "/":
-            return true;
-        default:
-            return false;
-        }
+        return (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/"));
     }
 }

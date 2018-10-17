@@ -11,8 +11,8 @@ public class DeterminationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "22+(3/5)+1-1-(-3)";
         Determination dt = new Determination();
-        dt.determinate(inputString);
-        String[] postfixExpression_Actual = dt.buildFinalPostfixExpression();
+        String[] postfixExpression_Actual = dt.determinate(inputString);
+        // String[] postfixExpression_Actual = dt.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "22.0", "3.0", "5.0", "/", "+", "1.0", "+", "1.0", "-", "-3.0", "-" };
         for (int i = 0; i <= postfixExpression_Actual.length - 1; i++) {
             assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i]));
@@ -25,8 +25,8 @@ public class DeterminationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "2+2";
         Determination id = new Determination();
-        id.determinate(inputString);
-        String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
+        String[] postfixExpression_Actual = id.determinate(inputString);
+        // String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "2.0", "2.0", "+" };
         for (int i = 0; i <= postfixExpression_Actual.length - 1; i++) {
             assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i]));
@@ -39,8 +39,8 @@ public class DeterminationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "2+2/3";
         Determination id = new Determination();
-        id.determinate(inputString);
-        String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
+        String[] postfixExpression_Actual = id.determinate(inputString);
+        // String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "2.0", "2.0", "3.0", "/", "+" };
         for (int i = 0; i <= postfixExpression_Actual.length - 1; i++) {
             assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i]));
@@ -53,8 +53,8 @@ public class DeterminationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "(2+2)/3";
         Determination id = new Determination();
-        id.determinate(inputString);
-        String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
+        String[] postfixExpression_Actual = id.determinate(inputString);
+        // String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "2.0", "2.0", "+", "3.0", "/" };
         for (int i = 0; i <= postfixExpression_Actual.length - 1; i++) {
             assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i]));
@@ -67,8 +67,8 @@ public class DeterminationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "1*2+3";
         Determination id = new Determination();
-        id.determinate(inputString);
-        String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
+        String[] postfixExpression_Actual = id.determinate(inputString);
+        // String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "1.0", "2.0", "*", "3.0", "+" };
         for (int i = 0; i <= postfixExpression_Actual.length - 1; i++) {
             assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i]));
@@ -81,8 +81,8 @@ public class DeterminationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "1+2*3";
         Determination id = new Determination();
-        id.determinate(inputString);
-        String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
+        String[] postfixExpression_Actual = id.determinate(inputString);
+        // String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "1.0", "2.0", "3.0", "*", "+" };
         for (int i = 0; i <= postfixExpression_Actual.length - 1; i++) {
             assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i]));
@@ -95,8 +95,8 @@ public class DeterminationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "1--3";
         Determination id = new Determination();
-        id.determinate(inputString);
-        String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
+        String[] postfixExpression_Actual = id.determinate(inputString);
+        // String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "1.0", "-3.0", "-" };
         for (int i = 0; i <= postfixExpression_Actual.length - 1; i++) {
             assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i]));
@@ -109,8 +109,8 @@ public class DeterminationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputString = "-1+2";
         Determination id = new Determination();
-        id.determinate(inputString);
-        String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
+        String[] postfixExpression_Actual = id.determinate(inputString);
+        // String[] postfixExpression_Actual = id.buildFinalPostfixExpression();
         String[] postfixExpression_Expected = { "-1.0", "2.0", "+" };
         for (int i = 0; i <= postfixExpression_Actual.length - 1; i++) {
             assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i]));

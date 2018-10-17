@@ -3,11 +3,12 @@ package newCalc;
 import java.util.LinkedList;
 
 public class RevPolishNotation {
-    Number result;
-    String token;
-    LinkedList<Number> stack = new LinkedList<Number>();
 
-    public void evaluateRPN(String[] postfixExpression) {
+    private String token;
+
+    Number evaluateRPN(String[] postfixExpression) {
+        Number result;
+        LinkedList<Number> stack = new LinkedList<Number>();
         System.out.println("------------Calculation------------");
 
         for (int j = 0; j <= postfixExpression.length - 1; j++) {
@@ -64,13 +65,10 @@ public class RevPolishNotation {
         }
         result = stack.pop();
         System.out.println("Result = " + result);
-    }
-
-    Number getResult() {
         return result;
     }
 
-    boolean isOperator(String token) {
+    private boolean isOperator(String token) {
         return (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/"));
     }
 }

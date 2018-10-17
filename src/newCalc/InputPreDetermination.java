@@ -4,11 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputPreDetermination {
-    String joinedString = null;
 
-    public String preValidation(String[] inputArgs) {
+    String preValidation(String[] inputArgs) {
 
-        buildString(inputArgs);
+        String joinedString = buildString(inputArgs);
 
         if (findLetters(joinedString)) {
             System.exit(1);
@@ -28,15 +27,14 @@ public class InputPreDetermination {
         return joinedString;
     }
 
-    String buildString(String[] inputArgs) {
+    private String buildString(String[] inputArgs) {
         StringBuilder builder = new StringBuilder();
-
         if (inputArgs != null) {
             for (String s : inputArgs) {
                 builder.append(s);
             }
         }
-        return joinedString = builder.toString();
+        return builder.toString();
     }
 
     boolean findLetters(String joinedString) {
@@ -55,12 +53,12 @@ public class InputPreDetermination {
         return joinedString;
     }
 
-    boolean checkCorrectParenthesisCount(String finalString) {
+    boolean checkCorrectParenthesisCount(String joinedString) {
         int count = 0;
-        for (int i = 0; i <= finalString.length() - 1; i++) {
-            if (finalString.charAt(i) == '(') {
+        for (int i = 0; i <= joinedString.length() - 1; i++) {
+            if (joinedString.charAt(i) == '(') {
                 count++;
-            } else if (finalString.charAt(i) == ')') {
+            } else if (joinedString.charAt(i) == ')') {
                 count--;
             }
         }

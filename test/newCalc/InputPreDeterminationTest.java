@@ -36,4 +36,15 @@ public class InputPreDeterminationTest {
         assertTrue(ipd.checkCorrectParenthesisCount(inputToTestCorrect));
         assertFalse(ipd.checkCorrectParenthesisCount(inputToTestNotCorrect));
     }
+
+    @Test
+    public void overallPreValidationTest() {
+        System.out.println(" --- " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " --- ");
+        String[] inputToTest = { "22", "+", " ", "3", "/", " (", "5   ", " ", "+1", "  ", " ", ")", "-", "1", "-", "   ", "(", " -3)" };
+        String expected = "22+3/(5+1)-1-(-3)";
+        InputPreDetermination ipd = new InputPreDetermination();
+        assertEquals(expected, ipd.preValidation(inputToTest));
+        System.out.println(ipd.preValidation(inputToTest));
+    }
 }

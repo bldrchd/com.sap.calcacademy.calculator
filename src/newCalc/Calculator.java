@@ -1,24 +1,22 @@
 package newCalc;
 
 public class Calculator {
-    private Number result = 0;
 
-    public Number calculate(String[] args) {
+    Number calculate(String[] args) {
+        Number result = 0;
 
         if (args.length != 0) {
             InputPreDetermination ipd = new InputPreDetermination();
-            InputDetermination id = new InputDetermination();
+            // InputDetermination id = new InputDetermination();
             RevPolishNotation rpn = new RevPolishNotation();
             Determination dt = new Determination();
 
             String string = ipd.preValidation(args);
-            // id.determinate(string);
-            dt.determinate(string);
-            // String[] postfixExpression = id.buildFinalPostfixExpression();
-            String[] postfixExpression = dt.buildFinalPostfixExpression();
+            String[] postfixExpression = dt.determinate(string);
+            // dt.buildFinalPostfixExpression();
 
-            rpn.evaluateRPN(postfixExpression);
-            result = rpn.getResult();
+            result = rpn.evaluateRPN(postfixExpression);
+            // rpn.getResult();
 
         } else {
             System.err.println("There is no input to calculate.");

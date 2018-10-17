@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Determination {
+
     private StringBuilder sb = new StringBuilder();
     private ArrayList<Object> expression = new ArrayList<Object>();
     private int valueSign = 1;
 
-    void determinate(String inputString) {
-
+    String[] determinate(String inputString) {
         Stack<Character> operatorsStack = new Stack<Character>();
 
         if (inputString.charAt(0) == ')') {
@@ -54,7 +54,7 @@ public class Determination {
                         System.out.println(valueSign);
                         continue;
                     }
-                    if (i > 0 && (i <= length - 1) && precedenceOfSymbol(inputString.charAt(i - 1)) > 0 && Character.isDigit(inputString.charAt(i + 1))) {
+                    if (i > 0 && (i <= length - 1) && precedenceOfSymbol(prevChar) > 0 && Character.isDigit(inputString.charAt(i + 1))) {
                         valueSign = -1;
                         continue;
                     }
@@ -90,13 +90,15 @@ public class Determination {
             System.out.println("Expr: " + expression);
         }
         System.out.println(expression);
+
+        // TODO (Consider if buildFinalPostfixExpression() is better to be
+        // called here and returned to Calculator class than called from
+        // Calc.class
+
+        return buildFinalPostfixExpression();
     }
 
-    void addOperatorToExpression() {
-
-    }
-
-    void addValueToSB() {
+    private void addValueToSB() {
         if (sb.length() != 0) {
             expression.add(Double.parseDouble(sb.toString()) * valueSign);
             sb.setLength(0);
@@ -105,7 +107,7 @@ public class Determination {
         System.out.println("Expr: " + expression);
     }
 
-    int precedenceOfSymbol(char ch) {
+    private int precedenceOfSymbol(char ch) {
         switch (ch) {
         case '+':
             return 1;
@@ -124,8 +126,7 @@ public class Determination {
         }
     }
 
-    String[] buildFinalPostfixExpression() {
-
+    private String[] buildFinalPostfixExpression() {
         String[] postfixExpression = new String[expression.size()];
         for (int i = 0; i < expression.size(); i++) {
             if (expression.get(i) != null) {

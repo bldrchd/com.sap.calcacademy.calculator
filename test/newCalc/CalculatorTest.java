@@ -65,10 +65,10 @@ public class CalculatorTest {
     public void testOverallOperations_Extended() {
         String[] args1 = { "3+5-(12+1)" }, args2 = { "2*7+15-9-(1-3)" }, args3 = { "1/3+1/2" }, args4 = { "1/2-1/4*2" };
         Calculator calculator = new Calculator();
-        // assertEquals(-5.0, calculator.getResult(args1));
-        // assertEquals(22.0, calculator.getResult(args2));
+        assertEquals(-5.0, calculator.calculate(args1));
+        assertEquals(22.0, calculator.calculate(args2));
         assertEquals(0.8333333333333333, calculator.calculate(args3));
-        // assertEquals(0.0, calculator.getResult(args4));
+        assertEquals(0.0, calculator.calculate(args4));
     }
 
     @Test
@@ -77,8 +77,6 @@ public class CalculatorTest {
         Calculator calculator = new Calculator();
         assertEquals(1.0, calculator.calculate(args1));
         assertEquals(227.64227642276424, calculator.calculate(args2));
-        // assertEquals(0.8333333333333333, calculator.getResult(args3));
-        // assertEquals(0.0, calculator.getResult(args4));
         assertEquals(-0.375, calculator.calculate(args5));
     }
 }

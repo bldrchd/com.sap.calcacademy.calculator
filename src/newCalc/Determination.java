@@ -47,41 +47,38 @@ public class Determination {
                     operatorsStack.pop();
                     System.out.println("OP Stack : " + operatorsStack);
                 }
-            }
-            // an operator is encountered
-            else {
+            } else {
                 if (currentChar == '-') {
                     if ((i == 0) && Character.isDigit(inputString.charAt(i + 1))) {
-                        System.out.println("Here1");
                         valueSign = -1;
                         System.out.println(valueSign);
                         continue;
                     }
                     if (i > 0 && (i <= length - 1) && precedenceOfSymbol(inputString.charAt(i - 1)) > 0 && Character.isDigit(inputString.charAt(i + 1))) {
-                        System.out.println("Here3 ");
                         valueSign = -1;
                         continue;
                     }
                     if ((i > 0) && (prevChar == '(')) {
-                        System.out.println("Here4");
                         valueSign = -1;
                         continue;
-                    } else { // single -
+                    } else { // single - //TODO (Consider if needed to be here
+                             // or manipulated as the others operators)
                         addValueToSB();
                         while (!operatorsStack.isEmpty() && ((precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek())))) {
                             expression.add(operatorsStack.pop());
-                            System.out.println(expression);
-                            System.out.println("OP Stack: " + operatorsStack);
+                            // System.out.println("Added operator : ");
+                            // System.out.println(expression);
+                            // System.out.println("OP Stack: " +
+                            // operatorsStack);
                         }
                     }
                 }
                 addValueToSB();
                 while (!operatorsStack.isEmpty() && ((precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek())))) {
-                    System.out.println(currentChar + "is " + (precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek())) + "from " + operatorsStack.peek());
                     expression.add(operatorsStack.pop());
-                    System.out.println("Added operator : ");
-                    System.out.println(expression);
-                    System.out.println("OP Stack: " + operatorsStack);
+                    // System.out.println("Added operator : ");
+                    // System.out.println(expression);
+                    // System.out.println("OP Stack: " + operatorsStack);
                 }
                 operatorsStack.push(currentChar);
                 System.out.println("OP Stack : " + operatorsStack);
@@ -93,6 +90,10 @@ public class Determination {
             System.out.println("Expr: " + expression);
         }
         System.out.println(expression);
+    }
+
+    void addOperatorToExpression() {
+
     }
 
     void addValueToSB() {

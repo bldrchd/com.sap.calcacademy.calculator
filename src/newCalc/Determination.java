@@ -11,15 +11,14 @@ public class Determination {
 
     String[] determinate(String inputString) {
         Stack<Character> operatorsStack = new Stack<Character>();
-
-        if (inputString.charAt(0) == ')') {
-            System.out.println("ERR - starts with )");
-            System.exit(1);
-        }
-
         char currentChar;
         char prevChar = 0;
         int length = inputString.length();
+
+        if (inputString.charAt(0) == ')') {
+            System.err.println("ERR - starts with )");
+            System.exit(1);
+        }
 
         for (int i = 0; i < inputString.length(); ++i) {
             System.out.println("E: " + expression);
@@ -66,19 +65,12 @@ public class Determination {
                         addValueToSB();
                         while (!operatorsStack.isEmpty() && ((precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek())))) {
                             expression.add(operatorsStack.pop());
-                            // System.out.println("Added operator : ");
-                            // System.out.println(expression);
-                            // System.out.println("OP Stack: " +
-                            // operatorsStack);
                         }
                     }
                 }
                 addValueToSB();
                 while (!operatorsStack.isEmpty() && ((precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek())))) {
                     expression.add(operatorsStack.pop());
-                    // System.out.println("Added operator : ");
-                    // System.out.println(expression);
-                    // System.out.println("OP Stack: " + operatorsStack);
                 }
                 operatorsStack.push(currentChar);
                 System.out.println("OP Stack : " + operatorsStack);

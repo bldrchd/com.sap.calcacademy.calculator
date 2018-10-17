@@ -12,15 +12,13 @@ public class Calculator {
      * @return Result from the calculation and 0 if no input is available
      */
     Number calculate(String[] args) {
-        String[] postfixExpression = null;
-        RevPolishNotation rpn = new RevPolishNotation();
-
         if (args.length != 0) {
             InputPreDetermination ipd = new InputPreDetermination();
-            Determination dt = new Determination();
             String string = ipd.preValidation(args);
+            String[] postfixExpression = null;
+            Determination dt = new Determination();
             postfixExpression = dt.determinate(string);
-            return rpn.evaluateRPN(postfixExpression);
+            return new RevPolishNotation().evaluateRPN(postfixExpression);
         } else {
             System.err.println("There is no input to calculate.");
             return 0;

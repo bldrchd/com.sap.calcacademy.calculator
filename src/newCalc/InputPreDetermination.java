@@ -90,7 +90,6 @@ public class InputPreDetermination {
      * . and digits
      */
     boolean notFoundUnaceptableSymbols(String joinedString) {
-        // true when there is no matches
         return joinedString.matches("[0-9-\\+\\*\\/\\(\\)\\.]+");
     }
 }

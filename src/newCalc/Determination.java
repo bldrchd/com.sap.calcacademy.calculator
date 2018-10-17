@@ -156,7 +156,7 @@ public class Determination {
      * Creates final postfix expression as String array
      */
     private String[] buildFinalPostfixExpression() {
-        String[] postfixExpression = new String[expression.size()];
+        final String[] postfixExpression = new String[expression.size()];
         for (int i = 0; i < expression.size(); i++) {
             if (expression.get(i) != null) {
                 postfixExpression[i] = expression.get(i).toString();

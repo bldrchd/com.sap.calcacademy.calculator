@@ -9,6 +9,32 @@ public class Determination {
     private ArrayList<Object> expression = new ArrayList<Object>();
     private int valueSign = 1;
 
+    /**
+     * Determinate the inputString as a postfix expression
+     * 
+     * @param currentChar
+     *            The concrete char from the inputString that is processed for
+     *            determination
+     * @param expression
+     *            Stores the postfix expression during the process
+     * @param inputString
+     *            User input as a String
+     * @param length
+     *            The length of the inputString
+     * @param operatorsStack
+     *            Where operators are stored during the process
+     * 
+     * @param prevChar
+     *            The previous char from the inputString that is processed for
+     *            determination, when the index is grater than 0.
+     * @param sb
+     *            Buffer that stores numbers as chars before turning them to
+     *            values for the expression
+     * @param valueSign
+     *            The sign that should be applied to number in the expression -
+     *            1 for positive or -1 for negative.
+     * @return Postfix expression as a String
+     */
     String[] determinate(String inputString) {
         Stack<Character> operatorsStack = new Stack<Character>();
         char currentChar;
@@ -90,6 +116,10 @@ public class Determination {
         return buildFinalPostfixExpression();
     }
 
+    /**
+     * Takes digit from String Builder, turns them into Double values with sign
+     * and adds this value to the expression
+     */
     private void addValueToSB() {
         if (sb.length() != 0) {
             expression.add(Double.parseDouble(sb.toString()) * valueSign);
@@ -99,6 +129,10 @@ public class Determination {
         System.out.println("Expr: " + expression);
     }
 
+    /**
+     * Returns Integer value for priority, that is used as precedence of symbols
+     * of operators
+     */
     private int precedenceOfSymbol(char ch) {
         switch (ch) {
         case '+':
@@ -118,6 +152,9 @@ public class Determination {
         }
     }
 
+    /**
+     * Creates final postfix expression as String array
+     */
     private String[] buildFinalPostfixExpression() {
         String[] postfixExpression = new String[expression.size()];
         for (int i = 0; i < expression.size(); i++) {

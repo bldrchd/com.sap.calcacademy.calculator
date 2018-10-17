@@ -2,6 +2,15 @@ package newCalc;
 
 public class Calculator {
 
+    /**
+     * Calculates expression from user input
+     * 
+     * @param args
+     *            User input (expression) as arguments
+     * @param string
+     *            User input converted to String
+     * @return result Result from the calculation
+     */
     Number calculate(String[] args) {
         Number result = 0;
 

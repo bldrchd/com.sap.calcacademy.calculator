@@ -6,6 +6,21 @@ public class RevPolishNotation {
 
     private String token;
 
+    /**
+     * Applying Reverse Polish Notation to calculate the final result of the
+     * user's expression
+     * 
+     * @param number
+     *            Stores parsed number from the postfix expression
+     * @param token
+     *            Each member of the postfix expression - either be number or
+     *            operator
+     * @param postfixExpression
+     *            The expression that is calculated
+     * @param stack
+     *            Stores the current result from the calculation
+     * @return The calculated result as Number
+     */
     Number evaluateRPN(String[] postfixExpression) {
         Number result;
         LinkedList<Number> stack = new LinkedList<Number>();
@@ -68,6 +83,13 @@ public class RevPolishNotation {
         return result;
     }
 
+    /**
+     * Check if the current token from postfix expression is an operator
+     * 
+     * @param token
+     *            Current token from the postfix expression
+     * @return True of there is a match for operator
+     */
     private boolean isOperator(String token) {
         return (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/"));
     }

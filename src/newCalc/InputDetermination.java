@@ -3,6 +3,7 @@ package newCalc;
 import java.util.ArrayList;
 import java.util.Stack;
 
+@Deprecated
 public class InputDetermination {
 
     private ArrayList<Object> expression = new ArrayList<Object>();

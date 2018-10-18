@@ -46,7 +46,7 @@ public class Determination {
      *            1 for positive or -1 for negative.
      * @return Postfix expression as a String
      */
-    String[] determinate(String inputString) {
+    String[] determinate(String inputString) { // TODO rename
         Stack<Character> operatorsStack = new Stack<Character>();
         char currentChar;
         char prevChar = 0;
@@ -76,13 +76,14 @@ public class Determination {
                 while (!operatorsStack.isEmpty() && operatorsStack.peek() != '(') {
                     expression.add(operatorsStack.pop());
                     System.out.println(expression);
-                }
-                if (!operatorsStack.isEmpty() && operatorsStack.peek() != '(') {
-                    System.err.println("Invalid Expression");
-                } else {
-                    operatorsStack.pop();
-                    System.out.println("OP Stack : " + operatorsStack);
-                }
+                } /*
+                   * TODO is this check needed? if (!operatorsStack.isEmpty() &&
+                   * operatorsStack.peek() != '(') { System.err.println(
+                   * "Invalid Expression"); } else {
+                   */
+                operatorsStack.pop();
+                System.out.println("OP Stack : " + operatorsStack);
+                // }
             } else {
                 if (currentChar == '-') {
                     // TODO separate in new method?

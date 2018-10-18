@@ -12,7 +12,7 @@ public class InputPreDeterminationTest {
     public void checkIfContainsLettersTest() {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
-        InputPreDetermination ipd = new InputPreDetermination();
+        InputValidationAndTransformation ipd = new InputValidationAndTransformation();
         assertEquals(true, ipd.findLetters("22+a4*156-x/123-4--3"));
     }
 
@@ -22,8 +22,8 @@ public class InputPreDeterminationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputToTest = "22+ 3/ 5	+1 -\"1 -		-3\"";
         String expected = "22+3/5+1-\"1--3\"";
-        InputPreDetermination ipd = new InputPreDetermination();
-        assertEquals(expected, ipd.checkForWhiteSpaces(inputToTest));
+        InputValidationAndTransformation ipd = new InputValidationAndTransformation();
+        assertEquals(expected, ipd.removeWhitespaces(inputToTest));
     }
 
     @Test
@@ -32,7 +32,7 @@ public class InputPreDeterminationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputToTestCorrect = "22+ 3/ ( 5	+1 )-\"1 -		-3\"";
         String inputToTestNotCorrect = "22+ 3/ ( 5	+1 ))-\"1 -		-3\"";
-        InputPreDetermination ipd = new InputPreDetermination();
+        InputValidationAndTransformation ipd = new InputValidationAndTransformation();
         assertTrue(ipd.checkCorrectParenthesisCount(inputToTestCorrect));
         assertFalse(ipd.checkCorrectParenthesisCount(inputToTestNotCorrect));
     }
@@ -43,8 +43,8 @@ public class InputPreDeterminationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String[] inputToTest = { "22", "+", " ", "3", "/", " (", "5   ", " ", "+1", "  ", " ", ")", "-", "1", "-", "   ", "(", " -3)" };
         String expected = "22+3/(5+1)-1-(-3)";
-        InputPreDetermination ipd = new InputPreDetermination();
-        assertEquals(expected, ipd.preValidation(inputToTest));
-        System.out.println(ipd.preValidation(inputToTest));
+        InputValidationAndTransformation ipd = new InputValidationAndTransformation();
+        assertEquals(expected, ipd.validateAndTrimInput(inputToTest));
+        System.out.println(ipd.validateAndTrimInput(inputToTest));
     }
 }

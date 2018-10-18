@@ -24,6 +24,7 @@ public class RevPolishNotation {
     Number evaluateRPN(String[] postfixExpression) {
         Number result;
         LinkedList<Number> stack = new LinkedList<Number>();
+
         System.out.println("------------Calculation------------");
 
         for (int j = 0; j <= postfixExpression.length - 1; j++) {
@@ -45,6 +46,7 @@ public class RevPolishNotation {
             }
 
             if (isOperator(token)) {
+                // TODO - Extract Parameter Object?
                 Number operator1 = stack.pop();
                 Number operator2 = stack.pop();
                 switch (token) {

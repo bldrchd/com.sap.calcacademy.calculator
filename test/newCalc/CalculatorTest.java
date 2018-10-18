@@ -11,7 +11,8 @@ public class CalculatorTest {
 
     @Test
     public void testOverallCalculate() {
-        String[] args = { "1+", "2" };
+        // String[] args = { "1+", "2" };
+        String args = "1+ 2";
         Calculator calc = new Calculator();
         assertNotNull(calc.calculate(args));
     }

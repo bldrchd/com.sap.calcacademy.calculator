@@ -5,9 +5,20 @@ import java.util.Stack;
 
 public class Determination {
 
-    private StringBuilder sb = new StringBuilder();
-    private ArrayList<Object> expression = new ArrayList<Object>();
-    private int valueSign = 1;
+    private StringBuilder sb = new StringBuilder(); // TODO - ? moving them as a
+                                                    // method args when used :
+                                                    // addValueToSB(sb) ? is it
+                                                    // ok?
+    private ArrayList<Object> expression = new ArrayList<Object>(); // TODO -
+                                                                    // used by
+                                                                    // most of
+                                                                    // the
+                                                                    // methods,
+                                                                    // should it
+                                                                    // be class
+                                                                    // field or
+                                                                    // not?
+    private int valueSign = 1; // TODO move as method variable?
 
     /**
      * Determinate the inputString as a postfix expression
@@ -54,7 +65,11 @@ public class Determination {
             if (i > 0) {
                 prevChar = inputString.charAt(i - 1);
             }
-
+            // TODO Decompose Conditional ?
+            /*
+             * if (currentCharIsDigit(currentChar) sb.append(currentChar) else
+             * if ...
+             */
             if (Character.isDigit(currentChar) || (inputString.charAt(i) == '.')) {
                 sb.append(currentChar);
                 System.out.println(sb.toString());
@@ -74,6 +89,13 @@ public class Determination {
                 }
             } else {
                 if (currentChar == '-') {
+                    // TODO separate in new method?
+                    // TODO Decompose Conditional ?
+                    /*
+                     * if (startsWithMinus(i)) valueSign = -1; if
+                     * (isMinusAfterAnotherSymbol(i)) ... if
+                     * (isMinusAfterLeftParenth(i)) ...
+                     */
                     if ((i == 0) && Character.isDigit(inputString.charAt(i + 1))) {
                         valueSign = -1;
                         System.out.println(valueSign);

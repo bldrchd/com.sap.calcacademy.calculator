@@ -6,14 +6,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class InputPreDeterminationTest {
+public class InputValidationAndTransformationTest {
 
     @Test
     public void checkIfContainsLettersTest() {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
-        InputValidationAndTransformation ipd = new InputValidationAndTransformation();
-        assertEquals(true, ipd.findLetters("22+a4*156-x/123-4--3"));
+        InputValidationAndTransformation ivat = new InputValidationAndTransformation();
+        assertEquals(true, ivat.findLetters("22+a4*156-x/123-4--3"));
     }
 
     @Test
@@ -41,7 +41,9 @@ public class InputPreDeterminationTest {
     public void overallPreValidationTest() {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
-        String[] inputToTest = { "22", "+", " ", "3", "/", " (", "5   ", " ", "+1", "  ", " ", ")", "-", "1", "-", "   ", "(", " -3)" };
+        // String[] inputToTest = { "22", "+", " ", "3", "/", " (", "5 ", " ",
+        // "+1", " ", " ", ")", "-", "1", "-", " ", "(", " -3)" };
+        String inputToTest = "22 + 3/ (5     +1   ) -1 - ( -3)";
         String expected = "22+3/(5+1)-1-(-3)";
         InputValidationAndTransformation ipd = new InputValidationAndTransformation();
         assertEquals(expected, ipd.validateAndTrimInput(inputToTest));

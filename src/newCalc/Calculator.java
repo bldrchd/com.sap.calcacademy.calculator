@@ -15,7 +15,8 @@ public class Calculator {
     Number calculate(String inputString) {
 
         try {
-            inputString = validateInput(inputString);
+            inputString = validateInput(inputString); // TODO is that correct
+                                                      // way?
         } catch (InputMismatchException ime) {
             throw new IllegalArgumentException(ime.getMessage());
         } catch (IllegalArgumentException iae) {
@@ -29,8 +30,8 @@ public class Calculator {
 
     private String validateInput(String buildedInputString) throws InputMismatchException, IllegalArgumentException {
         try {
-            InputValidationAndTransformation ivatd = new InputValidationAndTransformation();
-            return ivatd.validateAndTrimInput(buildedInputString); // TODO
+            InputValidationAndTransformation ivat = new InputValidationAndTransformation();
+            return ivat.validateAndTrimInput(buildedInputString); // TODO
         } catch (InputMismatchException ime) {
             throw new InputMismatchException("Found letters or parenthesis cound not equal.");
         } catch (IllegalArgumentException iae) {

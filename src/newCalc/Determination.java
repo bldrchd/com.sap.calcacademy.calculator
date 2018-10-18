@@ -65,12 +65,8 @@ public class Determination {
             if (i > 0) {
                 prevChar = inputString.charAt(i - 1);
             }
-            // TODO Decompose Conditional ?
-            /*
-             * if (currentCharIsDigit(currentChar) sb.append(currentChar) else
-             * if ...
-             */
-            if (Character.isDigit(currentChar) || (inputString.charAt(i) == '.')) {
+
+            if (currentCharIsDigit(currentChar)) {
                 sb.append(currentChar);
                 System.out.println(sb.toString());
             } else if (currentChar == '(') {
@@ -136,6 +132,10 @@ public class Determination {
         // Calc.class
 
         return buildFinalPostfixExpression();
+    }
+
+    private boolean currentCharIsDigit(char currentChar) {
+        return (Character.isDigit(currentChar) || (currentChar == '.'));
     }
 
     /**

@@ -17,10 +17,9 @@ public class Calculator {
                                                                                                                         // or
                                                                                                                         // just
                                                                                                                         // IllegalArgument?
-
+        String validatedString;
         try {
-            inputString = validateInput(inputString); // TODO is that correct
-                                                      // way?
+            validatedString = validateInput(inputString);
         } catch (InputMismatchException ime) {
             throw new IllegalArgumentException(ime.getMessage());
         } catch (IllegalArgumentException iae) {
@@ -29,7 +28,7 @@ public class Calculator {
         String[] postfixExpression = null;
         PostfixExpression pe = new PostfixExpression();
         try {
-            postfixExpression = pe.createPostfixExpression(inputString);
+            postfixExpression = pe.createPostfixExpression(validatedString);
 
         } catch (IllegalArgumentException iae) {
             throw new IllegalArgumentException(iae.getMessage()); // TODO will
@@ -45,7 +44,7 @@ public class Calculator {
     private String validateInput(String buildedInputString) throws InputMismatchException, IllegalArgumentException {
         try {
             InputValidationAndTransformation ivat = new InputValidationAndTransformation();
-            return ivat.validateAndTrimInput(buildedInputString); // TODO
+            return ivat.validateAndTrimInput(buildedInputString);
         } catch (InputMismatchException ime) {
             throw new InputMismatchException("Found letters or parenthesis cound not equal.");
         } catch (IllegalArgumentException iae) {

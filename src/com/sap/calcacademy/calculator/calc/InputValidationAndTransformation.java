@@ -1,8 +1,6 @@
 package com.sap.calcacademy.calculator.calc;
 
 import java.util.InputMismatchException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.sap.calcacademy.calculator.exceptions.CalculationValidationException;
 
@@ -21,60 +19,37 @@ public class InputValidationAndTransformation {
      * @throws IllegalArgumentException
      *             when unacceptable symbols are found
      */
-    String validateAndTrimInput(String inputString) throws IllegalArgumentException, InputMismatchException {
+    String validateAndTrimInput(String inputString) throws IllegalArgumentException {
 
-        if (findLetters(inputString))
-            throw new InputMismatchException("Found Letters in input.");
-
-        inputString = removeWhitespaces(inputString); // TODO - what is the
-                                                      // better way to write it?
-
-        if (!checkCorrectParenthesisCount(inputString))
-            throw new InputMismatchException("Parenthesis count doesn't match.");
-
-        if (!notFoundUnaceptableSymbols(inputString))
-            throw new IllegalArgumentException("Unacceptable Symbols Found."); // TODO
-                                                                               // -
-                                                                               // is
-                                                                               // findLetters()
-                                                                               // needed
-                                                                               // if
-                                                                               // this
-                                                                               // is
-                                                                               // true?
-
+        inputString = removeWhitespaces(inputString);
+        if (!notFoundUnaceptableSymbols(inputString)) // TODO
+            throw new IllegalArgumentException("Unacceptable Symbols Found.");
+        try {
+            if (correctParentheses(inputString)) {
+                return inputString;
+            }
+        } catch (CalculationValidationException cve) {
+            throw new CalculationValidationException(cve.getMessage(), cve.getCause());
+        }
         return inputString;
-    }
-
-    /**
-     * Looking for letters in joinedString
-     */
-    boolean findLetters(String joinedString) {
-        Pattern p = Pattern.compile("[a-zA-Z]");
-        Matcher m = p.matcher(joinedString);
-        return m.find();
     }
 
     /**
      * Checks for whitespaces and removes them if there are such
      */
     String removeWhitespaces(String inputString) {
-        // System.out.println(inputString);
-        // Pattern p2 = Pattern.compile("\\s+");
-        // Matcher m2 = p2.matcher(inputString);
-        // if (m2.find()) {
-        // }
         return inputString = inputString.replaceAll("\\s+", "");
     }
 
     /**
-     * Counts the number of parenthesis (should be equal)
+     * Counts the number of parentheses (should be equal)
      */
-    boolean checkCorrectParenthesisCount(String joinedString) {
+    boolean correctParentheses(String joinedString) {
+        // TODO - algo to check correctness of parenthesis
         int count = 0;
         for (int i = 0; i <= joinedString.length() - 1; i++) {
             if (joinedString.charAt(0) == ')') {
-                throw new CalculationValidationException("Input starts with closing parenthesis \")\"");
+                throw new CalculationValidationException("Input starts with closing parentheses \")\"");
             } else {
                 if (joinedString.charAt(i) == '(') {
                     count++;
@@ -87,8 +62,8 @@ public class InputValidationAndTransformation {
     }
 
     /**
-     * Returns true if there are no symbols, that are different than + - / * ( )
-     * . and digits
+     * Returns FALSE (remove ^ for true ) if there are no symbols, that are
+     * different than + - / * ( ) . and digits
      */
     boolean notFoundUnaceptableSymbols(String joinedString) {
         return joinedString.matches("[0-9-\\+\\*\\/\\(\\)\\.]+");

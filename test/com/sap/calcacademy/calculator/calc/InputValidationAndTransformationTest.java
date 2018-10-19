@@ -6,18 +6,15 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.sap.calcacademy.calculator.calc.InputValidationAndTransformation;
-
 public class InputValidationAndTransformationTest {
 
-    @Test
-    public void checkIfContainsLettersTest() {
-        System.out.println(" --- " + new Object() {
-        }.getClass().getEnclosingMethod().getName() + " --- ");
-        InputValidationAndTransformation ivat = new InputValidationAndTransformation();
-        assertEquals(true, ivat.findLetters("22+a4*156-x/123-4--3"));
-    }
-
+    /*
+     * @Test public void checkIfContainsLettersTest() { System.out.println(
+     * " --- " + new Object() { }.getClass().getEnclosingMethod().getName() +
+     * " --- "); InputValidationAndTransformation ivat = new
+     * InputValidationAndTransformation(); assertEquals(true,
+     * ivat.findLetters("22+a4*156-x/123-4--3")); }
+     */
     @Test
     public void checkForRemovedWhiteSpacesTest() {
         System.out.println(" --- " + new Object() {
@@ -35,8 +32,8 @@ public class InputValidationAndTransformationTest {
         String inputToTestCorrect = "22+ 3/ ( 5	+1 )-\"1 -		-3\"";
         String inputToTestNotCorrect = "22+ 3/ ( 5	+1 ))-\"1 -		-3\"";
         InputValidationAndTransformation ipd = new InputValidationAndTransformation();
-        assertTrue(ipd.checkCorrectParenthesisCount(inputToTestCorrect));
-        assertFalse(ipd.checkCorrectParenthesisCount(inputToTestNotCorrect));
+        assertTrue(ipd.correctParentheses(inputToTestCorrect));
+        assertFalse(ipd.correctParentheses(inputToTestNotCorrect));
     }
 
     @Test

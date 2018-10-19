@@ -3,7 +3,7 @@ package newCalc;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Determination {
+public class PostfixExpression {
 
     private StringBuilder sb = new StringBuilder(); // TODO - ? moving them as a
                                                     // method args when used :
@@ -46,11 +46,10 @@ public class Determination {
      *            1 for positive or -1 for negative.
      * @return Postfix expression as a String
      */
-    String[] determinate(String inputString) { // TODO rename
+    String[] createPostfixExpression(String inputString) { // TODO rename
         Stack<Character> operatorsStack = new Stack<Character>();
         char currentChar;
         char prevChar = 0;
-        int length = inputString.length();
 
         if (inputString.charAt(0) == ')') {
             System.err.println("ERR - starts with )");
@@ -76,42 +75,17 @@ public class Determination {
                 while (!operatorsStack.isEmpty() && operatorsStack.peek() != '(') {
                     expression.add(operatorsStack.pop());
                     System.out.println(expression);
-                } /*
-                   * TODO is this check needed? if (!operatorsStack.isEmpty() &&
-                   * operatorsStack.peek() != '(') { System.err.println(
-                   * "Invalid Expression"); } else {
-                   */
+                }
                 operatorsStack.pop();
                 System.out.println("OP Stack : " + operatorsStack);
-                // }
             } else {
                 if (currentChar == '-') {
-                    // TODO separate in new method?
-                    // TODO Decompose Conditional ?
-                    /*
-                     * if (startsWithMinus(i)) valueSign = -1; if
-                     * (isMinusAfterAnotherSymbol(i)) ... if
-                     * (isMinusAfterLeftParenth(i)) ...
-                     */
-                    if ((i == 0) && Character.isDigit(inputString.charAt(i + 1))) {
-                        valueSign = -1;
-                        System.out.println(valueSign);
+                    char nextChar = inputString.charAt(i + 1);
+                    int length = inputString.length();
+                    if (valueSignIsNegative(i, currentChar, prevChar, nextChar, length)) // TODO
+                                                                                         // -
+                                                                                         // refactor
                         continue;
-                    }
-                    if (i > 0 && (i <= length - 1) && precedenceOfSymbol(prevChar) > 0 && Character.isDigit(inputString.charAt(i + 1))) {
-                        valueSign = -1;
-                        continue;
-                    }
-                    if ((i > 0) && (prevChar == '(')) {
-                        valueSign = -1;
-                        continue;
-                    } else { // single - //TODO (Consider if needed to be here
-                             // or manipulated as the others operators)
-                        addValueToSB();
-                        while (!operatorsStack.isEmpty() && ((precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek())))) {
-                            expression.add(operatorsStack.pop());
-                        }
-                    }
                 }
                 addValueToSB();
                 while (!operatorsStack.isEmpty() && ((precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek())))) {
@@ -128,13 +102,45 @@ public class Determination {
         }
         System.out.println(expression);
 
-        // TODO (Consider if buildFinalPostfixExpression() is better to be
-        // called here and returned to Calculator class than called from
-        // Calc.class
-
         return buildFinalPostfixExpression();
     }
 
+    /**
+     * Check if the current char has a condition of a negative value
+     * 
+     * @param i
+     *            Index from the main loop
+     * @param currentChar
+     *            Current character in the loop
+     * @param prevChar
+     *            Previous character in the loop
+     * @param nextChar
+     *            Next character in the loop
+     * @param length
+     *            Length of the input string
+     * @return True if a negative value condition is found
+     */
+
+    private boolean valueSignIsNegative(int i, char currentChar, char prevChar, char nextChar, int length) {
+        if ((i == 0) && Character.isDigit(nextChar)) {
+            valueSign = -1;
+            System.out.println(valueSign);
+            return true;
+        }
+        if (i > 0 && (i <= length - 1) && precedenceOfSymbol(prevChar) > 0 && Character.isDigit(nextChar)) {
+            valueSign = -1;
+            return true;
+        }
+        if ((i > 0) && (prevChar == '(')) {
+            valueSign = -1;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if the current char is digit
+     */
     private boolean currentCharIsDigit(char currentChar) {
         return (Character.isDigit(currentChar) || (currentChar == '.'));
     }

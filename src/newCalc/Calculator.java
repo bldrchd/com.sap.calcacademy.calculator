@@ -23,8 +23,8 @@ public class Calculator {
             throw new IllegalArgumentException(iae.getMessage());
         }
         String[] postfixExpression = null;
-        Determination dt = new Determination();
-        postfixExpression = dt.determinate(inputString);
+        PostfixExpression pe = new PostfixExpression();
+        postfixExpression = pe.createPostfixExpression(inputString);
         return new RevPolishNotation().evaluateRPN(postfixExpression);
     }
 

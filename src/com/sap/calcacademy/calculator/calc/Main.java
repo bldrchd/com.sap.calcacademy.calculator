@@ -1,5 +1,7 @@
 package com.sap.calcacademy.calculator.calc;
 
+import com.sap.calcacademy.calculator.exceptions.NoArgumentsException;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -15,10 +17,10 @@ public class Main {
     /**
      * Returns user input arguments as one string
      */
-    private static String buildString(String[] inputArgs) throws IllegalArgumentException, NullPointerException {
+    private static String buildString(String[] inputArgs) throws NoArgumentsException {
         StringBuilder builder = new StringBuilder();
         if (inputArgs == null || inputArgs.length == 0) {
-            throw new IllegalArgumentException("There are no arguments.");
+            throw new NoArgumentsException("There are no arguments.");
         }
         for (String s : inputArgs) {
             builder.append(s);

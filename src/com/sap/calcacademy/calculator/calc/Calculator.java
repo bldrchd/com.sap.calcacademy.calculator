@@ -2,28 +2,24 @@ package com.sap.calcacademy.calculator.calc;
 
 import java.util.InputMismatchException;
 
+import com.sap.calcacademy.calculator.exceptions.CalculationException;
+import com.sap.calcacademy.calculator.exceptions.CalculationValidationException;
+
 public class Calculator {
 
     /**
      * Calculates expression from user input
      * 
-     * @param buildedInputString
-     *            User input (expression) as String @param string User input
-     *            converted to String @return Result from the calculation and 0
-     *            if no input is available @throws
+     * @param inputString User input (expression) as String @param string User
+     * input converted to String @return Result from the calculation and 0 if no
+     * input is available @throws
      */
-    Number calculate(String inputString) throws IllegalArgumentException, InputMismatchException, ArithmeticException { // Runtime
-                                                                                                                        // Exception,
-                                                                                                                        // or
-                                                                                                                        // just
-                                                                                                                        // IllegalArgument?
+    Number calculate(String inputString) throws CalculationException {
         String validatedString;
         try {
             validatedString = validateInput(inputString);
-        } catch (InputMismatchException ime) {
-            throw new IllegalArgumentException(ime.getMessage());
-        } catch (IllegalArgumentException iae) {
-            throw new IllegalArgumentException(iae.getMessage());
+        } catch (CalculationValidationException iae) {
+            throw new CalculationValidationException(iae.getMessage());
         }
         String[] postfixExpression = null;
         PostfixExpression pe = new PostfixExpression();

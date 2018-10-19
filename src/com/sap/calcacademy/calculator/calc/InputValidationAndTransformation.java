@@ -4,6 +4,8 @@ import java.util.InputMismatchException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.sap.calcacademy.calculator.exceptions.CalculationValidationException;
+
 public class InputValidationAndTransformation {
 
     /**
@@ -71,10 +73,14 @@ public class InputValidationAndTransformation {
     boolean checkCorrectParenthesisCount(String joinedString) {
         int count = 0;
         for (int i = 0; i <= joinedString.length() - 1; i++) {
-            if (joinedString.charAt(i) == '(') {
-                count++;
-            } else if (joinedString.charAt(i) == ')') {
-                count--;
+            if (joinedString.charAt(0) == ')') {
+                throw new CalculationValidationException("Input starts with closing parenthesis \")\"");
+            } else {
+                if (joinedString.charAt(i) == '(') {
+                    count++;
+                } else if (joinedString.charAt(i) == ')') {
+                    count--;
+                }
             }
         }
         return (count == 0);

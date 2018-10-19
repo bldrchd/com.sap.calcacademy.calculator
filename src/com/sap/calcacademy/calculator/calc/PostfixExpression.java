@@ -46,13 +46,10 @@ public class PostfixExpression {
      *            1 for positive or -1 for negative.
      * @return Postfix expression as a String
      */
-    String[] createPostfixExpression(String inputString) throws IllegalArgumentException {
+    String[] createPostfixExpression(String inputString) {
         Stack<Character> operatorsStack = new Stack<Character>();
         char currentChar;
         char prevChar = 0;
-
-        if (inputString.charAt(0) == ')')
-            throw new IllegalArgumentException("Input expression starts with ) .");
 
         for (int i = 0; i < inputString.length(); ++i) {
             System.out.println("E: " + expression);

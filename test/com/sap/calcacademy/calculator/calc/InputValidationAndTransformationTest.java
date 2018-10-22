@@ -12,13 +12,6 @@ import com.sap.calcacademy.calculator.exceptions.CalculationValidationException;
 
 public class InputValidationAndTransformationTest {
 
-    /*
-     * @Test public void checkIfContainsLettersTest() { System.out.println(
-     * " --- " + new Object() { }.getClass().getEnclosingMethod().getName() +
-     * " --- "); InputValidationAndTransformation ivat = new
-     * InputValidationAndTransformation(); assertEquals(true,
-     * ivat.findLetters("22+a4*156-x/123-4--3")); }
-     */
     @Test
     public void checkForRemovedWhiteSpacesTest() {
         System.out.println(" --- " + new Object() {
@@ -51,6 +44,21 @@ public class InputValidationAndTransformationTest {
         InputValidationAndTransformation ipd = new InputValidationAndTransformation();
         assertEquals(expected, ipd.validateAndTrimInput(inputToTest));
         System.out.println(ipd.validateAndTrimInput(inputToTest));
+    }
+
+    @Test
+    public void foundLettersTest() { // TODO - are the following tests correct?
+        System.out.println(" --- " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " --- ");
+        Throwable t = null;
+        String inputToTest = "22 + 3/ s(5  a   +1   )& -1 - ( -3)";
+        InputValidationAndTransformation ipd = new InputValidationAndTransformation();
+        try {
+            ipd.validateAndTrimInput(inputToTest);
+        } catch (RuntimeException re) {
+            t = re;
+        }
+        assertTrue(t instanceof CalculationValidationException);
     }
 
     public @Rule ExpectedException thrown = ExpectedException.none();

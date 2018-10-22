@@ -4,7 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import com.sap.calcacademy.calculator.exceptions.CalculationValidationException;
 
 public class InputValidationAndTransformationTest {
 
@@ -48,4 +52,17 @@ public class InputValidationAndTransformationTest {
         assertEquals(expected, ipd.validateAndTrimInput(inputToTest));
         System.out.println(ipd.validateAndTrimInput(inputToTest));
     }
+
+    public @Rule ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void notCorrectParenthesesTest() {
+        System.out.println(" --- " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " --- ");
+        thrown.expect(CalculationValidationException.class);
+        String inputToTest = "22 + 3/ )5     +1    -1 - ( -3)";
+        InputValidationAndTransformation ivat = new InputValidationAndTransformation();
+        ivat.validateAndTrimInput(inputToTest);
+    }
+
 }

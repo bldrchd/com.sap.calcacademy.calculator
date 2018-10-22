@@ -4,15 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.sap.calcacademy.calculator.calc.ReversePolishNotation;
-
 public class RevPolishNotationTest {
 
     @Test
     public void testcalculationWithRPN_ComplexOnlyPositive() {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
-        // 22+(3/5)+1-1-(2-3)
         String[] postfixExpression = { "22.0", "3.0", "5.0", "/", "+", "1.0", "+", "1", "-", "2", "3", "-", "-" };
         Number expectedResult = 23.6;
         ReversePolishNotation rpn = new ReversePolishNotation();
@@ -23,7 +20,6 @@ public class RevPolishNotationTest {
     public void testcalculationWithRPN_ComplexWithNegatives() {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
-        // 22+(3/5)+1-1-(-3)
         String[] postfixExpression = { "22.0", "3.0", "5.0", "/", "+", "1.0", "+", "1", "-", "-3", "-" };
         Number expectedResult = 25.6;
         ReversePolishNotation rpn = new ReversePolishNotation();

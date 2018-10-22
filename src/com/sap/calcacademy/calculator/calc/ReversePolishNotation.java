@@ -20,7 +20,7 @@ public class ReversePolishNotation {
      *            Stores the current result from the calculation
      * @return The calculated result as Number
      */
-    Number calculationWithRPN(String[] postfixExpression) throws CalculationException, IllegalArgumentException {
+    Number calculationWithRPN(String[] postfixExpression) throws CalculationException, IllegalArgumentException, ArithmeticException {
         String token;
         Number result;
         LinkedList<Number> stack = new LinkedList<Number>();

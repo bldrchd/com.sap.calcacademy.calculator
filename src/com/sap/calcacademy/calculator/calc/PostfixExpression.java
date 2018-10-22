@@ -34,7 +34,7 @@ public class PostfixExpression {
      *            1 for positive or -1 for negative.
      * @return Postfix expression as a String
      */
-    String[] createPostfixExpression(String inputString) throws NumberFormatException {
+    String[] createPostfixExpression(String inputString) throws NumberFormatException, IllegalArgumentException {
         Stack<Character> operatorsStack = new Stack<Character>();
         char currentChar;
         char prevChar = 0;
@@ -64,13 +64,15 @@ public class PostfixExpression {
                     System.out.println("OP Stack : " + operatorsStack);
                 } else {
                     if (currentChar == '-') {
-                        char nextChar = inputString.charAt(i + 1);
-                        int length = inputString.length();
-                        if (valueSignIsNegative(i, currentChar, prevChar, nextChar, length)) // TODO
-                                                                                             // ParameterObject
-                                                                                             // ?
-                                                                                             // CharPosition
-                            continue;
+                        if (i < inputString.length() - 1) {
+                            char nextChar = inputString.charAt(i + 1);
+                            int length = inputString.length();
+                            if (valueSignIsNegative(i, currentChar, prevChar, nextChar, length)) // TODO
+                                continue;
+                        } else {
+                            throw new IllegalArgumentException("There is - in the end.");
+                        }
+
                     }
                     addValueToSB(sb);
                     while (!operatorsStack.isEmpty() && ((precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek())))) {

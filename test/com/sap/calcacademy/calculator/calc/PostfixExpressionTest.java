@@ -4,8 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.sap.calcacademy.calculator.calc.PostfixExpression;
-
 public class PostfixExpressionTest {
     @Test
     public void expectedPostfixExpressionTest_Complex() {
@@ -109,5 +107,14 @@ public class PostfixExpressionTest {
         for (int i = 0; i <= postfixExpression_Actual.length - 1; i++) {
             assertTrue(postfixExpression_Expected[i].equals(postfixExpression_Actual[i]));
         }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void exprectedPostfixExpression_IncorrectOperatorInTheEnd() {
+        System.out.println(" --- " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " --- ");
+        String inputString = "-1+2-";
+        PostfixExpression pe = new PostfixExpression();
+        pe.createPostfixExpression(inputString);
     }
 }

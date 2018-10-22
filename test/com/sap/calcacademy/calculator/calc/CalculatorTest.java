@@ -7,18 +7,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.sap.calcacademy.calculator.calc.AddOperation;
-import com.sap.calcacademy.calculator.calc.Calculator;
-import com.sap.calcacademy.calculator.calc.DivideOperation;
-import com.sap.calcacademy.calculator.calc.MultiplyOperation;
-import com.sap.calcacademy.calculator.calc.Operation;
-import com.sap.calcacademy.calculator.calc.SubtractOperation;
-
 public class CalculatorTest {
 
     @Test
     public void testOverallCalculate() {
-        // String[] args = { "1+", "2" };
         String args = "1+ 2";
         Calculator calc = new Calculator();
         assertNotNull(calc.calculate(args));
@@ -26,8 +18,6 @@ public class CalculatorTest {
 
     @Test
     public void testOverallOperations() {
-        // String[] args1 = { "2+2" }, args2 = { "2-2" }, args3 = { "2*2" },
-        // args4 = { "2/2" };
         String args1 = "2+2", args2 = "2-2", args3 = "2*2", args4 = "2/2";
         Calculator calculator = new Calculator();
         assertEquals(4.0, calculator.calculate(args1));
@@ -73,8 +63,6 @@ public class CalculatorTest {
 
     @Test
     public void testOverallOperations_Extended() {
-        // String[] args1 = { "3+5-(12+1)" }, args2 = { "2*7+15-9-(1-3)" },
-        // args3 = { "1/3+1/2" }, args4 = { "1/2-1/4*2" };
         String args1 = "3+5-(12+1)", args2 = "2*7+15-9-(1-3)", args3 = "1/3+1/2", args4 = "1/2-1/4*2";
         Calculator calculator = new Calculator();
         assertEquals(-5.0, calculator.calculate(args1));
@@ -85,8 +73,6 @@ public class CalculatorTest {
 
     @Test
     public void testOverallOperations_doubleValues() {
-        // String[] args1 = { "0.3+0.7" }, args2 = { "14/0.123*2" }, args5 = {
-        // "0.25*-1.5" };
         String args1 = "0.3+0.7", args2 = "14/0.123*2", args5 = "0.25*-1.5";
         Calculator calculator = new Calculator();
         assertEquals(1.0, calculator.calculate(args1));

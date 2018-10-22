@@ -5,20 +5,8 @@ import java.util.Stack;
 
 public class PostfixExpression {
 
-    private StringBuilder sb = new StringBuilder(); // TODO - ? moving them as a
-                                                    // method args when used :
-                                                    // addValueToSB(sb) ? is it
-                                                    // ok?
-    private ArrayList<Object> expression = new ArrayList<Object>(); // TODO -
-                                                                    // used by
-                                                                    // most of
-                                                                    // the
-                                                                    // methods,
-                                                                    // should it
-                                                                    // be class
-                                                                    // field or
-                                                                    // not?
-    private int valueSign = 1; // TODO move as method variable needed or not?
+    private ArrayList<Object> expression = new ArrayList<Object>();
+    private int valueSign = 1;
 
     /**
      * Determinate the inputString as a postfix expression
@@ -50,6 +38,7 @@ public class PostfixExpression {
         Stack<Character> operatorsStack = new Stack<Character>();
         char currentChar;
         char prevChar = 0;
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < inputString.length(); ++i) {
             System.out.println("E: " + expression);
@@ -66,7 +55,7 @@ public class PostfixExpression {
             } else if (currentChar == '(') {
                 operatorsStack.push(currentChar);
             } else if (currentChar == ')') {
-                addValueToSB();
+                addValueToSB(sb);
                 while (!operatorsStack.isEmpty() && operatorsStack.peek() != '(') {
                     expression.add(operatorsStack.pop());
                     System.out.println(expression);
@@ -83,7 +72,7 @@ public class PostfixExpression {
                                                                                          // CharPosition
                         continue;
                 }
-                addValueToSB();
+                addValueToSB(sb);
                 while (!operatorsStack.isEmpty() && ((precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek())))) {
                     expression.add(operatorsStack.pop());
                 }
@@ -91,7 +80,7 @@ public class PostfixExpression {
                 System.out.println("OP Stack : " + operatorsStack);
             }
         }
-        addValueToSB();
+        addValueToSB(sb);
         while (!operatorsStack.isEmpty()) {
             expression.add(operatorsStack.pop());
             System.out.println("Expr: " + expression);
@@ -145,7 +134,7 @@ public class PostfixExpression {
      * Takes digit from String Builder, turns them into Double values with sign
      * and adds this value to the expression
      */
-    private void addValueToSB() {
+    private void addValueToSB(StringBuilder sb) {
         if (sb.length() != 0) {
             expression.add(Double.parseDouble(sb.toString()) * valueSign);
             sb.setLength(0);

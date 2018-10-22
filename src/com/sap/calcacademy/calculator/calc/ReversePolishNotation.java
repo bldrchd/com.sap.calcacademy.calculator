@@ -3,9 +3,6 @@ package com.sap.calcacademy.calculator.calc;
 import java.util.LinkedList;
 
 public class ReversePolishNotation {
-
-    private String token;
-
     /**
      * Applying Reverse Polish Notation to calculate the final result of the
      * user's expression
@@ -22,15 +19,12 @@ public class ReversePolishNotation {
      * @return The calculated result as Number
      */
     Number calculationWithRPN(String[] postfixExpression) throws ArithmeticException {
+        String token;
         Number result;
         LinkedList<Number> stack = new LinkedList<Number>();
 
         System.out.println("------------Calculation------------");
 
-        /*
-         * for (int j = 0; j <= postfixExpression.length - 1; j++) {
-         * System.out.print(postfixExpression[j] + " "); } System.out.println();
-         */
         Double number = null;
 
         for (int i = 0; i <= postfixExpression.length - 1; i++) {

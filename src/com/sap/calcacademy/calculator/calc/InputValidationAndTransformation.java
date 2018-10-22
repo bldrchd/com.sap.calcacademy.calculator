@@ -19,19 +19,21 @@ public class InputValidationAndTransformation {
      * @throws IllegalArgumentException
      *             when unacceptable symbols are found
      */
-    String validateAndTrimInput(String inputString) throws IllegalArgumentException {
+    String validateAndTrimInput(String inputString) throws CalculationValidationException {
 
         inputString = removeWhitespaces(inputString);
-        if (!notFoundUnaceptableSymbols(inputString)) // TODO
-            throw new IllegalArgumentException("Unacceptable Symbols Found.");
-        try {
-            if (correctParentheses(inputString)) {
-                return inputString;
+        if (noUnacceptableSymbolsFound(inputString)) {
+            try {
+                if (correctParentheses(inputString)) {
+                    return inputString;
+                } else
+                    throw new CalculationValidationException("Count of parentheses not equal.");
+            } catch (CalculationValidationException cve) {
+                throw new CalculationValidationException(cve.getMessage(), cve.getCause());
             }
-        } catch (CalculationValidationException cve) {
-            throw new CalculationValidationException(cve.getMessage(), cve.getCause());
+        } else {
+            throw new CalculationValidationException("Found unaceptable symbols.");
         }
-        return inputString;
     }
 
     /**
@@ -62,10 +64,10 @@ public class InputValidationAndTransformation {
     }
 
     /**
-     * Returns FALSE (remove ^ for true ) if there are no symbols, that are
-     * different than + - / * ( ) . and digits
+     * Returns TRUE if there are no symbols, that are different than + - / * ( )
+     * . and digits
      */
-    boolean notFoundUnaceptableSymbols(String joinedString) {
+    boolean noUnacceptableSymbolsFound(String joinedString) {
         return joinedString.matches("[0-9-\\+\\*\\/\\(\\)\\.]+");
     }
 }

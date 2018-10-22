@@ -2,6 +2,8 @@ package com.sap.calcacademy.calculator.calc;
 
 import java.util.LinkedList;
 
+import com.sap.calcacademy.calculator.exceptions.CalculationException;
+
 public class ReversePolishNotation {
     /**
      * Applying Reverse Polish Notation to calculate the final result of the
@@ -18,7 +20,7 @@ public class ReversePolishNotation {
      *            Stores the current result from the calculation
      * @return The calculated result as Number
      */
-    Number calculationWithRPN(String[] postfixExpression) throws ArithmeticException {
+    Number calculationWithRPN(String[] postfixExpression) throws CalculationException, IllegalArgumentException {
         String token;
         Number result;
         LinkedList<Number> stack = new LinkedList<Number>();
@@ -36,9 +38,6 @@ public class ReversePolishNotation {
                 System.out.println("Stack: " + stack.toString());
                 continue;
             } catch (NumberFormatException nfe) {
-                System.err.println("Cannot parse token to Double"); // TODO -
-                // False message ?
-
             }
 
             if (isOperator(token)) {
@@ -75,9 +74,8 @@ public class ReversePolishNotation {
                         System.out.println("Not operator");
                         break;
                     }
-                } catch (ArithmeticException ae) {
-                    System.out.println(ae.getMessage());
-                    throw new ArithmeticException(ae.getMessage());
+                } catch (CalculationException ce) {
+                    throw new CalculationException(ce.getMessage(), ce.getCause());
                 }
             }
         }

@@ -34,60 +34,63 @@ public class PostfixExpression {
      *            1 for positive or -1 for negative.
      * @return Postfix expression as a String
      */
-    String[] createPostfixExpression(String inputString) {
+    String[] createPostfixExpression(String inputString) throws NumberFormatException {
         Stack<Character> operatorsStack = new Stack<Character>();
         char currentChar;
         char prevChar = 0;
         StringBuilder sb = new StringBuilder();
+        try {
+            for (int i = 0; i < inputString.length(); ++i) {
+                System.out.println("E: " + expression);
+                System.out.println("OpSt: " + operatorsStack);
+                currentChar = inputString.charAt(i);
 
-        for (int i = 0; i < inputString.length(); ++i) {
-            System.out.println("E: " + expression);
-            System.out.println("OpSt: " + operatorsStack);
-            currentChar = inputString.charAt(i);
+                if (i > 0) {
+                    prevChar = inputString.charAt(i - 1);
+                }
 
-            if (i > 0) {
-                prevChar = inputString.charAt(i - 1);
+                if (currentCharIsDigit(currentChar)) {
+                    sb.append(currentChar);
+                    System.out.println(sb.toString());
+                } else if (currentChar == '(') {
+                    operatorsStack.push(currentChar);
+                } else if (currentChar == ')') {
+                    addValueToSB(sb);
+                    while (!operatorsStack.isEmpty() && operatorsStack.peek() != '(') {
+                        expression.add(operatorsStack.pop());
+                        System.out.println(expression);
+                    }
+                    operatorsStack.pop();
+                    System.out.println("OP Stack : " + operatorsStack);
+                } else {
+                    if (currentChar == '-') {
+                        char nextChar = inputString.charAt(i + 1);
+                        int length = inputString.length();
+                        if (valueSignIsNegative(i, currentChar, prevChar, nextChar, length)) // TODO
+                                                                                             // ParameterObject
+                                                                                             // ?
+                                                                                             // CharPosition
+                            continue;
+                    }
+                    addValueToSB(sb);
+                    while (!operatorsStack.isEmpty() && ((precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek())))) {
+                        expression.add(operatorsStack.pop());
+                    }
+                    operatorsStack.push(currentChar);
+                    System.out.println("OP Stack : " + operatorsStack);
+                }
             }
-
-            if (currentCharIsDigit(currentChar)) {
-                sb.append(currentChar);
-                System.out.println(sb.toString());
-            } else if (currentChar == '(') {
-                operatorsStack.push(currentChar);
-            } else if (currentChar == ')') {
-                addValueToSB(sb);
-                while (!operatorsStack.isEmpty() && operatorsStack.peek() != '(') {
-                    expression.add(operatorsStack.pop());
-                    System.out.println(expression);
-                }
-                operatorsStack.pop();
-                System.out.println("OP Stack : " + operatorsStack);
-            } else {
-                if (currentChar == '-') {
-                    char nextChar = inputString.charAt(i + 1);
-                    int length = inputString.length();
-                    if (valueSignIsNegative(i, currentChar, prevChar, nextChar, length)) // TODO
-                                                                                         // ParameterObject
-                                                                                         // ?
-                                                                                         // CharPosition
-                        continue;
-                }
-                addValueToSB(sb);
-                while (!operatorsStack.isEmpty() && ((precedenceOfSymbol(currentChar) <= precedenceOfSymbol(operatorsStack.peek())))) {
-                    expression.add(operatorsStack.pop());
-                }
-                operatorsStack.push(currentChar);
-                System.out.println("OP Stack : " + operatorsStack);
+            addValueToSB(sb);
+            while (!operatorsStack.isEmpty()) {
+                expression.add(operatorsStack.pop());
+                System.out.println("Expr: " + expression);
             }
-        }
-        addValueToSB(sb);
-        while (!operatorsStack.isEmpty()) {
-            expression.add(operatorsStack.pop());
-            System.out.println("Expr: " + expression);
-        }
-        System.out.println(expression);
+            System.out.println(expression);
 
-        return buildFinalPostfixExpression();
+            return buildFinalPostfixExpression();
+        } catch (NumberFormatException nfe) {
+            throw new NumberFormatException(nfe.getMessage());
+        }
     }
 
     /**
@@ -134,13 +137,17 @@ public class PostfixExpression {
      * Takes digit from String Builder, turns them into Double values with sign
      * and adds this value to the expression
      */
-    private void addValueToSB(StringBuilder sb) {
-        if (sb.length() != 0) {
-            expression.add(Double.parseDouble(sb.toString()) * valueSign);
-            sb.setLength(0);
-            valueSign = 1;
+    private void addValueToSB(StringBuilder sb) throws NumberFormatException {
+        try {
+            if (sb.length() != 0) {
+                expression.add(Double.parseDouble(sb.toString()) * valueSign);
+                sb.setLength(0);
+                valueSign = 1;
+            }
+            System.out.println("Expr: " + expression);
+        } catch (NumberFormatException nfe) {
+            throw new NumberFormatException("Cannot parse to Double from StringBuilder.");
         }
-        System.out.println("Expr: " + expression);
     }
 
     /**

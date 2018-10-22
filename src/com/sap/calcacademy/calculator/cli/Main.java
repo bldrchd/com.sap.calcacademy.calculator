@@ -1,5 +1,6 @@
-package com.sap.calcacademy.calculator.calc;
+package com.sap.calcacademy.calculator.cli;
 
+import com.sap.calcacademy.calculator.calc.Calculator;
 import com.sap.calcacademy.calculator.exceptions.NoArgumentsException;
 
 public class Main {

@@ -19,7 +19,7 @@ public class Calculator {
      * @throws ArithmeticException
      *             if cannot calculate the input
      */
-    Number calculate(String inputString) throws CalculationException {
+    public Number calculate(String inputString) throws CalculationException {
         String validatedString;
         try {
             validatedString = validateInput(inputString);

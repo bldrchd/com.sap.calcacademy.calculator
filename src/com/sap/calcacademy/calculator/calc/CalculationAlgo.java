@@ -12,35 +12,39 @@ import com.sap.calcacademy.calculator.exceptions.CalculationValidationException;
  * Calculation of expression without generation of Postfix expression
  *
  */
-public class CalculationAlgo {
+public class CalculationAlgo { // TODO
     String token = "";
     ArrayList<String> expression = new ArrayList<String>();
 
     public String parentheses(String inputString) throws CalculationValidationException {
-        CalculationAlgo check = new CalculationAlgo();
+        // CalculationAlgo check = new CalculationAlgo(); // TODO remove it
         boolean hasParentheses = inputString.contains(Character.toString('(')) || inputString.contains(Character.toString(')'));
-        while (hasParentheses) {
+        if (hasParentheses) {
             for (int i = 0; i < inputString.length(); i++) {
                 if (Character.isDigit(i) && inputString.charAt(i + 1) == '(') {
                     throw new CalculationValidationException("Missing operator or operand between " + i + " and " + i + 1 + "(");
                 }
                 if (inputString.charAt(i) == ')') {
-                    for (int j = i; j >= i; j--) {
+                    for (int j = i; j >= 0; j--) {
                         if (inputString.charAt(j) == '(') {
                             String subStr = inputString.substring(j + 1, i);
-                            subStr = check.parentheses(subStr);
+                            subStr = parentheses(subStr);// check.parentheses(subStr);
                             inputString = inputString.substring(0, j) + subStr + inputString.substring(i + 1);
                             j = i = 0;
                         }
                     }
                 }
             }
-            if (inputString.contains(Character.toString('(')) || inputString.contains(Character.toString(')')) || inputString.contains(Character.toString('('))
-                    || inputString.contains(Character.toString(')'))) {
-                throw new CalculationValidationException("Incorrect parentheses position.");
-            }
+            /*
+             * if (inputString.contains(Character.toString('(')) ||
+             * inputString.contains(Character.toString(')')) ||
+             * inputString.contains(Character.toString('(')) ||
+             * inputString.contains(Character.toString(')'))) { throw new
+             * CalculationValidationException("Incorrect parentheses position."
+             * ); }
+             */
         }
-        inputString = check.determinate(inputString);
+        inputString = determinate(inputString);// check.determinate(inputString);
         return inputString;
     }
 
@@ -114,7 +118,7 @@ public class CalculationAlgo {
 
     @Test
     public void calculateTest() {
-        String inputString = "(2 + 2)";
+        String inputString = "(2+2)"; // TODO whitespaces
         Number expectedResult = 4;
         assertEquals(expectedResult, parentheses(inputString));
     }

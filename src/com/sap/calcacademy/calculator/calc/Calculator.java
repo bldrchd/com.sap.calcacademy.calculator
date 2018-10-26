@@ -45,7 +45,9 @@ public class Calculator {
             InputValidationAndTransformation ivat = new InputValidationAndTransformation();
             return ivat.validateAndTrimInput(buildedInputString);
         } catch (CalculationValidationException cve) {
-            throw new CalculationValidationException(cve.getMessage(), cve.getCause());
+            throw new CalculationValidationException(cve.getMessage(), cve.getCause()); // TODO
+                                                                                        // fix
+                                                                                        // expressions
         }
     }
 }

@@ -31,24 +31,18 @@ public class CalculationAlgo {
                 }
             }
         }
-        inputString = determinate(inputString);
-        return inputString;
+        return determinate(inputString);
     }
 
     private String determinate(String inputString) {
-        System.out.println("determinate()" + inputString);
-
         for (int i = inputString.length() - 1; i >= 0; i--) {
             char currentChar = inputString.charAt(i);
-            System.out.println("currentChar: " + currentChar);
             char prevChar = 0;
             if (i > 0) {
                 prevChar = inputString.charAt(i - 1);
-                System.out.println("prevChar: " + prevChar);
             }
-            if (Character.isDigit(currentChar)) { // what about numbers >9?
+            if (Character.isDigit(currentChar)) {
                 token = currentChar + token;
-                System.out.println("token: " + token);
                 if (i == 0) {
                     collect();
                 }
@@ -60,9 +54,8 @@ public class CalculationAlgo {
                     collect();
                 } else {
                     collect();
-                    token += currentChar; // why not token=
+                    token += currentChar;
                     collect();
-                    // currentChar?
                 }
             }
         }
@@ -71,16 +64,14 @@ public class CalculationAlgo {
         return expression.get(0);
     }
 
-    public void collect() {
+    private void collect() {
         if (!token.equals("")) {
             expression.add(0, token);
             token = "";
-            System.out.println(token + ": token");
         }
     }
 
-    public ArrayList<String> result(ArrayList<String> values, String oper1, String oper2) {
-        System.out.println("result" + values.toString() + "oper1: " + oper1 + " oper2: " + oper2);
+    private ArrayList<String> result(ArrayList<String> values, String oper1, String oper2) {
         Double result = new Double(0);
 
         for (int i = 0; i < values.size(); i++) {
@@ -107,14 +98,9 @@ public class CalculationAlgo {
                 default:
                     break;
                 }
-                try {
-                    values.set(i, result.toString());
-                    values.remove(i + 1);
-                    values.remove(i - 1);
-                } catch (Exception ignored) {
-                    // TODO out of bounds
-                }
-                System.out.println("result: " + result);
+                values.set(i, result.toString());
+                values.remove(i + 1);
+                values.remove(i - 1);
             }
 
             else {

@@ -1,7 +1,6 @@
 package com.sap.calcacademy.calculator.calc;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
@@ -11,6 +10,7 @@ import org.junit.rules.ExpectedException;
 import com.sap.calcacademy.calculator.exceptions.CalculationValidationException;
 
 public class InputValidationAndTransformationTest {
+    InputValidationAndTransformation ivat;
 
     @Test
     public void checkForRemovedWhiteSpacesTest() {
@@ -18,32 +18,30 @@ public class InputValidationAndTransformationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputToTest = "22+ 3/ 5	+1 -\"1 -		-3\"";
         String expected = "22+3/5+1-\"1--3\"";
-        InputValidationAndTransformation ipd = new InputValidationAndTransformation();
-        assertEquals(expected, ipd.removeWhitespaces(inputToTest));
+        ivat = new InputValidationAndTransformation();
+        assertEquals(expected, ivat.removeWhitespaces(inputToTest));
     }
 
-    @Test
+    @Test(expected = CalculationValidationException.class)
     public void checkCorrectParenthesisCountTest() {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         String inputToTestCorrect = "22+ 3/ ( 5	+1 )-\"1 -		-3\"";
         String inputToTestNotCorrect = "22+ 3/ ( 5	+1 ))-\"1 -		-3\"";
-        InputValidationAndTransformation ipd = new InputValidationAndTransformation();
-        assertTrue(ipd.correctParentheses(inputToTestCorrect));
-        assertFalse(ipd.correctParentheses(inputToTestNotCorrect));
+        ivat = new InputValidationAndTransformation();
+        assertTrue(ivat.correctParentheses(inputToTestCorrect));
+        ivat.correctParentheses(inputToTestNotCorrect);
     }
 
     @Test
     public void overallPreValidationTest() {
         System.out.println(" --- " + new Object() {
         }.getClass().getEnclosingMethod().getName() + " --- ");
-        // String[] inputToTest = { "22", "+", " ", "3", "/", " (", "5 ", " ",
-        // "+1", " ", " ", ")", "-", "1", "-", " ", "(", " -3)" };
         String inputToTest = "22 + 3/ (5     +1   ) -1 - ( -3)";
         String expected = "22+3/(5+1)-1-(-3)";
-        InputValidationAndTransformation ipd = new InputValidationAndTransformation();
-        assertEquals(expected, ipd.validateAndTrimInput(inputToTest));
-        System.out.println(ipd.validateAndTrimInput(inputToTest));
+        ivat = new InputValidationAndTransformation();
+        assertEquals(expected, ivat.validateAndTrimInput(inputToTest));
+        System.out.println(ivat.validateAndTrimInput(inputToTest));
     }
 
     @Test
@@ -52,9 +50,9 @@ public class InputValidationAndTransformationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         Throwable t = null;
         String inputToTest = "22 + 3/ s(5  a   +1   )& -1 - ( -3)";
-        InputValidationAndTransformation ipd = new InputValidationAndTransformation();
+        ivat = new InputValidationAndTransformation();
         try {
-            ipd.validateAndTrimInput(inputToTest);
+            ivat.validateAndTrimInput(inputToTest);
         } catch (RuntimeException re) {
             t = re;
         }
@@ -69,7 +67,25 @@ public class InputValidationAndTransformationTest {
         }.getClass().getEnclosingMethod().getName() + " --- ");
         thrown.expect(CalculationValidationException.class);
         String inputToTest = "22 + 3/ )5     +1    -1 - ( -3)";
-        InputValidationAndTransformation ivat = new InputValidationAndTransformation();
+        ivat = new InputValidationAndTransformation();
+        ivat.validateAndTrimInput(inputToTest);
+    }
+
+    @Test(expected = CalculationValidationException.class)
+    public void emptyParenthesesTest() {
+        System.out.println(" --- " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " --- ");
+        String inputToTest = "22 + 3/ ()5     +1    -1 - ( -3)";
+        ivat = new InputValidationAndTransformation();
+        ivat.validateAndTrimInput(inputToTest);
+    }
+
+    @Test(expected = CalculationValidationException.class)
+    public void tooManyClosingParenthesesTest() {
+        System.out.println(" --- " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " --- ");
+        String inputToTest = "22 + 3/ ()5 )    +1    -1 - ( -3)";
+        ivat = new InputValidationAndTransformation();
         ivat.validateAndTrimInput(inputToTest);
     }
 

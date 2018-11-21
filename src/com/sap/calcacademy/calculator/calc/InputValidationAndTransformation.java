@@ -34,25 +34,30 @@ public class InputValidationAndTransformation {
      * Checks for whitespaces and removes them if there are such
      */
     String removeWhitespaces(String inputString) {
-        return inputString = inputString.replaceAll("\\s+", "");
+        return inputString.replaceAll("\\s+", "");
     }
 
     /**
      * Counts the number of parentheses (should be equal)
      */
     boolean correctParentheses(String joinedString) throws CalculationValidationException {
-        // TODO - algo to check correctness of parenthesis
-        int count = 0;
+        int countLeft = 0;
+        int countRight = 0;
         for (int i = 0; i <= joinedString.length() - 1; i++) {
             if (joinedString.charAt(0) == ')')
                 throw new CalculationValidationException("Input starts with closing parentheses \")\"");
-            if (joinedString.charAt(i) == '(')
-                count++;
-
-            if (joinedString.charAt(i) == ')')
-                count--;
+            if (joinedString.charAt(i) == '(') {
+                countLeft++;
+                if (joinedString.charAt(i + 1) == ')')
+                    throw new CalculationValidationException("Empty parentheses at " + i + ". Must contains expression.");
+            }
+            if (joinedString.charAt(i) == ')') {
+                countRight++;
+            }
+            if (countRight > countLeft)
+                throw new CalculationValidationException("Too many closing parentheses at " + i);
         }
-        return (count == 0);
+        return (countLeft == countRight);
     }
 
     /**

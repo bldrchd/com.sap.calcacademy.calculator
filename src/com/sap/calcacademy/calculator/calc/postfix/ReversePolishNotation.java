@@ -1,7 +1,11 @@
-package com.sap.calcacademy.calculator.calc;
+package com.sap.calcacademy.calculator.calc.postfix;
 
 import java.util.LinkedList;
 
+import com.sap.calcacademy.calculator.calc.AddOperation;
+import com.sap.calcacademy.calculator.calc.DivideOperation;
+import com.sap.calcacademy.calculator.calc.MultiplyOperation;
+import com.sap.calcacademy.calculator.calc.SubtractOperation;
 import com.sap.calcacademy.calculator.exceptions.CalculationException;
 
 public class ReversePolishNotation {
@@ -20,7 +24,7 @@ public class ReversePolishNotation {
      *            Stores the current result from the calculation
      * @return The calculated result as Number
      */
-    Number calculationWithRPN(String[] postfixExpression) throws CalculationException, IllegalArgumentException, ArithmeticException {
+    public Number calculationWithRPN(String[] postfixExpression) throws CalculationException, IllegalArgumentException, ArithmeticException {
         String token;
         Number result;
         LinkedList<Number> stack = new LinkedList<Number>();

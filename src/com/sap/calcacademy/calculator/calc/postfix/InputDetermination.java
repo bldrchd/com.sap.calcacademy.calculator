@@ -1,4 +1,4 @@
-package com.sap.calcacademy.calculator.calc;
+package com.sap.calcacademy.calculator.calc.postfix;
 
 import java.util.ArrayList;
 import java.util.Stack;

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.sap.calcacademy.calculator.calc.postfix.ReversePolishNotation;
+
 public class RevPolishNotationTest {
 
     @Test

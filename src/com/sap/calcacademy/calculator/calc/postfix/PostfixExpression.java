@@ -1,11 +1,11 @@
-package com.sap.calcacademy.calculator.calc;
+package com.sap.calcacademy.calculator.calc.postfix;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class PostfixExpression {
 
-    private ArrayList<Object> expression = new ArrayList<Object>();
+    private ArrayList<Object> expression = new ArrayList<>();
     private int valueSign = 1;
 
     /**
@@ -34,8 +34,8 @@ public class PostfixExpression {
      *            1 for positive or -1 for negative.
      * @return Postfix expression as a String
      */
-    String[] createPostfixExpression(String inputString) throws NumberFormatException, IllegalArgumentException {
-        Stack<Character> operatorsStack = new Stack<Character>();
+    public String[] createPostfixExpression(String inputString) throws NumberFormatException, IllegalArgumentException {
+        Stack<Character> operatorsStack = new Stack<>();
         char currentChar;
         char prevChar = 0;
         StringBuilder sb = new StringBuilder();
@@ -147,7 +147,8 @@ public class PostfixExpression {
                 valueSign = 1;
             }
             System.out.println("Expr: " + expression);
-        } catch (NumberFormatException nfe) { //TODO - do I need this new Exception? 
+        } catch (NumberFormatException nfe) { // TODO - do I need this new
+                                              // Exception?
             throw new NumberFormatException("Cannot parse to Double from StringBuilder.");
         }
     }

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.sap.calcacademy.calculator.calc.postfix.PostfixExpression;
+
 public class PostfixExpressionTest {
     @Test
     public void expectedPostfixExpressionTest_Complex() {

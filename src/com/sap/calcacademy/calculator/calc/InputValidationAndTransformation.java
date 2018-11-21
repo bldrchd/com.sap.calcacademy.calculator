@@ -23,17 +23,11 @@ public class InputValidationAndTransformation {
 
         inputString = removeWhitespaces(inputString);
         if (noUnacceptableSymbolsFound(inputString)) {
-            try {
-                if (correctParentheses(inputString)) {
-                    return inputString;
-                } else
-                    throw new CalculationValidationException("Count of parentheses not equal.");
-            } catch (CalculationValidationException cve) {
-                throw new CalculationValidationException(cve.getMessage(), cve.getCause());
-            }
-        } else {
-            throw new CalculationValidationException("Found unaceptable symbols.");
+            if (correctParentheses(inputString))
+                return inputString;
+            throw new CalculationValidationException("Count of parentheses not equal.");
         }
+        throw new CalculationValidationException("Found unaceptable symbols.");
     }
 
     /**
@@ -46,19 +40,17 @@ public class InputValidationAndTransformation {
     /**
      * Counts the number of parentheses (should be equal)
      */
-    boolean correctParentheses(String joinedString) {
+    boolean correctParentheses(String joinedString) throws CalculationValidationException {
         // TODO - algo to check correctness of parenthesis
         int count = 0;
         for (int i = 0; i <= joinedString.length() - 1; i++) {
-            if (joinedString.charAt(0) == ')') {
+            if (joinedString.charAt(0) == ')')
                 throw new CalculationValidationException("Input starts with closing parentheses \")\"");
-            } else {
-                if (joinedString.charAt(i) == '(') {
-                    count++;
-                } else if (joinedString.charAt(i) == ')') {
-                    count--;
-                }
-            }
+            if (joinedString.charAt(i) == '(')
+                count++;
+
+            if (joinedString.charAt(i) == ')')
+                count--;
         }
         return (count == 0);
     }

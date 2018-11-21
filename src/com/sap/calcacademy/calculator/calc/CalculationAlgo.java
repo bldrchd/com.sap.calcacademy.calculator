@@ -1,10 +1,6 @@
 package com.sap.calcacademy.calculator.calc;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
-
-import org.junit.Test;
 
 import com.sap.calcacademy.calculator.exceptions.CalculationValidationException;
 
@@ -16,7 +12,9 @@ public class CalculationAlgo { // TODO
     String token = "";
     ArrayList<String> expression = new ArrayList<String>();
 
-    public String parentheses(String inputString) throws CalculationValidationException {
+    public String parentheses(String inputString) throws CalculationValidationException { // TODO
+                                                                                          // runtime
+                                                                                          // exception
         // CalculationAlgo check = new CalculationAlgo(); // TODO remove it
         boolean hasParentheses = inputString.contains(Character.toString('(')) || inputString.contains(Character.toString(')'));
         if (hasParentheses) {
@@ -49,16 +47,20 @@ public class CalculationAlgo { // TODO
     }
 
     private String determinate(String inputString) {
+        System.out.println("determinate()" + inputString);
         ArrayList<String> stack = new ArrayList<String>();
 
         for (int i = inputString.length() - 1; i >= 0; i--) {
             char currentChar = inputString.charAt(i);
+            System.out.println("currentChar: " + currentChar);
             char prevChar = 0;
             if (i > 0) {
                 prevChar = inputString.charAt(i - 1);
+                System.out.println("prevChar: " + prevChar);
             }
-            if (Character.isDigit(currentChar)) {
+            if (Character.isDigit(currentChar)) { // what about numbers >9?
                 token = currentChar + token;
+                System.out.println("token: " + token);
                 if (i == 0) {
                     collect();
                 }
@@ -70,7 +72,9 @@ public class CalculationAlgo { // TODO
                     collect();
                 } else {
                     collect();
-                    token += currentChar;
+                    token += currentChar; // why not token=
+                    collect();
+                    // currentChar?
                 }
             }
         }
@@ -83,23 +87,37 @@ public class CalculationAlgo { // TODO
         if (!token.equals("")) {
             expression.add(0, token);
             token = "";
+            System.out.println(token + ": token");
         }
     }
 
     public ArrayList<String> result(ArrayList<String> values, String oper1, String oper2) {
+        System.out.println("result" + values.toString() + "oper1: " + oper1 + " oper2: " + oper2);
         Double result = new Double(0);
 
         for (int i = 0; i < values.size(); i++) {
             if (values.get(i).equals(oper1) || values.get(i).equals(oper2)) {
+                /*
+                 * / Looks the expression if contains operator (oper1 or oper2),
+                 * then calculates it
+                 */
+                Double operand1 = Double.valueOf(values.get(i - 1));
+                Double operand2 = Double.valueOf(values.get(i + 1));
                 switch (values.get(i)) {
                 case "+":
-                    result = (Double) new AddOperation().execute(Double.valueOf(values.get(i - 1)), Double.valueOf(values.get(i + 1)));
+                    result = (Double) new AddOperation().execute(operand1, operand2);
+                    break;
                 case "-":
-                    result = (Double) new SubtractOperation().execute(Double.valueOf(values.get(i - 1)), Double.valueOf(values.get(i + 1)));
+                    result = (Double) new SubtractOperation().execute(operand1, operand2);
+                    break;
                 case "*":
-                    result = (Double) new MultiplyOperation().execute(Double.valueOf(values.get(i - 1)), Double.valueOf(values.get(i + 1)));
+                    result = (Double) new MultiplyOperation().execute(operand1, operand2);
+                    break;
                 case "/":
-                    result = (Double) new DivideOperation().execute(Double.valueOf(values.get(i - 1)), Double.valueOf(values.get(i + 1)));
+                    result = (Double) new DivideOperation().execute(operand1, operand2);
+                    break;
+                default:
+                    break;
                 }
                 try {
                     values.set(i, result.toString());
@@ -108,18 +126,14 @@ public class CalculationAlgo { // TODO
                 } catch (Exception ignored) {
                     // TODO out of bounds
                 }
-            } else {
+                System.out.println("result: " + result);
+            }
+
+            else {
                 continue;
             }
             i = 0;
         }
         return values;
-    }
-
-    @Test
-    public void calculateTest() {
-        String inputString = "(2+2)"; // TODO whitespaces
-        Number expectedResult = 4;
-        assertEquals(expectedResult, parentheses(inputString));
     }
 }

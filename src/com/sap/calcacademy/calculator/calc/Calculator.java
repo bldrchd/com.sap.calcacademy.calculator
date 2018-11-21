@@ -19,35 +19,13 @@ public class Calculator {
      * @throws ArithmeticException
      *             if cannot calculate the input
      */
-    public Number calculate(String inputString) throws CalculationException {
-        String validatedString;
-        try {
-            validatedString = validateInput(inputString);
-        } catch (CalculationValidationException cve) {
-            throw new CalculationValidationException(cve.getMessage(), cve.getCause());
-        }
-        String[] postfixExpression = null;
-        PostfixExpression pe = new PostfixExpression();
-        try {
-            postfixExpression = pe.createPostfixExpression(validatedString);
-        } catch (IllegalArgumentException iae) {
-            throw new IllegalArgumentException(iae.getMessage());
-        }
-        try {
-            return new ReversePolishNotation().calculationWithRPN(postfixExpression);
-        } catch (CalculationException ce) {
-            throw new CalculationException(ce.getMessage());
-        }
-    }
+    public Number calculate(String inputString) throws CalculationException, IllegalArgumentException, CalculationException {
+        InputValidationAndTransformation ivat = new InputValidationAndTransformation();
+        String validatedString = ivat.validateAndTrimInput(inputString);
 
-    private String validateInput(String buildedInputString) throws CalculationValidationException {
-        try {
-            InputValidationAndTransformation ivat = new InputValidationAndTransformation();
-            return ivat.validateAndTrimInput(buildedInputString);
-        } catch (CalculationValidationException cve) {
-            throw new CalculationValidationException(cve.getMessage(), cve.getCause()); // TODO
-                                                                                        // fix
-                                                                                        // expressions
-        }
+        PostfixExpression pe = new PostfixExpression();
+        String[] postfixExpression = pe.createPostfixExpression(validatedString);
+
+        return new ReversePolishNotation().calculationWithRPN(postfixExpression);
     }
 }

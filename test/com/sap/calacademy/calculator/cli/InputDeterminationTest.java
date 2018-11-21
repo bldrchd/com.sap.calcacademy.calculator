@@ -1,4 +1,4 @@
-package com.sap.calcacademy.calculator.calc;
+package com.sap.calacademy.calculator.cli;
 
 import static org.junit.Assert.assertTrue;
 

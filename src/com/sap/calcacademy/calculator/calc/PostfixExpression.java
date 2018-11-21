@@ -147,7 +147,7 @@ public class PostfixExpression {
                 valueSign = 1;
             }
             System.out.println("Expr: " + expression);
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) { //TODO - do I need this new Exception? 
             throw new NumberFormatException("Cannot parse to Double from StringBuilder.");
         }
     }

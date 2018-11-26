@@ -13,23 +13,38 @@ public class CalculationAlgo {
     ArrayList<String> expression = new ArrayList<>();
 
     public String startCalculating(String inputString) throws CalculationValidationException {
-        boolean hasParentheses = inputString.contains(Character.toString('(')) || inputString.contains(Character.toString(')'));
+
+        boolean hasParentheses = inputString.contains("(") || inputString.contains(")");
+        int positionOfOpenBr = 0;
+        int positionOfClosingBr = 0;
+        char currentChar;
+        char nextChar = 0;
+
+        System.out.println("start: " + inputString);
         if (hasParentheses) {
             for (int i = 0; i < inputString.length(); i++) {
-                if (Character.isDigit(i) && inputString.charAt(i + 1) == '(') {
+                currentChar = inputString.charAt(i);
+
+                if (i < inputString.length() - 1)
+                    nextChar = inputString.charAt(i + 1);
+
+                if (Character.isDigit(i) && nextChar == '(') {
                     throw new CalculationValidationException("Missing operator or operand between " + i + " and " + i + 1 + "(");
                 }
-                if (inputString.charAt(i) == ')') {
-                    for (int j = i; j >= 0; j--) {
-                        if (inputString.charAt(j) == '(') {
-                            String subStr = inputString.substring(j + 1, i);
-                            subStr = startCalculating(subStr);
-                            inputString = inputString.substring(0, j) + subStr + inputString.substring(i + 1);
-                            j = i = 0;
-                        }
-                    }
+                if (currentChar == '(')
+                    positionOfOpenBr = i;
+
+                if (currentChar == ')') {
+                    positionOfClosingBr = i;
+                    String subExpression = inputString.substring(positionOfOpenBr + 1, positionOfClosingBr);
+                    subExpression = startCalculating(subExpression);
+                    inputString = inputString.substring(0, positionOfOpenBr) + subExpression + inputString.substring(positionOfClosingBr + 1);
+                    i = 0;
+                    positionOfOpenBr = 0;
+                    positionOfClosingBr = 0;
                 }
             }
+
         }
         return determinate(inputString);
     }
@@ -38,24 +53,26 @@ public class CalculationAlgo {
         for (int i = inputString.length() - 1; i >= 0; i--) {
             char currentChar = inputString.charAt(i);
             char prevChar = 0;
+            System.out.println("current: " + currentChar + " prev: " + prevChar);
             if (i > 0) {
                 prevChar = inputString.charAt(i - 1);
+                System.out.println(" pr: " + prevChar);
             }
             if (Character.isDigit(currentChar)) {
                 token = currentChar + token;
                 if (i == 0) {
-                    collect();
+                    addToExpression();
                 }
             } else {
                 if (currentChar == '.') {
                     token = currentChar + token;
                 } else if (currentChar == '-' && (i == 0 || !Character.isDigit(prevChar))) {
                     token = currentChar + token;
-                    collect();
+                    addToExpression();
                 } else {
-                    collect();
+                    addToExpression();
                     token += currentChar;
-                    collect();
+                    addToExpression();
                 }
             }
         }
@@ -64,9 +81,11 @@ public class CalculationAlgo {
         return expression.get(0);
     }
 
-    private void collect() {
+    private void addToExpression() {
         if (!token.equals("")) {
+            System.out.println("Token1: " + token);
             expression.add(0, token);
+            System.out.println(expression);
             token = "";
         }
     }

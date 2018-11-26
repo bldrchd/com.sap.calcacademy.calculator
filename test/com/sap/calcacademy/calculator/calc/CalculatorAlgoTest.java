@@ -50,22 +50,29 @@ public class CalculatorAlgoTest {
     public void testCustomStrings() {
         Double result;
         CalculationAlgo calc = new CalculationAlgo();
+
         result = Double.parseDouble(calc.startCalculating("9/3/3"));
         assertEquals(1.0, result, 0.01);
         result = Double.parseDouble(calc.startCalculating("4*(5*(3*(4+1)))"));
         assertEquals(300.0, result, 0.01);
         result = Double.parseDouble(calc.startCalculating("(-4-1)*3"));
         assertEquals(-15.0, result, 0.01);
+
         result = Double.parseDouble(calc.startCalculating("(-4-1)*3+2*(1+1)"));
         assertEquals(-11.0, result, 0.01);
+
         result = Double.parseDouble(calc.startCalculating("-4*(3+1)+2"));
         assertEquals(-14.0, result, 0.01);
+
         result = Double.parseDouble(calc.startCalculating("2*(1+2)-4"));
         assertEquals(2.0, result, 0.01);
+
         result = Double.parseDouble(calc.startCalculating("((4-1)*2+3*(1-1))"));
         assertEquals(6.0, result, 0.01);
+
         result = Double.parseDouble(calc.startCalculating("2+(-2)"));
         assertEquals(0.0, result, 0.01);
+
     }
 
 }

@@ -5,9 +5,6 @@ import com.sap.calcacademy.calculator.exceptions.CalculationValidationException;
 
 public class Calculator {
 
-    private String validatedString = null;
-    private String result = null;
-
     /**
      * Calculates expression from user input
      * 
@@ -24,29 +21,13 @@ public class Calculator {
      * @throws ArithmeticException
      *             if cannot calculate the input
      */
-    public Number calculate(String inputString) throws CalculationException, IllegalArgumentException, CalculationException {
+    public Number calculate(String inputString) throws CalculationException, IllegalArgumentException {
         InputValidationAndTransformation ivat = new InputValidationAndTransformation();
-        setValidatedString(ivat.validateAndTrimInput(inputString));
+        String validatedString = (ivat.validateAndTrimInput(inputString));
 
         CalculationAlgo ca = new CalculationAlgo();
-        setResult(ca.startCalculating(validatedString));
+        return Double.valueOf(ca.startCalculating(validatedString));
 
-        return Double.valueOf(getResult());
     }
 
-    public String getValidatedString() {
-        return validatedString;
-    }
-
-    private void setValidatedString(String validatedString) {
-        this.validatedString = validatedString;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    private void setResult(String result) {
-        this.result = result;
-    }
 }

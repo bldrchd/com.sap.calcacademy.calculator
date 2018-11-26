@@ -1,19 +1,10 @@
 package com.sap.calcacademy.calculator.calc;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class CalculatorAlgoTest {
-    @Ignore
-    @Test
-    public void testNotNullCalculate() {
-        String args = "1+ 2";
-        CalculationAlgo calc = new CalculationAlgo();
-        assertNotNull(calc.startCalculating(args));
-    }
 
     @Test
     public void testOverallOperations() {

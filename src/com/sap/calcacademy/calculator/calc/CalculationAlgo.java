@@ -133,10 +133,8 @@ public class CalculationAlgo {
     }
 
     private Double divide(Double operand1, Double operand2) {
-        if (operand2.toString().equals("0.0")) {
+        if (operand2.toString().equals("0.0"))
             throw new ArithmeticException("Can not divide by 0");
-        } else {
-            return operand1 / operand2;
-        }
+        return operand1 / operand2;
     }
 }

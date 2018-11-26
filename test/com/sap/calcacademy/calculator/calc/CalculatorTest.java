@@ -7,6 +7,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.sap.calcacademy.calculator.calc.postfix.AddOperation;
+import com.sap.calcacademy.calculator.calc.postfix.DivideOperation;
+import com.sap.calcacademy.calculator.calc.postfix.MultiplyOperation;
+import com.sap.calcacademy.calculator.calc.postfix.Operation;
+import com.sap.calcacademy.calculator.calc.postfix.SubtractOperation;
+
 public class CalculatorTest {
 
     @Test

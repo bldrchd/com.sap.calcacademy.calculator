@@ -1,4 +1,4 @@
-package com.sap.calcacademy.calculator.calc;
+package com.sap.calcacademy.calculator.calc.postfix;
 
 /**
  * An interface class that is used for arithmetic operations

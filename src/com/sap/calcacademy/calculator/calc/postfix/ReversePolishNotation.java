@@ -2,10 +2,6 @@ package com.sap.calcacademy.calculator.calc.postfix;
 
 import java.util.LinkedList;
 
-import com.sap.calcacademy.calculator.calc.AddOperation;
-import com.sap.calcacademy.calculator.calc.DivideOperation;
-import com.sap.calcacademy.calculator.calc.MultiplyOperation;
-import com.sap.calcacademy.calculator.calc.SubtractOperation;
 import com.sap.calcacademy.calculator.exceptions.CalculationException;
 
 public class ReversePolishNotation {

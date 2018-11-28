@@ -24,7 +24,6 @@ public class CalculationAlgo {
         int i = 0;
         if (hasParentheses) {
             while (i < inputString.length()) {
-                // for (int i = 0; i < inputString.length(); i++) {
                 currentChar = inputString.charAt(i);
 
                 if (i < inputString.length() - 1)

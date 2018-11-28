@@ -1,13 +1,8 @@
 package com.sap.calcacademy.calculator.calc;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
-import java.rmi.server.Operation;
-
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class CalculatorTest {
@@ -29,45 +24,37 @@ public class CalculatorTest {
         assertEquals(1.0, calculator.calculate(args4));
     }
 
-    @Ignore
-    @Test
-    public void testAddOperation() {
-        Operation operation = new AddOperation();
-        Number result = operation.execute(1, 2);
-        assertEquals(3.0, result);
-    }
-
-    @Ignore
-    @Test
-    public void testSubtractOperation() {
-        SubtractOperation subtract = new SubtractOperation();
-        assertEquals(3.0, subtract.execute(6, 3));
-    }
-
-    @Ignore
-    @Test
-    public void testMultiplyOperation() {
-        MultiplyOperation multiply = new MultiplyOperation();
-        assertEquals(18.0, multiply.execute(6, 3));
-    }
-
-    @Ignore
-    @Test
-    public void testDivideOperation() {
-        DivideOperation divide = new DivideOperation();
-        Number result = divide.execute(6, 3);
-        assertEquals(2.0, result);
-        Number result1 = divide.execute(1, 2);
-        assertEquals(0.5, result1);
-    }
-
-    @Ignore
-    @Test
-    public void testExpression() {
-        Number add = new AddOperation().execute(1, 2);
-        assertTrue(add.equals(new AddOperation().execute(1, 2)));
-        assertFalse(add.equals(new AddOperation().execute(2, 3)));
-    }
+    /*
+     * @Ignore
+     * 
+     * @Test public void testAddOperation() { Operation operation = new
+     * AddOperation(); Number result = operation.execute(1, 2);
+     * assertEquals(3.0, result); }
+     * 
+     * @Ignore
+     * 
+     * @Test public void testSubtractOperation() { SubtractOperation subtract =
+     * new SubtractOperation(); assertEquals(3.0, subtract.execute(6, 3)); }
+     * 
+     * @Ignore
+     * 
+     * @Test public void testMultiplyOperation() { MultiplyOperation multiply =
+     * new MultiplyOperation(); assertEquals(18.0, multiply.execute(6, 3)); }
+     * 
+     * @Ignore
+     * 
+     * @Test public void testDivideOperation() { DivideOperation divide = new
+     * DivideOperation(); Number result = divide.execute(6, 3);
+     * assertEquals(2.0, result); Number result1 = divide.execute(1, 2);
+     * assertEquals(0.5, result1); }
+     * 
+     * @Ignore
+     * 
+     * @Test public void testExpression() { Number add = new
+     * AddOperation().execute(1, 2); assertTrue(add.equals(new
+     * AddOperation().execute(1, 2))); assertFalse(add.equals(new
+     * AddOperation().execute(2, 3))); }
+     */
 
     @Test
     public void testOverallOperations_Extended() {

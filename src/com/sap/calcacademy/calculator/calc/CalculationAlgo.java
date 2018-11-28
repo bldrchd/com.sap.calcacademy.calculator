@@ -12,22 +12,25 @@ public class CalculationAlgo {
     String token = "";
     ArrayList<String> expression = new ArrayList<>();
 
-    public String startCalculating(String inputString) throws CalculationValidationException {
+    public String startCalculating(String input) throws CalculationValidationException {
+
+        String inputString = input;
 
         boolean hasParentheses = inputString.contains("(") || inputString.contains(")");
         int positionOfOpenBr = 0;
         int positionOfClosingBr = 0;
         char currentChar;
         char nextChar = 0;
-
+        int i = 0;
         if (hasParentheses) {
-            for (int i = 0; i < inputString.length(); i++) {
+            while (i < inputString.length()) {
+                // for (int i = 0; i < inputString.length(); i++) {
                 currentChar = inputString.charAt(i);
 
                 if (i < inputString.length() - 1)
                     nextChar = inputString.charAt(i + 1);
 
-                if (Character.isDigit(i) && nextChar == '(') {
+                if (Character.isDigit(currentChar) && nextChar == '(') {
                     throw new CalculationValidationException("Missing operator or operand between " + i + " and " + i + 1 + "(");
                 }
                 if (currentChar == '(')
@@ -35,13 +38,13 @@ public class CalculationAlgo {
 
                 if (currentChar == ')') {
                     positionOfClosingBr = i;
-                    String subExpression = inputString.substring(positionOfOpenBr + 1, positionOfClosingBr);
-                    subExpression = startCalculating(subExpression);
-                    inputString = inputString.substring(0, positionOfOpenBr) + subExpression + inputString.substring(positionOfClosingBr + 1);
+                    inputString = inputString.substring(0, positionOfOpenBr) + startCalculating(inputString.substring(positionOfOpenBr + 1, positionOfClosingBr))
+                            + inputString.substring(positionOfClosingBr + 1);
                     i = 0;
                     positionOfOpenBr = 0;
                     positionOfClosingBr = 0;
                 }
+                ++i;
             }
 
         }

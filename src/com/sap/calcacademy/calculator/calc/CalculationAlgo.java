@@ -90,9 +90,8 @@ public class CalculationAlgo {
 
     private ArrayList<String> basicExpressionCalculation(ArrayList<String> values, String oper1, String oper2) {
         Double result = new Double(0);
-
-        for (int i = 0; i < values.size(); i++) {
-
+        int i = 0;
+        while (i < values.size()) {
             if (values.get(i).equals(oper1) || values.get(i).equals(oper2)) {
                 /*
                  * / Looks the expression if contains operator (oper1 or oper2),
@@ -110,9 +109,9 @@ public class CalculationAlgo {
             }
 
             else {
+                ++i;
                 continue;
             }
-
             i = 0;
         }
         return values;

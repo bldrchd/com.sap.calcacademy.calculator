@@ -1,6 +1,6 @@
 package com.sap.calcacademy.calculator.calc;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 import com.sap.calcacademy.calculator.exceptions.CalculationValidationException;
 
@@ -9,13 +9,12 @@ import com.sap.calcacademy.calculator.exceptions.CalculationValidationException;
  *
  */
 public class CalculationAlgo {
-    String token = "";
-    ArrayList<String> expression = new ArrayList<>();
+    LinkedList<String> expression = new LinkedList<>();
 
     public String startCalculating(String input) throws CalculationValidationException {
 
         String inputString = input;
-
+        System.out.println(input);
         boolean hasParentheses = inputString.contains("(") || inputString.contains(")");
         int positionOfOpenBr = 0;
         int positionOfClosingBr = 0;
@@ -51,44 +50,53 @@ public class CalculationAlgo {
     }
 
     private String determinateTokensForExpression(String inputString) {
-        for (int i = inputString.length() - 1; i >= 0; i--) {
+        System.out.println("i" + inputString);
+        StringBuilder sb = new StringBuilder();
+        // int i = 0;
+        for (int i = 0; i <= inputString.length() - 1; i++) {
+            // for (int i = inputString.length() - 1; i >= 0; i--) {
             char currentChar = inputString.charAt(i);
-            char prevChar = 0;
-
-            if (i > 0) {
-                prevChar = inputString.charAt(i - 1);
+            // char prevChar = 0;
+            char nextChar = inputString.charAt(i + 1);
+            /*
+             * if (i > 0) { prevChar = inputString.charAt(i - 1); }
+             */
+            if (Character.isDigit(currentChar) || currentChar == '.') {
+                sb.append(currentChar);
+                continue;
             }
-            if (Character.isDigit(currentChar)) {
-                token = currentChar + token;
-                if (i == 0) {
-                    addToExpression();
-                }
-            } else {
-                if (currentChar == '.') {
-                    token = currentChar + token;
-                } else if (currentChar == '-' && (i == 0 || !Character.isDigit(prevChar))) {
-                    token = currentChar + token;
-                    addToExpression();
-                } else {
-                    addToExpression();
-                    token += currentChar;
-                    addToExpression();
-                }
+            if (currentChar == '-' && (i == 0 || !Character.isDigit(nextChar))) {
+                sb.append(currentChar);
+                addToExpression(sb);
             }
+            addToExpression(sb);
+            sb.append(currentChar);
+            addToExpression(sb);
+            i++;
+            /*
+             * if (Character.isDigit(currentChar)) { sb.append(currentChar); if
+             * (i == 0) { addToExpression(sb); } } else { if (currentChar ==
+             * '.') { sb.append(currentChar); } else if (currentChar == '-' &&
+             * (i == 0 || !Character.isDigit(prevChar))) {
+             * sb.append(currentChar); addToExpression(sb); } else {
+             * addToExpression(sb); sb.append(currentChar); addToExpression(sb);
+             * } }
+             */
         }
         expression = basicExpressionCalculation(expression, "*", "/");
         expression = basicExpressionCalculation(expression, "+", "-");
         return expression.get(0);
     }
 
-    private void addToExpression() {
-        if (!token.equals("")) {
-            expression.add(0, token);
-            token = "";
+    private void addToExpression(StringBuilder sb) {
+        if (!sb.toString().isEmpty()) {
+            // sb.reverse();
+            expression.add(0, sb.toString());
+            sb.setLength(0);
         }
     }
 
-    private ArrayList<String> basicExpressionCalculation(ArrayList<String> values, String oper1, String oper2) {
+    private LinkedList<String> basicExpressionCalculation(LinkedList<String> values, String oper1, String oper2) {
         Double result = new Double(0);
         int i = 0;
         while (i < values.size()) {

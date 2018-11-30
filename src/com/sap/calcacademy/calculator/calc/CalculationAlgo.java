@@ -52,36 +52,33 @@ public class CalculationAlgo {
     private String determinateTokensForExpression(String inputString) {
         System.out.println("i" + inputString);
         StringBuilder sb = new StringBuilder();
-        // int i = 0;
-        for (int i = 0; i <= inputString.length() - 1; i++) {
-            // for (int i = inputString.length() - 1; i >= 0; i--) {
+
+        for (int i = inputString.length() - 1; i >= 0; i--) {
             char currentChar = inputString.charAt(i);
-            // char prevChar = 0;
-            char nextChar = inputString.charAt(i + 1);
-            /*
-             * if (i > 0) { prevChar = inputString.charAt(i - 1); }
-             */
-            if (Character.isDigit(currentChar) || currentChar == '.') {
-                sb.append(currentChar);
-                continue;
+            char prevChar = 0;
+
+            if (i > 0) {
+                prevChar = inputString.charAt(i - 1);
             }
-            if (currentChar == '-' && (i == 0 || !Character.isDigit(nextChar))) {
+
+            if (Character.isDigit(currentChar)) {
                 sb.append(currentChar);
-                addToExpression(sb);
+                if (i == 0) {
+                    addToExpression(sb);
+                }
+            } else {
+                if (currentChar == '.') {
+                    sb.append(currentChar);
+                } else if (currentChar == '-' && (i == 0 || !Character.isDigit(prevChar))) {
+                    sb.append(currentChar);
+                    addToExpression(sb);
+                } else {
+                    addToExpression(sb);
+                    sb.append(currentChar);
+                    addToExpression(sb);
+                }
             }
-            addToExpression(sb);
-            sb.append(currentChar);
-            addToExpression(sb);
-            i++;
-            /*
-             * if (Character.isDigit(currentChar)) { sb.append(currentChar); if
-             * (i == 0) { addToExpression(sb); } } else { if (currentChar ==
-             * '.') { sb.append(currentChar); } else if (currentChar == '-' &&
-             * (i == 0 || !Character.isDigit(prevChar))) {
-             * sb.append(currentChar); addToExpression(sb); } else {
-             * addToExpression(sb); sb.append(currentChar); addToExpression(sb);
-             * } }
-             */
+
         }
         expression = basicExpressionCalculation(expression, "*", "/");
         expression = basicExpressionCalculation(expression, "+", "-");
@@ -90,7 +87,7 @@ public class CalculationAlgo {
 
     private void addToExpression(StringBuilder sb) {
         if (!sb.toString().isEmpty()) {
-            // sb.reverse();
+            sb.reverse();
             expression.add(0, sb.toString());
             sb.setLength(0);
         }

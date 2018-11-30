@@ -10,6 +10,7 @@ import com.sap.calcacademy.calculator.exceptions.CalculationValidationException;
  */
 public class CalculationAlgo {
     LinkedList<String> expression = new LinkedList<>();
+    private int negativePointer = 1;
 
     public String startCalculating(String input) throws CalculationValidationException {
 
@@ -59,33 +60,50 @@ public class CalculationAlgo {
                 prevChar = inputString.charAt(i - 1);
             }
 
-            if (Character.isDigit(currentChar) || (currentChar == '.')) {
+            if (isDigit(currentChar)) {
                 sb.append(currentChar);
-                if (i == 0) {
-                    addToExpression(sb);
-                }
-            } else {
-                if (currentChar == '-' && (i == 0 || !Character.isDigit(prevChar))) {
-                    sb.append(currentChar);
-                    addToExpression(sb);
-                } else {
-                    addToExpression(sb);
-                    sb.append(currentChar);
-                    addToExpression(sb);
-                }
+                continue;
+            }
+            if (isOperator(currentChar, i, prevChar)) {
+                addToExpression(sb);
+                expression.add(0, String.valueOf(currentChar));
             }
 
         }
+        addToExpression(sb);
         expression = basicExpressionCalculation(expression, "*", "/");
         expression = basicExpressionCalculation(expression, "+", "-");
-        return expression.get(0);
+        String res = expression.get(0);
+        expression.removeFirst();
+        return res;
+    }
+
+    private boolean isNegative(char currentChar, int i, char prevChar) {
+        return (currentChar == '-' && ((i == 0) || !Character.isDigit(prevChar)));
+    }
+
+    private boolean isDigit(char currentChar) {
+        return (Character.isDigit(currentChar) || (currentChar == '.'));
+
+    }
+
+    private boolean isOperator(char currentChar, int i, char prevChar) {
+        if (currentChar == '+' || currentChar == '*' || currentChar == '/')
+            return true;
+        if ((currentChar == '-') && (isNegative(currentChar, i, prevChar))) {
+            negativePointer = -1;
+            return false;
+        }
+        return true;
     }
 
     private void addToExpression(StringBuilder sb) {
-        if (!sb.toString().isEmpty()) {
+        if (sb.length() != 0) {
             sb.reverse();
-            expression.add(0, sb.toString());
+            Double value = Double.valueOf(sb.toString()) * negativePointer;
+            expression.add(0, value.toString());
             sb.setLength(0);
+            negativePointer = 1;
         }
     }
 

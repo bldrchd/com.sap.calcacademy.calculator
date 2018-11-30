@@ -14,7 +14,6 @@ public class CalculationAlgo {
     public String startCalculating(String input) throws CalculationValidationException {
 
         String inputString = input;
-        System.out.println(input);
         boolean hasParentheses = inputString.contains("(") || inputString.contains(")");
         int positionOfOpenBr = 0;
         int positionOfClosingBr = 0;
@@ -50,7 +49,6 @@ public class CalculationAlgo {
     }
 
     private String determinateTokensForExpression(String inputString) {
-        System.out.println("i" + inputString);
         StringBuilder sb = new StringBuilder();
 
         for (int i = inputString.length() - 1; i >= 0; i--) {
@@ -61,15 +59,13 @@ public class CalculationAlgo {
                 prevChar = inputString.charAt(i - 1);
             }
 
-            if (Character.isDigit(currentChar)) {
+            if (Character.isDigit(currentChar) || (currentChar == '.')) {
                 sb.append(currentChar);
                 if (i == 0) {
                     addToExpression(sb);
                 }
             } else {
-                if (currentChar == '.') {
-                    sb.append(currentChar);
-                } else if (currentChar == '-' && (i == 0 || !Character.isDigit(prevChar))) {
+                if (currentChar == '-' && (i == 0 || !Character.isDigit(prevChar))) {
                     sb.append(currentChar);
                     addToExpression(sb);
                 } else {

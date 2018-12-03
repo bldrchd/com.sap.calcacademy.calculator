@@ -7,6 +7,13 @@ import org.junit.Test;
 public class CalculatorAlgoTest {
 
     @Test
+    public void testProblemOnly() {
+        String args2 = "2+(-2)";
+        CalculationAlgo calculator = new CalculationAlgo();
+        assertEquals(0.0, Double.parseDouble(calculator.startCalculating(args2)), 0.01);
+    }
+
+    @Test
     public void testOverallOperations() {
         String args1 = "2+2", args2 = "2-2", args3 = "2*2", args4 = "2/2";
         CalculationAlgo calculator = new CalculationAlgo();
@@ -65,5 +72,4 @@ public class CalculatorAlgoTest {
         assertEquals(0.0, result, 0.01);
 
     }
-
 }

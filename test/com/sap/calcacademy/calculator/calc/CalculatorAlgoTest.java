@@ -7,7 +7,7 @@ import org.junit.Test;
 public class CalculatorAlgoTest {
 
     @Test
-    public void testProblemOnly() {
+    public void testNegativeWithParentheses() {
         String args2 = "2+(-2)";
         CalculationAlgo calculator = new CalculationAlgo();
         assertEquals(0.0, Double.parseDouble(calculator.startCalculating(args2)), 0.01);

@@ -1,7 +1,6 @@
 package com.sap.calcacademy.calculator.calc;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -11,7 +10,7 @@ public class CalculatorTest {
     public void testOverallCalculate() {
         String args = "1+ 2";
         Calculator calc = new Calculator();
-        assertNotNull(calc.calculate(args));
+        assertEquals(3.0, calc.calculate(args));
         assertEquals(10.1, calc.calculate("10+0.1"));
     }
 

@@ -11,6 +11,7 @@ public class CalculatorAlgoTest {
         String args2 = "2+(-2)";
         CalculationAlgo calculator = new CalculationAlgo();
         assertEquals(0.0, Double.parseDouble(calculator.startCalculating(args2)), 0.01);
+        assertEquals(1.0, Double.parseDouble(calculator.startCalculating("3+-2")), 0.01);
     }
 
     @Test

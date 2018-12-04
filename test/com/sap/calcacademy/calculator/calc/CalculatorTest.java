@@ -12,6 +12,7 @@ public class CalculatorTest {
         String args = "1+ 2";
         Calculator calc = new Calculator();
         assertNotNull(calc.calculate(args));
+        assertEquals(10.1, calc.calculate("10+0.1"));
     }
 
     @Test
